@@ -2,6 +2,9 @@ const SCREEN_WIDTH = 1100;
 const SCREEN_HEIGHT = 700;
 const SCREEN_PADDING = 100;
 
+const X_AXIS_TYPE = "L";
+const Y_AXIS_TYPE = "S";
+
 let spells = [
   {
     name: "Aural_Decoy.png",
@@ -81,13 +84,6 @@ function preload() {
 
 function setup() {
   createCanvas(SCREEN_WIDTH, SCREEN_HEIGHT);
-  //   try {
-  //     const data = fs.readFileSync("assets/spells.json", "utf8");
-  //     spells = JSON.parse(data);
-  //     console.log(spells);
-  //   } catch (err) {
-  //     console.error("Error reading file:", err);
-  //   }
 }
 
 window.addEventListener("load", () => {
@@ -117,15 +113,42 @@ function findMinValue(spellList, type) {
 }
 
 function renderSpell(spell) {
+  let xValue;
+  let yValue;
+
+  switch (X_AXIS_TYPE) {
+    case "H":
+      xValue = (parseInt(spell.H) - minH) / (maxH - minH);
+      break;
+    case "S":
+      xValue = (parseInt(spell.S) - minS) / (maxS - minS);
+      break;
+    case "L":
+      xValue = (parseInt(spell.L) - minL) / (maxL - minL);
+      break;
+    default:
+      xValue = 500;
+  }
+
+  switch (Y_AXIS_TYPE) {
+    case "H":
+      yValue = (parseInt(spell.H) - minH) / (maxH - minH);
+      break;
+    case "S":
+      yValue = (parseInt(spell.S) - minS) / (maxS - minS);
+      break;
+    case "L":
+      yValue = (parseInt(spell.L) - minL) / (maxL - minL);
+      break;
+    default:
+      yValue = 500;
+  }
+
   push();
   image(
     spell.image,
-    ((parseInt(spell.H) - minH) / (maxH - minH)) *
-      (SCREEN_WIDTH - SCREEN_PADDING * 2) +
-      SCREEN_PADDING,
-    ((parseInt(spell.S) - minS) / (maxS - minS)) *
-      (SCREEN_HEIGHT - SCREEN_PADDING * 2) +
-      SCREEN_PADDING,
+    xValue * (SCREEN_WIDTH - SCREEN_PADDING * 2) + SCREEN_PADDING,
+    yValue * (SCREEN_HEIGHT - SCREEN_PADDING * 2) + SCREEN_PADDING,
     40,
     45
   );
