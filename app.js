@@ -55,30 +55,42 @@ let spells = [
 let maxH;
 let maxS;
 let maxL;
+
 let minH;
 let minS;
 let minL;
-let auralDecoyImg;
-let castLightImg;
 
 function preload() {
-  for (let spell of spells) {
-    spell.image = loadImage(`assets/spell-images/${spell.name}`);
-  }
+  jsonData = loadJSON("assets/spells.json", (jsonData) => {
+    // Convert the object into an array
+    dataArray = Object.values(jsonData);
+    console.log(dataArray);
+    spells = dataArray;
+    for (let spell of spells) {
+      spell.image = loadImage(`assets/spell-images/${spell.name}`);
+    }
+    maxH = findMaxValue(spells, "H");
+    maxS = findMaxValue(spells, "S");
+    maxL = findMaxValue(spells, "L");
+
+    minH = findMinValue(spells, "H");
+    minS = findMinValue(spells, "S");
+    minL = findMinValue(spells, "L");
+  });
 }
 
 function setup() {
   createCanvas(SCREEN_WIDTH, SCREEN_HEIGHT);
+  //   try {
+  //     const data = fs.readFileSync("assets/spells.json", "utf8");
+  //     spells = JSON.parse(data);
+  //     console.log(spells);
+  //   } catch (err) {
+  //     console.error("Error reading file:", err);
+  //   }
 }
 
 window.addEventListener("load", () => {
-  maxH = findMaxValue(spells, "H");
-  maxS = findMaxValue(spells, "S");
-  maxL = findMaxValue(spells, "L");
-
-  minH = findMinValue(spells, "H");
-  minS = findMinValue(spells, "S");
-  minL = findMinValue(spells, "L");
   console.log("loaded");
 });
 
