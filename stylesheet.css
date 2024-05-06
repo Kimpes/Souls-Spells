@@ -1,3 +1,10 @@
+:root {
+  --background-rgb: 15, 16, 25;
+  --vibrant-yellow: 247, 171, 94;
+  --warm-red: 217, 54, 59;
+  --blue: 55, 150, 163;
+}
+
 * {
   color: antiquewhite;
 }
@@ -7,6 +14,7 @@ body {
   grid-template-rows: 100px 1fr 100px;
   margin: 0;
   min-height: 100vh;
+  background-color: rgb(var(--background-rgb));
 }
 
 body > * {
@@ -19,20 +27,20 @@ body > * > * {
   max-width: 1100px;
 }
 
-header {
-  background-color: rgb(32, 3, 3);
+/* header {
+  background-color: rgb(var(--background-rgb));
 }
 
 main {
-  background-color: rgb(3, 32, 3);
+  background-color: rgb(var(--background-rgb));
 }
 
 footer {
-  background-color: rgb(3, 3, 32);
-}
+  background-color: rgb(var(--background-rgb));
+} */
 
 /* ---------------------------------- Graph -------------------------------- */
 
 main > canvas {
-  margin: 20px;
+  margin-top: 50px;
 }

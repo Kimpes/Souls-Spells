@@ -1,10 +1,11 @@
 const SCREEN_WIDTH = 1100;
 const SCREEN_HEIGHT = 700;
 const SCREEN_PADDING = 100;
+const GRAPH_THICKNESS = 5;
 
 //can be set to the following values: H, S, L, requirement
 const X_AXIS_TYPE = "H";
-const Y_AXIS_TYPE = "requirement";
+const Y_AXIS_TYPE = "L";
 
 let spells = [
   {
@@ -95,8 +96,71 @@ window.addEventListener("load", () => {
   console.log("loaded");
 });
 
+function renderGraph() {
+  push();
+  strokeWeight(0);
+  fill("#fff");
+  rect(0, 0, GRAPH_THICKNESS, SCREEN_HEIGHT);
+  rect(0, SCREEN_HEIGHT - GRAPH_THICKNESS, SCREEN_WIDTH, GRAPH_THICKNESS);
+
+  for (
+    let i = 0;
+    i <= SCREEN_WIDTH - GRAPH_THICKNESS;
+    i += (SCREEN_WIDTH - GRAPH_THICKNESS) / 10
+  ) {
+    rect(
+      i,
+      SCREEN_HEIGHT - 2 * GRAPH_THICKNESS,
+      GRAPH_THICKNESS,
+      GRAPH_THICKNESS
+    );
+  }
+  for (
+    let i = 0;
+    i <= SCREEN_HEIGHT - GRAPH_THICKNESS;
+    i += (SCREEN_HEIGHT - GRAPH_THICKNESS) / 10
+  ) {
+    rect(GRAPH_THICKNESS, i, GRAPH_THICKNESS, GRAPH_THICKNESS);
+  }
+  pop();
+
+  push();
+  fill("#fff");
+  textSize(20);
+  textAlign(RIGHT);
+  switch (X_AXIS_TYPE) {
+    case "H":
+      text("Hue", SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
+      break;
+    case "S":
+      text("Saturation", SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
+      break;
+    case "L":
+      text("Luminosity", SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
+      break;
+    default:
+      text(X_AXIS_TYPE, SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
+  }
+  textAlign(LEFT);
+  switch (Y_AXIS_TYPE) {
+    case "H":
+      text("Hue", 30, 30);
+      break;
+    case "S":
+      text("Saturation", 30, 30);
+      break;
+    case "L":
+      text("Luminosity", 30, 30);
+      break;
+    default:
+      text(Y_AXIS_TYPE, 30, 30);
+  }
+  pop();
+}
+
 function draw() {
-  background("#181a18");
+  background("#33343A");
+  renderGraph();
   for (const spell of spells) {
     renderSpell(spell);
   }
@@ -142,18 +206,20 @@ function renderSpell(spell) {
 
   switch (Y_AXIS_TYPE) {
     case "H":
-      yValue = (parseInt(spell.H) - minH) / (maxH - minH);
+      yValue = ((parseInt(spell.H) - minH) / (maxH - minH)) * -1 + 1;
       break;
     case "S":
-      yValue = (parseInt(spell.S) - minS) / (maxS - minS);
+      yValue = ((parseInt(spell.S) - minS) / (maxS - minS)) * -1 + 1;
       break;
     case "L":
-      yValue = (parseInt(spell.L) - minL) / (maxL - minL);
+      yValue = ((parseInt(spell.L) - minL) / (maxL - minL)) * -1 + 1;
       break;
     case "requirement":
       yValue =
-        (parseInt(spell.requirement) - minRequirement) /
-        (maxRequirement - minRequirement);
+        ((parseInt(spell.requirement) - minRequirement) /
+          (maxRequirement - minRequirement)) *
+          -1 +
+        1;
       break;
     default:
       yValue = 500;
@@ -169,3 +235,6 @@ function renderSpell(spell) {
   );
   pop();
 }
+
+let a = 0;
+let b = 100;
