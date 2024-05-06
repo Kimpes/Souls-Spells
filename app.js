@@ -16,47 +16,9 @@ let spells = [
     requirement: "10",
     type: "Sorcery",
   },
-  {
-    name: "Cast_Light.png",
-    H: "49",
-    S: "6",
-    L: "34",
-    requirement: "14",
-    type: "Pyromancy",
-  },
-  {
-    name: "Chameleon.png",
-    H: "51",
-    S: "14",
-    L: "19",
-    requirement: "14",
-    type: "Sorcery",
-  },
-  {
-    name: "Crystal_Magic_Weapon.png",
-    H: "210",
-    S: "27",
-    L: "29",
-    requirement: "25",
-    type: "Sorcery",
-  },
-  {
-    name: "Crystal_Soul_Spear.png",
-    H: "207",
-    S: "20",
-    L: "33",
-    requirement: "44",
-    type: "Sorcery",
-  },
-  {
-    name: "Dark Bead.png",
-    H: "120",
-    S: "4",
-    L: "25",
-    requirement: "16",
-    type: "Sorcery",
-  },
 ];
+let graphType = "Compare Spells";
+
 let maxH;
 let maxS;
 let maxL;
@@ -66,6 +28,8 @@ let minH;
 let minS;
 let minL;
 let minRequirement;
+
+// ---------------------------------------------------------------- Setup Functions
 
 function preload() {
   jsonData = loadJSON("assets/spells.json", (jsonData) => {
@@ -95,6 +59,8 @@ function setup() {
 window.addEventListener("load", () => {
   console.log("loaded");
 });
+
+// ---------------------------------------------------------------- Rendering functions
 
 function renderGraph() {
   push();
@@ -158,29 +124,6 @@ function renderGraph() {
   pop();
 }
 
-function draw() {
-  background("#33343A");
-  renderGraph();
-  for (const spell of spells) {
-    renderSpell(spell);
-  }
-}
-
-function findMaxValue(spellList, type) {
-  let max = 0;
-  for (const spell of spellList) {
-    if (parseInt(spell[type]) > max) max = parseInt(spell[type]);
-  }
-  return max;
-}
-function findMinValue(spellList, type) {
-  let min = 360;
-  for (const spell of spellList) {
-    if (parseInt(spell[type]) < min) min = parseInt(spell[type]);
-  }
-  return min;
-}
-
 function renderSpell(spell) {
   let xValue;
   let yValue;
@@ -234,6 +177,35 @@ function renderSpell(spell) {
     45
   );
   pop();
+}
+
+// ---------------------------------------------------------------- Draw Function
+
+function draw() {
+  background("#33343A");
+  if ((graphType = "Compare Spells")) {
+    renderGraph();
+    for (const spell of spells) {
+      renderSpell(spell);
+    }
+  }
+}
+
+// ---------------------------------------------------------------- Misc Functions
+
+function findMaxValue(spellList, type) {
+  let max = 0;
+  for (const spell of spellList) {
+    if (parseInt(spell[type]) > max) max = parseInt(spell[type]);
+  }
+  return max;
+}
+function findMinValue(spellList, type) {
+  let min = 360;
+  for (const spell of spellList) {
+    if (parseInt(spell[type]) < min) min = parseInt(spell[type]);
+  }
+  return min;
 }
 
 let a = 0;
