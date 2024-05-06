@@ -2,8 +2,9 @@ const SCREEN_WIDTH = 1100;
 const SCREEN_HEIGHT = 700;
 const SCREEN_PADDING = 100;
 
-const X_AXIS_TYPE = "L";
-const Y_AXIS_TYPE = "S";
+//can be set to the following values: H, S, L, requirement
+const X_AXIS_TYPE = "H";
+const Y_AXIS_TYPE = "requirement";
 
 let spells = [
   {
@@ -58,10 +59,12 @@ let spells = [
 let maxH;
 let maxS;
 let maxL;
+let maxRequirement;
 
 let minH;
 let minS;
 let minL;
+let minRequirement;
 
 function preload() {
   jsonData = loadJSON("assets/spells.json", (jsonData) => {
@@ -75,10 +78,12 @@ function preload() {
     maxH = findMaxValue(spells, "H");
     maxS = findMaxValue(spells, "S");
     maxL = findMaxValue(spells, "L");
+    maxRequirement = findMaxValue(spells, "requirement");
 
     minH = findMinValue(spells, "H");
     minS = findMinValue(spells, "S");
     minL = findMinValue(spells, "L");
+    minRequirement = findMinValue(spells, "requirement");
   });
 }
 
@@ -126,6 +131,11 @@ function renderSpell(spell) {
     case "L":
       xValue = (parseInt(spell.L) - minL) / (maxL - minL);
       break;
+    case "requirement":
+      xValue =
+        (parseInt(spell.requirement) - minRequirement) /
+        (maxRequirement - minRequirement);
+      break;
     default:
       xValue = 500;
   }
@@ -139,6 +149,11 @@ function renderSpell(spell) {
       break;
     case "L":
       yValue = (parseInt(spell.L) - minL) / (maxL - minL);
+      break;
+    case "requirement":
+      yValue =
+        (parseInt(spell.requirement) - minRequirement) /
+        (maxRequirement - minRequirement);
       break;
     default:
       yValue = 500;
