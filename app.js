@@ -4,8 +4,8 @@ const SCREEN_PADDING = 100;
 const GRAPH_THICKNESS = 5;
 
 //can be set to the following values: H, S, L, requirement
-const X_AXIS_TYPE = "H";
-const Y_AXIS_TYPE = "L";
+let xAxisType = "H";
+let yAxisType = "L";
 
 let spells = [
   {
@@ -58,6 +58,26 @@ function setup() {
 
 window.addEventListener("load", () => {
   console.log("loaded");
+  let sideButtons = document.getElementsByClassName("side-button");
+  let bottomButtons = document.getElementsByClassName("bottom-button");
+  for (let button of sideButtons) {
+    button.addEventListener("click", () => {
+      yAxisType = button.value;
+      for (let button of sideButtons) {
+        button.classList.remove("active");
+      }
+      button.classList.add("active");
+    });
+  }
+  for (let button of bottomButtons) {
+    button.addEventListener("click", () => {
+      xAxisType = button.value;
+      for (let button of bottomButtons) {
+        button.classList.remove("active");
+      }
+      button.classList.add("active");
+    });
+  }
 });
 
 // ---------------------------------------------------------------- Rendering functions
@@ -94,7 +114,7 @@ function renderGraph() {
   fill("#fff");
   textSize(20);
   textAlign(RIGHT);
-  switch (X_AXIS_TYPE) {
+  switch (xAxisType) {
     case "H":
       text("Hue", SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
       break;
@@ -102,13 +122,13 @@ function renderGraph() {
       text("Saturation", SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
       break;
     case "L":
-      text("Luminosity", SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
+      text("Lightness", SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
       break;
     default:
-      text(X_AXIS_TYPE, SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
+      text(xAxisType, SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
   }
   textAlign(LEFT);
-  switch (Y_AXIS_TYPE) {
+  switch (yAxisType) {
     case "H":
       text("Hue", 30, 30);
       break;
@@ -116,10 +136,10 @@ function renderGraph() {
       text("Saturation", 30, 30);
       break;
     case "L":
-      text("Luminosity", 30, 30);
+      text("Lightness", 30, 30);
       break;
     default:
-      text(Y_AXIS_TYPE, 30, 30);
+      text(yAxisType, 30, 30);
   }
   pop();
 }
@@ -128,7 +148,7 @@ function renderSpell(spell) {
   let xValue;
   let yValue;
 
-  switch (X_AXIS_TYPE) {
+  switch (xAxisType) {
     case "H":
       xValue = (parseInt(spell.H) - minH) / (maxH - minH);
       break;
@@ -147,7 +167,7 @@ function renderSpell(spell) {
       xValue = 500;
   }
 
-  switch (Y_AXIS_TYPE) {
+  switch (yAxisType) {
     case "H":
       yValue = ((parseInt(spell.H) - minH) / (maxH - minH)) * -1 + 1;
       break;
