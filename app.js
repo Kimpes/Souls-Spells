@@ -29,6 +29,12 @@ let minS;
 let minL;
 let minRequirement;
 
+let showSpells = {
+  sorcery: true,
+  miracle: true,
+  pyromancy: true,
+};
+
 // ---------------------------------------------------------------- Setup Functions
 
 function preload() {
@@ -60,6 +66,7 @@ window.addEventListener("load", () => {
   console.log("loaded");
   let sideButtons = document.getElementsByClassName("side-button");
   let bottomButtons = document.getElementsByClassName("bottom-button");
+  let categoryButtons = document.getElementsByClassName("category-button");
   for (let button of sideButtons) {
     button.addEventListener("click", () => {
       yAxisType = button.value;
@@ -76,6 +83,17 @@ window.addEventListener("load", () => {
         button.classList.remove("active");
       }
       button.classList.add("active");
+    });
+  }
+  for (let button of categoryButtons) {
+    button.addEventListener("click", () => {
+      if (showSpells[button.value.toLowerCase()] === true) {
+        showSpells[button.value.toLowerCase()] = false;
+        button.classList.remove("active");
+      } else {
+        showSpells[button.value.toLowerCase()] = true;
+        button.classList.add("active");
+      }
     });
   }
 });
@@ -206,7 +224,7 @@ function draw() {
   if ((graphType = "Compare Spells")) {
     renderGraph();
     for (const spell of spells) {
-      renderSpell(spell);
+      if (showSpells[spell.type.toLowerCase()]) renderSpell(spell);
     }
   }
 }

@@ -53,25 +53,51 @@ h1 {
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
+  margin-right: 10px;
+}
+
+.side-buttons-container p {
+  margin-right: 5px;
+}
+
+.bottom-buttons-container {
+  display: flex;
+  align-items: center;
+}
+
+.bottom-buttons-container p {
+  margin-right: 10px;
+}
+
+.misc-buttons-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
+}
+
+.misc-buttons-container p {
+  margin-left: 10px;
 }
 
 button {
-  stroke-width: 1px;
-  stroke: white;
+  border: 2px solid rgb(var(--vibrant-yellow));
+  color: rgb(var(--vibrant-yellow));
+  /* stroke: white; */
   background: none;
   border-radius: 20px;
   padding: 4px 10px 5px;
   margin: 5px;
+  font-weight: 600;
 }
 
 button:hover {
-  background-color: antiquewhite;
-  color: rgb(var(--background-rgb));
+  border-color: rgb(var(--warm-red));
   cursor: pointer;
 }
 
 button.active {
-  background-color: antiquewhite;
+  background-color: rgb(var(--vibrant-yellow));
   color: rgb(var(--background-rgb));
   cursor: pointer;
 }
