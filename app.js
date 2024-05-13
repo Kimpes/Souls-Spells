@@ -61,6 +61,7 @@ function preload() {
     minS = findMinValue(spells, "S");
     minL = findMinValue(spells, "L");
     minRequirement = findMinValue(spells, "requirement");
+    calculatePositions(spells);
   });
 }
 
@@ -80,6 +81,7 @@ window.addEventListener("load", () => {
         button.classList.remove("active");
       }
       button.classList.add("active");
+      calculatePositions(spells);
     });
   }
   for (let button of bottomButtons) {
@@ -89,6 +91,7 @@ window.addEventListener("load", () => {
         button.classList.remove("active");
       }
       button.classList.add("active");
+      calculatePositions(spells);
     });
   }
   for (let button of categoryButtons) {
@@ -106,6 +109,7 @@ window.addEventListener("load", () => {
         showSpells[button.value.toLowerCase()] = true;
         button.classList.add("active");
       }
+      calculatePositions(spells);
     });
   }
 });
@@ -175,67 +179,12 @@ function renderGraph() {
 }
 
 function renderSpell(spell, highlight) {
-  let xValue;
-  let yValue;
-
-  switch (xAxisType) {
-    case "H":
-      xValue = (parseInt(spell.H) - minH) / (maxH - minH);
-      break;
-    case "S":
-      xValue = (parseInt(spell.S) - minS) / (maxS - minS);
-      break;
-    case "L":
-      xValue = (parseInt(spell.L) - minL) / (maxL - minL);
-      break;
-    case "requirement":
-      xValue =
-        (parseInt(spell.requirement) - minRequirement) /
-        (maxRequirement - minRequirement);
-      break;
-    default:
-      xValue = 500;
-  }
-
-  switch (yAxisType) {
-    case "H":
-      yValue = ((parseInt(spell.H) - minH) / (maxH - minH)) * -1 + 1;
-      break;
-    case "S":
-      yValue = ((parseInt(spell.S) - minS) / (maxS - minS)) * -1 + 1;
-      break;
-    case "L":
-      yValue = ((parseInt(spell.L) - minL) / (maxL - minL)) * -1 + 1;
-      break;
-    case "requirement":
-      yValue =
-        ((parseInt(spell.requirement) - minRequirement) /
-          (maxRequirement - minRequirement)) *
-          -1 +
-        1;
-      break;
-    default:
-      yValue = 500;
-  }
-
   push();
   if (highlight) {
     let shadow = renderShadow(spell.image, "ff0000");
-    image(
-      shadow,
-      xValue * (SCREEN_WIDTH - SCREEN_PADDING * 2) + SCREEN_PADDING - 2,
-      yValue * (SCREEN_HEIGHT - SCREEN_PADDING * 2) + SCREEN_PADDING - 2,
-      44,
-      49
-    );
+    image(shadow, spell.position.x, spell.position.y, 44, 49);
   }
-  image(
-    spell.image,
-    xValue * (SCREEN_WIDTH - SCREEN_PADDING * 2) + SCREEN_PADDING,
-    yValue * (SCREEN_HEIGHT - SCREEN_PADDING * 2) + SCREEN_PADDING,
-    40,
-    45
-  );
+  image(spell.image, spell.position.x, spell.position.y, 40, 45);
   pop();
 }
 
@@ -292,6 +241,58 @@ function findMinValue(spellList, type) {
     if (parseInt(spell[type]) < min) min = parseInt(spell[type]);
   }
   return min;
+}
+
+function calculatePositions(list) {
+  for (let spell of list) {
+    let xValue;
+    let yValue;
+
+    switch (xAxisType) {
+      case "H":
+        xValue = (parseInt(spell.H) - minH) / (maxH - minH);
+        break;
+      case "S":
+        xValue = (parseInt(spell.S) - minS) / (maxS - minS);
+        break;
+      case "L":
+        xValue = (parseInt(spell.L) - minL) / (maxL - minL);
+        break;
+      case "requirement":
+        xValue =
+          (parseInt(spell.requirement) - minRequirement) /
+          (maxRequirement - minRequirement);
+        break;
+      default:
+        xValue = 500;
+    }
+
+    switch (yAxisType) {
+      case "H":
+        yValue = ((parseInt(spell.H) - minH) / (maxH - minH)) * -1 + 1;
+        break;
+      case "S":
+        yValue = ((parseInt(spell.S) - minS) / (maxS - minS)) * -1 + 1;
+        break;
+      case "L":
+        yValue = ((parseInt(spell.L) - minL) / (maxL - minL)) * -1 + 1;
+        break;
+      case "requirement":
+        yValue =
+          ((parseInt(spell.requirement) - minRequirement) /
+            (maxRequirement - minRequirement)) *
+            -1 +
+          1;
+        break;
+      default:
+        yValue = 500;
+    }
+
+    spell.position = createVector(
+      xValue * (SCREEN_WIDTH - SCREEN_PADDING * 2) + SCREEN_PADDING,
+      yValue * (SCREEN_HEIGHT - SCREEN_PADDING * 2) + SCREEN_PADDING
+    );
+  }
 }
 
 let a = 0;
