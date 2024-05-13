@@ -35,6 +35,12 @@ let showSpells = {
   pyromancy: true,
 };
 
+let highlightSpells = {
+  sorcery: false,
+  miracle: false,
+  pyromancy: false,
+};
+
 // ---------------------------------------------------------------- Setup Functions
 
 function preload() {
@@ -86,6 +92,12 @@ window.addEventListener("load", () => {
     });
   }
   for (let button of categoryButtons) {
+    button.addEventListener("mouseover", () => {
+      highlightSpells[button.value] = true;
+    });
+    button.addEventListener("mouseout", () => {
+      highlightSpells[button.value] = false;
+    });
     button.addEventListener("click", () => {
       if (showSpells[button.value.toLowerCase()] === true) {
         showSpells[button.value.toLowerCase()] = false;
@@ -103,7 +115,7 @@ window.addEventListener("load", () => {
 function renderGraph() {
   push();
   strokeWeight(0);
-  fill("#fff");
+  fill(247, 171, 94);
   rect(0, 0, GRAPH_THICKNESS, SCREEN_HEIGHT);
   rect(0, SCREEN_HEIGHT - GRAPH_THICKNESS, SCREEN_WIDTH, GRAPH_THICKNESS);
 
@@ -129,7 +141,7 @@ function renderGraph() {
   pop();
 
   push();
-  fill("#fff");
+  fill(247, 171, 94);
   textSize(20);
   textAlign(RIGHT);
   switch (xAxisType) {
@@ -162,7 +174,7 @@ function renderGraph() {
   pop();
 }
 
-function renderSpell(spell) {
+function renderSpell(spell, highlight) {
   let xValue;
   let yValue;
 
@@ -207,6 +219,16 @@ function renderSpell(spell) {
   }
 
   push();
+  if (highlight) {
+    let shadow = renderShadow(spell.image, "ff0000");
+    image(
+      shadow,
+      xValue * (SCREEN_WIDTH - SCREEN_PADDING * 2) + SCREEN_PADDING - 2,
+      yValue * (SCREEN_HEIGHT - SCREEN_PADDING * 2) + SCREEN_PADDING - 2,
+      44,
+      49
+    );
+  }
   image(
     spell.image,
     xValue * (SCREEN_WIDTH - SCREEN_PADDING * 2) + SCREEN_PADDING,
@@ -217,6 +239,31 @@ function renderSpell(spell) {
   pop();
 }
 
+//cited from https://editor.p5js.org/davepagurek/sketches/IJwk16Mel
+function renderShadow(img, shadowColor) {
+  const newW = img.width;
+  const newH = img.height;
+  const g = createGraphics(newW, newH);
+
+  g.imageMode(CENTER);
+  g.translate(newW / 2, newH / 2);
+  g.image(img, 0, 0);
+
+  const shadow = g.get();
+  const c = color(shadowColor);
+  shadow.loadPixels();
+  const numVals = 4 * shadow.width * shadow.height;
+  for (let i = 0; i < numVals; i += 4) {
+    shadow.pixels[i + 0] = c.levels[0];
+    // shadow.pixels[i + 1] = c.levels[1];
+    // shadow.pixels[i + 2] = c.levels[2];
+  }
+  shadow.updatePixels();
+
+  g.remove();
+  return shadow;
+}
+
 // ---------------------------------------------------------------- Draw Function
 
 function draw() {
@@ -224,7 +271,8 @@ function draw() {
   if ((graphType = "Compare Spells")) {
     renderGraph();
     for (const spell of spells) {
-      if (showSpells[spell.type.toLowerCase()]) renderSpell(spell);
+      let highlight = highlightSpells[spell.type.toLocaleLowerCase()];
+      if (showSpells[spell.type.toLowerCase()]) renderSpell(spell, highlight);
     }
   }
 }
