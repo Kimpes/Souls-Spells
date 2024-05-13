@@ -2,6 +2,7 @@ const SCREEN_WIDTH = 1100;
 const SCREEN_HEIGHT = 700;
 const SCREEN_PADDING = 100;
 const GRAPH_THICKNESS = 5;
+const EASING_FACTOR = 0.1;
 
 //can be set to the following values: H, S, L, requirement
 let xAxisType = "H";
@@ -179,10 +180,13 @@ function renderGraph() {
 }
 
 function renderSpell(spell, highlight) {
+  if (spell.position != spell.positionGoal) {
+    moveSpell(spell);
+  }
   push();
   if (highlight) {
     let shadow = renderShadow(spell.image, "ff0000");
-    image(shadow, spell.position.x, spell.position.y, 44, 49);
+    image(shadow, spell.position.x - 2, spell.position.y - 2, 44, 49);
   }
   image(spell.image, spell.position.x, spell.position.y, 40, 45);
   pop();
@@ -220,8 +224,10 @@ function draw() {
   if ((graphType = "Compare Spells")) {
     renderGraph();
     for (const spell of spells) {
-      let highlight = highlightSpells[spell.type.toLocaleLowerCase()];
-      if (showSpells[spell.type.toLowerCase()]) renderSpell(spell, highlight);
+      if (showSpells[spell.type.toLowerCase()]) {
+        let highlight = highlightSpells[spell.type.toLocaleLowerCase()];
+        renderSpell(spell, highlight);
+      }
     }
   }
 }
@@ -242,7 +248,6 @@ function findMinValue(spellList, type) {
   }
   return min;
 }
-
 function calculatePositions(list) {
   for (let spell of list) {
     let xValue;
@@ -288,10 +293,35 @@ function calculatePositions(list) {
         yValue = 500;
     }
 
-    spell.position = createVector(
+    if (!spell.positionGoal) {
+      spell.position = createVector(
+        xValue * (SCREEN_WIDTH - SCREEN_PADDING * 2) + SCREEN_PADDING,
+        yValue * (SCREEN_HEIGHT - SCREEN_PADDING * 2) + SCREEN_PADDING
+      );
+    }
+
+    spell.positionGoal = createVector(
       xValue * (SCREEN_WIDTH - SCREEN_PADDING * 2) + SCREEN_PADDING,
       yValue * (SCREEN_HEIGHT - SCREEN_PADDING * 2) + SCREEN_PADDING
     );
+  }
+}
+function moveSpell(spell) {
+  // Calculate the difference between current position and goal position
+  const dx = spell.positionGoal.x - spell.position.x;
+  const dy = spell.positionGoal.y - spell.position.y;
+
+  // Calculate the increment for each axis
+  const stepX = dx * EASING_FACTOR;
+  const stepY = dy * EASING_FACTOR;
+
+  // Update the position
+  spell.position.x += stepX;
+  spell.position.y += stepY;
+
+  // Check if we reached the goal position
+  if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) {
+    spell.position = spell.positionGoal;
   }
 }
 
