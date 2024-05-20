@@ -159,6 +159,9 @@ function renderGraph() {
     case "L":
       text("Lightness", SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
       break;
+    case "requirement":
+      text("Requirement", SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
+      break;
     default:
       text(xAxisType, SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
   }
@@ -172,6 +175,9 @@ function renderGraph() {
       break;
     case "L":
       text("Lightness", 30, 30);
+      break;
+    case "requirement":
+      text("Requirement", 30, 30);
       break;
     default:
       text(yAxisType, 30, 30);
@@ -327,3 +333,8 @@ function moveSpell(spell) {
 
 let a = 0;
 let b = 100;
+
+//TODO
+// Make second graph with simple bars
+// Make slides
+// Add more explainations
