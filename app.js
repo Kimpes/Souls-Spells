@@ -1,7 +1,7 @@
 const SCREEN_WIDTH = 1100;
 const SCREEN_HEIGHT = 700;
 const SCREEN_PADDING = 100;
-const GRAPH_THICKNESS = 5;
+const GRAPH_THICKNESS = 2;
 const EASING_FACTOR = 0.1;
 
 //can be set to the following values: H, S, L, requirement
@@ -19,6 +19,7 @@ let spells = [
   },
 ];
 let graphType = "Compare Spells";
+let imagesLoaded = 0;
 
 let maxH;
 let maxS;
@@ -51,17 +52,14 @@ function preload() {
     console.log(dataArray);
     spells = dataArray;
     for (let spell of spells) {
-      spell.image = loadImage(`assets/spell-images/${spell.name}`);
+      spell.image = loadImage(`assets/spell-images/${spell.name}`, () => {
+        imagesLoaded++;
+        if (imagesLoaded === spells.length) {
+          generateSpellShadow(spells);
+        }
+      });
     }
-    maxH = findMaxValue(spells, "H");
-    maxS = findMaxValue(spells, "S");
-    maxL = findMaxValue(spells, "L");
-    maxRequirement = findMaxValue(spells, "requirement");
-
-    minH = findMinValue(spells, "H");
-    minS = findMinValue(spells, "S");
-    minL = findMinValue(spells, "L");
-    minRequirement = findMinValue(spells, "requirement");
+    findLimits(spells);
     calculatePositions(spells);
   });
 }
@@ -110,6 +108,7 @@ window.addEventListener("load", () => {
         showSpells[button.value.toLowerCase()] = true;
         button.classList.add("active");
       }
+      findLimits(spells);
       calculatePositions(spells);
     });
   }
@@ -124,64 +123,70 @@ function renderGraph() {
   rect(0, 0, GRAPH_THICKNESS, SCREEN_HEIGHT);
   rect(0, SCREEN_HEIGHT - GRAPH_THICKNESS, SCREEN_WIDTH, GRAPH_THICKNESS);
 
-  for (
-    let i = 0;
-    i <= SCREEN_WIDTH - GRAPH_THICKNESS;
-    i += (SCREEN_WIDTH - GRAPH_THICKNESS) / 10
-  ) {
-    rect(
-      i,
-      SCREEN_HEIGHT - 2 * GRAPH_THICKNESS,
-      GRAPH_THICKNESS,
-      GRAPH_THICKNESS
-    );
-  }
-  for (
-    let i = 0;
-    i <= SCREEN_HEIGHT - GRAPH_THICKNESS;
-    i += (SCREEN_HEIGHT - GRAPH_THICKNESS) / 10
-  ) {
-    rect(GRAPH_THICKNESS, i, GRAPH_THICKNESS, GRAPH_THICKNESS);
-  }
+  // for (
+  //   let i = 0;
+  //   i <= SCREEN_WIDTH - GRAPH_THICKNESS;
+  //   i += (SCREEN_WIDTH - GRAPH_THICKNESS) / 10
+  // ) {
+  //   rect(
+  //     i,
+  //     SCREEN_HEIGHT - 2 * GRAPH_THICKNESS,
+  //     GRAPH_THICKNESS,
+  //     GRAPH_THICKNESS
+  //   );
+  // }
+  // for (
+  //   let i = 0;
+  //   i <= SCREEN_HEIGHT - GRAPH_THICKNESS;
+  //   i += (SCREEN_HEIGHT - GRAPH_THICKNESS) / 10
+  // ) {
+  //   rect(GRAPH_THICKNESS, i, GRAPH_THICKNESS, GRAPH_THICKNESS);
+  // }
   pop();
 
   push();
   fill(247, 171, 94);
+  textFont("Crimson Pro");
   textSize(20);
   textAlign(RIGHT);
+  textStyle(ITALIC);
+  let xText;
+  let yText;
   switch (xAxisType) {
     case "H":
-      text("Hue", SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
+      xText = "Hue";
       break;
     case "S":
-      text("Saturation", SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
+      xText = "Saturation";
       break;
     case "L":
-      text("Lightness", SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
+      xText = "Lightness";
       break;
     case "requirement":
-      text("Requirement", SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
+      xText = "Requirement";
       break;
     default:
-      text(xAxisType, SCREEN_WIDTH - 30, SCREEN_HEIGHT - 30);
+      xText = xAxisType;
   }
+  text(xText, SCREEN_WIDTH - 15, SCREEN_HEIGHT - 15);
   textAlign(LEFT);
   switch (yAxisType) {
     case "H":
-      text("Hue", 30, 30);
+      yText = "Hue";
       break;
     case "S":
-      text("Saturation", 30, 30);
+      yText = "Saturation";
       break;
     case "L":
-      text("Lightness", 30, 30);
+      yText = "Lightness";
       break;
     case "requirement":
-      text("Requirement", 30, 30);
+      yText = "Requirement";
       break;
     default:
-      text(yAxisType, 30, 30);
+      yText = yAxisType;
   }
+  text(yText, 15, 15);
   pop();
 }
 
@@ -191,8 +196,7 @@ function renderSpell(spell, highlight) {
   }
   push();
   if (highlight) {
-    let shadow = renderShadow(spell.image, "ff0000");
-    image(shadow, spell.position.x - 2, spell.position.y - 2, 44, 49);
+    image(spell.shadow, spell.position.x - 2, spell.position.y - 2, 44, 49);
   }
   image(spell.image, spell.position.x, spell.position.y, 40, 45);
   pop();
@@ -226,7 +230,7 @@ function renderShadow(img, shadowColor) {
 // ---------------------------------------------------------------- Draw Function
 
 function draw() {
-  background("#33343A");
+  background(40, 40, 45);
   if ((graphType = "Compare Spells")) {
     renderGraph();
     for (const spell of spells) {
@@ -240,17 +244,36 @@ function draw() {
 
 // ---------------------------------------------------------------- Misc Functions
 
+function findLimits(spellList) {
+  maxH = findMaxValue(spellList, "H");
+  maxS = findMaxValue(spellList, "S");
+  maxL = findMaxValue(spellList, "L");
+  maxRequirement = findMaxValue(spellList, "requirement");
+
+  minH = findMinValue(spellList, "H");
+  minS = findMinValue(spellList, "S");
+  minL = findMinValue(spellList, "L");
+  minRequirement = findMinValue(spellList, "requirement");
+}
 function findMaxValue(spellList, type) {
   let max = 0;
   for (const spell of spellList) {
-    if (parseInt(spell[type]) > max) max = parseInt(spell[type]);
+    if (
+      parseInt(spell[type]) > max &&
+      showSpells[spell.type.toLowerCase()] === true
+    )
+      max = parseInt(spell[type]);
   }
   return max;
 }
 function findMinValue(spellList, type) {
   let min = 360;
   for (const spell of spellList) {
-    if (parseInt(spell[type]) < min) min = parseInt(spell[type]);
+    if (
+      parseInt(spell[type]) < min &&
+      showSpells[spell.type.toLowerCase()] === true
+    )
+      min = parseInt(spell[type]);
   }
   return min;
 }
@@ -330,9 +353,31 @@ function moveSpell(spell) {
     spell.position = spell.positionGoal;
   }
 }
+function generateSpellShadow(spellList) {
+  for (let spell of spellList) {
+    const newW = spell.image.width;
+    const newH = spell.image.height;
+    const g = createGraphics(newW, newH);
 
-let a = 0;
-let b = 100;
+    g.imageMode(CENTER);
+    g.translate(newW / 2, newH / 2);
+    g.image(spell.image, 0, 0);
+
+    const shadow = g.get();
+    const c = color("ff0000");
+    shadow.loadPixels();
+    const numVals = 4 * shadow.width * shadow.height;
+    for (let i = 0; i < numVals; i += 4) {
+      shadow.pixels[i + 0] = c.levels[0];
+      // shadow.pixels[i + 1] = c.levels[1];
+      // shadow.pixels[i + 2] = c.levels[2];
+    }
+    shadow.updatePixels();
+
+    g.remove();
+    spell.shadow = shadow;
+  }
+}
 
 //TODO
 // Make second graph with simple bars
