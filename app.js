@@ -55,7 +55,7 @@ function preload() {
       spell.image = loadImage(`assets/spell-images/${spell.name}`, () => {
         imagesLoaded++;
         if (imagesLoaded === spells.length) {
-          generateSpellShadow(spells);
+          generateSpellShadows(spells);
         }
       });
     }
@@ -202,31 +202,6 @@ function renderSpell(spell, highlight) {
   pop();
 }
 
-//cited from https://editor.p5js.org/davepagurek/sketches/IJwk16Mel
-function renderShadow(img, shadowColor) {
-  const newW = img.width;
-  const newH = img.height;
-  const g = createGraphics(newW, newH);
-
-  g.imageMode(CENTER);
-  g.translate(newW / 2, newH / 2);
-  g.image(img, 0, 0);
-
-  const shadow = g.get();
-  const c = color(shadowColor);
-  shadow.loadPixels();
-  const numVals = 4 * shadow.width * shadow.height;
-  for (let i = 0; i < numVals; i += 4) {
-    shadow.pixels[i + 0] = c.levels[0];
-    // shadow.pixels[i + 1] = c.levels[1];
-    // shadow.pixels[i + 2] = c.levels[2];
-  }
-  shadow.updatePixels();
-
-  g.remove();
-  return shadow;
-}
-
 // ---------------------------------------------------------------- Draw Function
 
 function draw() {
@@ -277,8 +252,8 @@ function findMinValue(spellList, type) {
   }
   return min;
 }
-function calculatePositions(list) {
-  for (let spell of list) {
+function calculatePositions(spellList) {
+  for (let spell of spellList) {
     let xValue;
     let yValue;
 
@@ -353,7 +328,8 @@ function moveSpell(spell) {
     spell.position = spell.positionGoal;
   }
 }
-function generateSpellShadow(spellList) {
+//cited from https://editor.p5js.org/davepagurek/sketches/IJwk16Mel
+function generateSpellShadows(spellList) {
   for (let spell of spellList) {
     const newW = spell.image.width;
     const newH = spell.image.height;
