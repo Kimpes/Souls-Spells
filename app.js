@@ -21,6 +21,7 @@ let spells = [
 let graphType = "Compare Spells";
 let imagesLoaded = 0;
 let mousePosition;
+let font;
 
 let maxH;
 let maxS;
@@ -63,6 +64,7 @@ function preload() {
     findLimits(spells);
     calculatePositions(spells);
   });
+  font = loadFont("./assets/CrimsonPro.ttf");
 }
 
 function setup() {
@@ -205,11 +207,29 @@ function renderSpell(spell, highlight, showcase) {
     image(spell.image, spell.position.x - 8, spell.position.y - 9, 56, 63);
 
     let displayName = spell.name.slice(0, -4);
+    push();
+    let textBackground = font.textBounds(
+      displayName,
+      spell.position.x + 20,
+      spell.position.y + 75,
+      18
+    );
+    rectMode(CENTER);
+    strokeWeight(0);
+    fill("#000");
+    rect(
+      textBackground.x,
+      textBackground.y + 7,
+      textBackground.w + 12,
+      textBackground.h + 5
+    );
+    pop();
+
     textAlign(CENTER);
     textFont("Crimson Pro");
-    textSize(15);
+    textSize(18);
     fill(247, 171, 94);
-    text(displayName, spell.position.x + 20, spell.position.y + 70);
+    text(displayName, spell.position.x + 20, spell.position.y + 75);
   }
   pop();
 }
@@ -390,7 +410,9 @@ function findShowcasedSpell(spellList) {
     let closestDistance = 100;
     let closestSpell;
     for (let i = 0; i < hoveredOverSpells.length; i++) {
-      let distance = hoveredOverSpells[i].position.dist(mousePosition);
+      let spellCenter = hoveredOverSpells[i].position.copy();
+      spellCenter.add(20, 25);
+      let distance = spellCenter.dist(mousePosition);
       if (distance < closestDistance) {
         closestSpell = hoveredOverSpells[i];
         closestDistance = distance;
