@@ -20,6 +20,7 @@ let spells = [
 ];
 let graphType = "Compare Spells";
 let imagesLoaded = 0;
+let mousePosition;
 
 let maxH;
 let maxS;
@@ -190,7 +191,7 @@ function renderGraph() {
   pop();
 }
 
-function renderSpell(spell, highlight) {
+function renderSpell(spell, highlight, showcase) {
   if (spell.position != spell.positionGoal) {
     moveSpell(spell);
   }
@@ -198,7 +199,18 @@ function renderSpell(spell, highlight) {
   if (highlight) {
     image(spell.shadow, spell.position.x - 2, spell.position.y - 2, 44, 49);
   }
-  image(spell.image, spell.position.x, spell.position.y, 40, 45);
+  if (!showcase) {
+    image(spell.image, spell.position.x, spell.position.y, 40, 45);
+  } else {
+    image(spell.image, spell.position.x - 8, spell.position.y - 9, 56, 63);
+
+    let displayName = spell.name.slice(0, -4);
+    textAlign(CENTER);
+    textFont("Crimson Pro");
+    textSize(15);
+    fill(247, 171, 94);
+    text(displayName, spell.position.x + 20, spell.position.y + 70);
+  }
   pop();
 }
 
@@ -206,12 +218,15 @@ function renderSpell(spell, highlight) {
 
 function draw() {
   background(40, 40, 45);
+  mousePosition = createVector(mouseX, mouseY);
   if ((graphType = "Compare Spells")) {
     renderGraph();
+    let showcasedSpell = findShowcasedSpell(spells);
     for (const spell of spells) {
       if (showSpells[spell.type.toLowerCase()]) {
         let highlight = highlightSpells[spell.type.toLocaleLowerCase()];
-        renderSpell(spell, highlight);
+        renderSpell(spell, highlight, false);
+        if (showcasedSpell) renderSpell(showcasedSpell, false, true);
       }
     }
   }
@@ -354,8 +369,38 @@ function generateSpellShadows(spellList) {
     spell.shadow = shadow;
   }
 }
+function findShowcasedSpell(spellList) {
+  let hoveredOverSpells = [];
+  for (let spell of spellList) {
+    if (
+      spell.position.x < mousePosition.x &&
+      spell.position.x + 40 > mousePosition.x &&
+      spell.position.y < mousePosition.y &&
+      spell.position.y + 45 > mousePosition.y &&
+      showSpells[spell.type.toLowerCase()]
+    ) {
+      hoveredOverSpells.push(spell);
+    }
+  }
+  if (hoveredOverSpells.length == 0) {
+    return null;
+  } else if (hoveredOverSpells.length == 1) {
+    return hoveredOverSpells[0];
+  } else {
+    let closestDistance = 100;
+    let closestSpell;
+    for (let i = 0; i < hoveredOverSpells.length; i++) {
+      let distance = hoveredOverSpells[i].position.dist(mousePosition);
+      if (distance < closestDistance) {
+        closestSpell = hoveredOverSpells[i];
+        closestDistance = distance;
+      }
+    }
+    return closestSpell;
+  }
+}
 
 //TODO
 // Make second graph with simple bars
-// Make slides
 // Add more explainations
+// Move calculations from the draw function to the button clicks
