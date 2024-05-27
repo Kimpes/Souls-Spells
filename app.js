@@ -18,10 +18,14 @@ let spells = [
     type: "Sorcery",
   },
 ];
-let graphType = "Compare Spells";
+let graphMode = "Compare Spells";
+let showcasedSpell;
 let imagesLoaded = 0;
 let mousePosition;
 let font;
+let showcasedSpellOldPosition;
+
+let spellSizeIntertia = 0.5;
 
 let maxH;
 let maxS;
@@ -119,7 +123,14 @@ window.addEventListener("load", () => {
 
 // ---------------------------------------------------------------- Rendering functions
 
-function renderGraph() {
+function renderButton(x, y, w, h, content, action) {
+  push();
+  rect(x, y, w, h);
+  text(x);
+  pop();
+}
+
+function renderGraph(showText) {
   push();
   strokeWeight(0);
   fill(247, 171, 94);
@@ -147,53 +158,55 @@ function renderGraph() {
   // }
   pop();
 
-  push();
-  fill(247, 171, 94);
-  textFont("Crimson Pro");
-  textSize(20);
-  textAlign(RIGHT);
-  textStyle(ITALIC);
-  let xText;
-  let yText;
-  switch (xAxisType) {
-    case "H":
-      xText = "Hue";
-      break;
-    case "S":
-      xText = "Saturation";
-      break;
-    case "L":
-      xText = "Lightness";
-      break;
-    case "requirement":
-      xText = "Requirement";
-      break;
-    default:
-      xText = xAxisType;
+  if (showText) {
+    push();
+    fill(247, 171, 94);
+    textFont("Crimson Pro");
+    textSize(20);
+    textAlign(RIGHT);
+    textStyle(ITALIC);
+    let xText;
+    let yText;
+    switch (xAxisType) {
+      case "H":
+        xText = "Hue";
+        break;
+      case "S":
+        xText = "Saturation";
+        break;
+      case "L":
+        xText = "Lightness";
+        break;
+      case "requirement":
+        xText = "Requirement";
+        break;
+      default:
+        xText = xAxisType;
+    }
+    text(xText, SCREEN_WIDTH - 15, SCREEN_HEIGHT - 15);
+    textAlign(LEFT);
+    switch (yAxisType) {
+      case "H":
+        yText = "Hue";
+        break;
+      case "S":
+        yText = "Saturation";
+        break;
+      case "L":
+        yText = "Lightness";
+        break;
+      case "requirement":
+        yText = "Requirement";
+        break;
+      default:
+        yText = yAxisType;
+    }
+    text(yText, 15, 15);
+    pop();
   }
-  text(xText, SCREEN_WIDTH - 15, SCREEN_HEIGHT - 15);
-  textAlign(LEFT);
-  switch (yAxisType) {
-    case "H":
-      yText = "Hue";
-      break;
-    case "S":
-      yText = "Saturation";
-      break;
-    case "L":
-      yText = "Lightness";
-      break;
-    case "requirement":
-      yText = "Requirement";
-      break;
-    default:
-      yText = yAxisType;
-  }
-  text(yText, 15, 15);
-  pop();
 }
 
-function renderSpell(spell, highlight, showcase) {
+function renderSpell(spell, highlight, showcase, sizeMultiplier) {
   if (spell.position != spell.positionGoal) {
     moveSpell(spell);
   }
@@ -201,19 +214,30 @@ function renderSpell(spell, highlight, showcase) {
   if (highlight) {
     image(spell.shadow, spell.position.x - 2, spell.position.y - 2, 44, 49);
   }
-  if (!showcase) {
-    image(spell.image, spell.position.x, spell.position.y, 40, 45);
+
+  if (Math.abs(spell.size - sizeMultiplier) > 0.01) {
+    // Small threshold to avoid perpetual small adjustments
+    spell.size = lerp(spell.size, sizeMultiplier, EASING_FACTOR * 2);
   } else {
-    image(spell.image, spell.position.x - 8, spell.position.y - 9, 56, 63);
+    spell.size = sizeMultiplier; // Snap to the target size when close enough
+  }
+
+  translate(spell.position.x, spell.position.y);
+  push();
+  translate(((spell.size - 1) * -40) / 2, ((spell.size - 1) * -45) / 2);
+  scale(spell.size);
+  image(spell.image, 0, 0, 40, 45);
+  pop();
+
+  if (!showcase) {
+    cursor(ARROW);
+  } else {
+    cursor(HAND);
+    // image(spell.image, spell.position.x - 8, spell.position.y - 9, 56, 63);
 
     let displayName = spell.name.slice(0, -4);
     push();
-    let textBackground = font.textBounds(
-      displayName,
-      spell.position.x + 20,
-      spell.position.y + 75,
-      18
-    );
+    let textBackground = font.textBounds(displayName, 20, 75, 18);
     rectMode(CENTER);
     strokeWeight(0);
     fill("#000");
@@ -229,7 +253,7 @@ function renderSpell(spell, highlight, showcase) {
     textFont("Crimson Pro");
     textSize(18);
     fill(247, 171, 94);
-    text(displayName, spell.position.x + 20, spell.position.y + 75);
+    text(displayName, 20, 75);
   }
   pop();
 }
@@ -239,16 +263,19 @@ function renderSpell(spell, highlight, showcase) {
 function draw() {
   background(40, 40, 45);
   mousePosition = createVector(mouseX, mouseY);
-  if ((graphType = "Compare Spells")) {
-    renderGraph();
-    let showcasedSpell = findShowcasedSpell(spells);
+  if (graphMode == "Compare Spells") {
+    renderGraph(true);
+    showcasedSpell = findShowcasedSpell(spells);
     for (const spell of spells) {
       if (showSpells[spell.type.toLowerCase()]) {
         let highlight = highlightSpells[spell.type.toLocaleLowerCase()];
-        renderSpell(spell, highlight, false);
-        if (showcasedSpell) renderSpell(showcasedSpell, false, true);
+        renderSpell(spell, highlight, false, 1);
+        if (showcasedSpell) renderSpell(showcasedSpell, false, true, 1.5);
       }
     }
+  } else if (graphMode == "Single Spell") {
+    renderGraph(false);
+    renderSpell(showcasedSpell, false, false, 3);
   }
 }
 
@@ -343,6 +370,8 @@ function calculatePositions(spellList) {
       xValue * (SCREEN_WIDTH - SCREEN_PADDING * 2) + SCREEN_PADDING,
       yValue * (SCREEN_HEIGHT - SCREEN_PADDING * 2) + SCREEN_PADDING
     );
+
+    spell.size = 1;
   }
 }
 function moveSpell(spell) {
@@ -420,6 +449,22 @@ function findShowcasedSpell(spellList) {
     }
     return closestSpell;
   }
+}
+function mouseClicked() {
+  if (showcasedSpell && graphMode == "Compare Spells") {
+    graphMode = "Single Spell";
+    showcasedSpell.positionGoal = createVector(80, 80);
+    showcasedSpellOldPosition = createVector(
+      showcasedSpell.position.x,
+      showcasedSpell.position.y
+    );
+  } else if (graphMode == "Single Spell") {
+    showcasedSpell.positionGoal = showcasedSpellOldPosition;
+    graphMode = "Compare Spells";
+  }
+}
+function lerp(start, end, amount) {
+  return (1 - amount) * start + amount * end;
 }
 
 //TODO
