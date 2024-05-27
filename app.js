@@ -258,6 +258,32 @@ function renderSpell(spell, highlight, showcase, sizeMultiplier) {
   pop();
 }
 
+function renderSingleSpellInfo(spell) {
+  let displayName = spell.name.slice(0, -4);
+  let requirementText = `Required Skill-Level to Use:  ${spell.requirement}`;
+  let spellTypeText = `Magic Type:  ${spell.type}`;
+  push();
+  translate(380, SCREEN_HEIGHT / 2 - 10);
+
+  push();
+  textFont("Inknut Antiqua");
+  textStyle(BOLD);
+  textSize(40);
+  fill(247, 171, 94);
+  text(displayName, 0, -100);
+  pop();
+
+  push();
+  textFont("Crimson Pro");
+  textSize(20);
+  fill(255, 236, 217);
+  text(spellTypeText, 0, -65);
+  text(requirementText, 0, -40);
+  text("Spell Slot Usage: Unknown", 0, -15);
+  pop();
+  pop();
+}
+
 // ---------------------------------------------------------------- Draw Function
 
 function draw() {
@@ -276,6 +302,7 @@ function draw() {
   } else if (graphMode == "Single Spell") {
     renderGraph(false);
     renderSpell(showcasedSpell, false, false, 3);
+    renderSingleSpellInfo(showcasedSpell);
   }
 }
 
@@ -453,7 +480,7 @@ function findShowcasedSpell(spellList) {
 function mouseClicked() {
   if (showcasedSpell && graphMode == "Compare Spells") {
     graphMode = "Single Spell";
-    showcasedSpell.positionGoal = createVector(80, 80);
+    showcasedSpell.positionGoal = createVector(250, SCREEN_HEIGHT / 2 - 100);
     showcasedSpellOldPosition = createVector(
       showcasedSpell.position.x,
       showcasedSpell.position.y
