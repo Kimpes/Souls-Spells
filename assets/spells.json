@@ -5,7 +5,8 @@
     "S": "20",
     "L": "35",
     "requirement": "10",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "20"
   },
   {
     "name": "Cast_Light.png",
@@ -13,7 +14,8 @@
     "S": "6",
     "L": "34",
     "requirement": "14",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "3"
   },
   {
     "name": "Chameleon.png",
@@ -21,7 +23,8 @@
     "S": "14",
     "L": "19",
     "requirement": "14",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "11"
   },
   {
     "name": "Crystal_Magic_Weapon.png",
@@ -29,7 +32,8 @@
     "S": "27",
     "L": "29",
     "requirement": "25",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "3"
   },
   {
     "name": "Crystal_Soul_Spear.png",
@@ -37,7 +41,8 @@
     "S": "20",
     "L": "33",
     "requirement": "44",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "4"
   },
   {
     "name": "Dark Bead.png",
@@ -45,7 +50,8 @@
     "S": "4",
     "L": "25",
     "requirement": "16",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "6"
   },
   {
     "name": "Dark Fog.png",
@@ -53,7 +59,8 @@
     "S": "3",
     "L": "23",
     "requirement": "18",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "2"
   },
   {
     "name": "Dark Orb.png",
@@ -61,7 +68,8 @@
     "S": "3",
     "L": "21",
     "requirement": "16",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "12"
   },
   {
     "name": "Fall_Control.png",
@@ -69,7 +77,8 @@
     "S": "35",
     "L": "32",
     "requirement": "15",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "10"
   },
   {
     "name": "Great_Heavy_Soul_Arrow.png",
@@ -77,7 +86,8 @@
     "S": "36",
     "L": "35",
     "requirement": "16",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "8"
   },
   {
     "name": "Great_Magic_Weapon.png",
@@ -85,7 +95,8 @@
     "S": "31",
     "L": "29",
     "requirement": "15",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "3"
   },
   {
     "name": "Great_Soul_Arrow.png",
@@ -93,7 +104,8 @@
     "S": "29",
     "L": "33",
     "requirement": "14",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "20"
   },
   {
     "name": "Heavy_Soul_Arrow.png",
@@ -101,7 +113,8 @@
     "S": "37",
     "L": "27",
     "requirement": "12",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "12"
   },
   {
     "name": "Hidden_Body.png",
@@ -109,7 +122,8 @@
     "S": "3",
     "L": "25",
     "requirement": "14",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "3"
   },
   {
     "name": "Hidden_Weapon.png",
@@ -117,7 +131,8 @@
     "S": "4",
     "L": "25",
     "requirement": "14",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "3"
   },
   {
     "name": "Homing_Crystal_Soulmass.png",
@@ -125,7 +140,8 @@
     "S": "14",
     "L": "33",
     "requirement": "24",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "10"
   },
   {
     "name": "Homing_Soulmass.png",
@@ -133,7 +149,8 @@
     "S": "21",
     "L": "32",
     "requirement": "18",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "10"
   },
   {
     "name": "Hush.png",
@@ -141,7 +158,8 @@
     "S": "12",
     "L": "33",
     "requirement": "15",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "6"
   },
   {
     "name": "Magic_Shield.png",
@@ -149,7 +167,8 @@
     "S": "17",
     "L": "35",
     "requirement": "10",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "5"
   },
   {
     "name": "Magic_Weapon.png",
@@ -157,7 +176,8 @@
     "S": "37",
     "L": "26",
     "requirement": "10",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "5"
   },
   {
     "name": "Pursuers.png",
@@ -165,7 +185,8 @@
     "S": "2",
     "L": "26",
     "requirement": "32",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "3"
   },
   {
     "name": "Remedy.png",
@@ -173,7 +194,8 @@
     "S": "10",
     "L": "31",
     "requirement": "16",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "4"
   },
   {
     "name": "Repair.png",
@@ -181,7 +203,8 @@
     "S": "28",
     "L": "19",
     "requirement": "14",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "1"
   },
   {
     "name": "Resist_Curse.png",
@@ -189,7 +212,8 @@
     "S": "5",
     "L": "17",
     "requirement": "16",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "4"
   },
   {
     "name": "Soul_Arrow.png",
@@ -197,7 +221,8 @@
     "S": "36",
     "L": "27",
     "requirement": "10",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "30"
   },
   {
     "name": "Soul_Spear.png",
@@ -205,7 +230,8 @@
     "S": "27",
     "L": "32",
     "requirement": "36",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "4"
   },
   {
     "name": "Strong_Magic_Shield.png",
@@ -213,7 +239,8 @@
     "S": "21",
     "L": "46",
     "requirement": "15",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "3"
   },
   {
     "name": "White_Dragon_Breath.png",
@@ -221,7 +248,8 @@
     "S": "23",
     "L": "35",
     "requirement": "50",
-    "type": "Sorcery"
+    "type": "Sorcery",
+    "uses": "20"
   },
   {
     "name": "Acid_Surge.png",
@@ -229,7 +257,8 @@
     "S": "63",
     "L": "8",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "2"
   },
   {
     "name": "Black Flame.png",
@@ -237,7 +266,8 @@
     "S": "49",
     "L": "16",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "8"
   },
   {
     "name": "Chaos_Fire_Whip.png",
@@ -245,7 +275,8 @@
     "S": "87",
     "L": "21",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "10"
   },
   {
     "name": "Chaos_Storm.png",
@@ -253,7 +284,8 @@
     "S": "82",
     "L": "28",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "20"
   },
   {
     "name": "Combustion.png",
@@ -261,7 +293,8 @@
     "S": "72",
     "L": "13",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "16"
   },
   {
     "name": "Fireball.png",
@@ -269,7 +302,8 @@
     "S": "61",
     "L": "19",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "8"
   },
   {
     "name": "Firestorm.png",
@@ -277,7 +311,8 @@
     "S": "59",
     "L": "22",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "20"
   },
   {
     "name": "Fire_Orb.png",
@@ -285,7 +320,8 @@
     "S": "86",
     "L": "26",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "6"
   },
   {
     "name": "Fire_Surge.png",
@@ -293,7 +329,8 @@
     "S": "92",
     "L": "19",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "80"
   },
   {
     "name": "Fire_Tempest.png",
@@ -301,7 +338,8 @@
     "S": "67",
     "L": "12",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "20"
   },
   {
     "name": "Fire_Whip.png",
@@ -309,7 +347,8 @@
     "S": "84",
     "L": "20",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "80"
   },
   {
     "name": "Flash_Sweat.png",
@@ -317,7 +356,8 @@
     "S": "10",
     "L": "26",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "3"
   },
   {
     "name": "Great_Chaos_Fireball.png",
@@ -325,7 +365,8 @@
     "S": "68",
     "L": "17",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "4"
   },
   {
     "name": "Great_Combustion.png",
@@ -333,7 +374,8 @@
     "S": "77",
     "L": "22",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "8"
   },
   {
     "name": "Great_Fireball.png",
@@ -341,7 +383,8 @@
     "S": "69",
     "L": "28",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "4"
   },
   {
     "name": "Iron_Flesh.png",
@@ -349,7 +392,8 @@
     "S": "15",
     "L": "30",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "3"
   },
   {
     "name": "Poison_Mist.png",
@@ -357,7 +401,8 @@
     "S": "43",
     "L": "10",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "3"
   },
   {
     "name": "Power_Within.png",
@@ -365,7 +410,8 @@
     "S": "78",
     "L": "16",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "1"
   },
   {
     "name": "Toxic_Mist.png",
@@ -373,7 +419,8 @@
     "S": "68",
     "L": "7",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "1"
   },
   {
     "name": "Undead_Rapport.png",
@@ -381,7 +428,8 @@
     "S": "41",
     "L": "29",
     "requirement": "0",
-    "type": "Pyromancy"
+    "type": "Pyromancy",
+    "uses": "7"
   },
   {
     "name": "Bountiful_Sunlight.png",
@@ -389,7 +437,8 @@
     "S": "54",
     "L": "45",
     "requirement": "36",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "2"
   },
   {
     "name": "Darkmoon_Blade.png",
@@ -397,7 +446,8 @@
     "S": "26",
     "L": "31",
     "requirement": "30",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "1"
   },
   {
     "name": "Emit_Force.png",
@@ -405,7 +455,8 @@
     "S": "2",
     "L": "55",
     "requirement": "18",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "6"
   },
   {
     "name": "Force.png",
@@ -413,7 +464,8 @@
     "S": "12",
     "L": "43",
     "requirement": "12",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "21"
   },
   {
     "name": "Gravelord_Greatsword_Dance.png",
@@ -421,7 +473,8 @@
     "S": "42",
     "L": "21",
     "requirement": "0",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "40"
   },
   {
     "name": "Gravelord_Sword_Dance.png",
@@ -429,7 +482,8 @@
     "S": "20",
     "L": "21",
     "requirement": "0",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "40"
   },
   {
     "name": "Great_Heal.png",
@@ -437,7 +491,8 @@
     "S": "16",
     "L": "50",
     "requirement": "24",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "3"
   },
   {
     "name": "Great_Heal_Excerpt.png",
@@ -445,7 +500,8 @@
     "S": "20",
     "L": "41",
     "requirement": "14",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "1"
   },
   {
     "name": "Great_Lightning_Spear.png",
@@ -453,7 +509,8 @@
     "S": "20",
     "L": "38",
     "requirement": "30",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "10"
   },
   {
     "name": "Great_Magic_Barrier.png",
@@ -461,7 +518,8 @@
     "S": "7",
     "L": "48",
     "requirement": "24",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "2"
   },
   {
     "name": "Heal.png",
@@ -469,7 +527,8 @@
     "S": "23",
     "L": "36",
     "requirement": "12",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "5"
   },
   {
     "name": "Homeward.png",
@@ -477,7 +536,8 @@
     "S": "35",
     "L": "29",
     "requirement": "18",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "1"
   },
   {
     "name": "Karmic_Justice.png",
@@ -485,7 +545,8 @@
     "S": "15",
     "L": "24",
     "requirement": "20",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "4"
   },
   {
     "name": "Lightning_Spear.png",
@@ -493,7 +554,8 @@
     "S": "23",
     "L": "33",
     "requirement": "20",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "10"
   },
   {
     "name": "Magic_Barrier.png",
@@ -501,7 +563,8 @@
     "S": "11",
     "L": "44",
     "requirement": "24",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "4"
   },
   {
     "name": "Replenishment.png",
@@ -509,7 +572,8 @@
     "S": "34",
     "L": "36",
     "requirement": "16",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "2"
   },
   {
     "name": "Seek_Guidance.png",
@@ -517,7 +581,8 @@
     "S": "42",
     "L": "42",
     "requirement": "12",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "5"
   },
   {
     "name": "Soothing_Sunlight.png",
@@ -525,7 +590,8 @@
     "S": "46",
     "L": "49",
     "requirement": "48",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "3"
   },
   {
     "name": "Sunlight_Blade.png",
@@ -533,7 +599,8 @@
     "S": "41",
     "L": "36",
     "requirement": "30",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "1"
   },
   {
     "name": "Sunlight_Spear.png",
@@ -541,7 +608,8 @@
     "S": "36",
     "L": "37",
     "requirement": "50",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "5"
   },
   {
     "name": "Tranquil_Walk_of_Peace.png",
@@ -549,7 +617,8 @@
     "S": "16",
     "L": "28",
     "requirement": "18",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "5"
   },
   {
     "name": "Vow_of_Silence.png",
@@ -557,7 +626,8 @@
     "S": "7",
     "L": "23",
     "requirement": "30",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "2"
   },
   {
     "name": "Wrath_of_the_Gods.png",
@@ -565,6 +635,7 @@
     "S": "3",
     "L": "56",
     "requirement": "28",
-    "type": "Miracle"
+    "type": "Miracle",
+    "uses": "3"
   }
 ]

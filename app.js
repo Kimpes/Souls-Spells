@@ -31,11 +31,13 @@ let maxH;
 let maxS;
 let maxL;
 let maxRequirement;
+let maxUses;
 
 let minH;
 let minS;
 let minL;
 let minRequirement;
+let minUses;
 
 let showSpells = {
   sorcery: true,
@@ -180,6 +182,9 @@ function renderGraph(showText) {
       case "requirement":
         xText = "Requirement";
         break;
+      case "uses":
+        xText = "Uses";
+        break;
       default:
         xText = xAxisType;
     }
@@ -197,6 +202,9 @@ function renderGraph(showText) {
         break;
       case "requirement":
         yText = "Requirement";
+        break;
+      case "uses":
+        yText = "Uses";
         break;
       default:
         yText = yAxisType;
@@ -259,9 +267,10 @@ function renderSpell(spell, highlight, showcase, sizeMultiplier) {
 }
 
 function renderSingleSpellInfo(spell) {
-  let displayName = spell.name.slice(0, -4);
-  let requirementText = `Required Skill-Level to Use:  ${spell.requirement}`;
-  let spellTypeText = `Magic Type:  ${spell.type}`;
+  const displayName = spell.name.slice(0, -4);
+  const requirementText = `Required Skill-Level to Use:  ${spell.requirement}`;
+  const spellTypeText = `Magic Type:  ${spell.type}`;
+  const spellSlotsText = `Spell Uses:  ${spell.uses}`;
   push();
   translate(380, SCREEN_HEIGHT / 2 - 10);
 
@@ -279,7 +288,7 @@ function renderSingleSpellInfo(spell) {
   fill(255, 236, 217);
   text(spellTypeText, 0, -65);
   text(requirementText, 0, -40);
-  text("Spell Slot Usage: Unknown", 0, -15);
+  text(spellSlotsText, 0, -15);
   pop();
   pop();
 }
@@ -313,11 +322,13 @@ function findLimits(spellList) {
   maxS = findMaxValue(spellList, "S");
   maxL = findMaxValue(spellList, "L");
   maxRequirement = findMaxValue(spellList, "requirement");
+  maxUses = findMaxValue(spellList, "uses");
 
   minH = findMinValue(spellList, "H");
   minS = findMinValue(spellList, "S");
   minL = findMinValue(spellList, "L");
   minRequirement = findMinValue(spellList, "requirement");
+  minUses = findMinValue(spellList, "uses");
 }
 function findMaxValue(spellList, type) {
   let max = 0;
@@ -361,6 +372,9 @@ function calculatePositions(spellList) {
           (parseInt(spell.requirement) - minRequirement) /
           (maxRequirement - minRequirement);
         break;
+      case "uses":
+        xValue = (parseInt(spell.uses) - minUses) / (maxUses - minUses);
+        break;
       default:
         xValue = 500;
     }
@@ -381,6 +395,10 @@ function calculatePositions(spellList) {
             (maxRequirement - minRequirement)) *
             -1 +
           1;
+        break;
+      case "uses":
+        yValue =
+          ((parseInt(spell.uses) - minUses) / (maxUses - minUses)) * -1 + 1;
         break;
       default:
         yValue = 500;
