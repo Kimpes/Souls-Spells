@@ -16,6 +16,7 @@ let spells = [
     L: "35",
     requirement: "10",
     type: "Sorcery",
+    uses: "10",
   },
 ];
 let graphMode = "Compare Spells";
@@ -125,13 +126,6 @@ window.addEventListener("load", () => {
 
 // ---------------------------------------------------------------- Rendering functions
 
-function renderButton(x, y, w, h, content, action) {
-  push();
-  rect(x, y, w, h);
-  text(x);
-  pop();
-}
-
 function renderGraph(showText) {
   push();
   strokeWeight(0);
@@ -179,14 +173,8 @@ function renderGraph(showText) {
       case "L":
         xText = "Lightness";
         break;
-      case "requirement":
-        xText = "Requirement";
-        break;
-      case "uses":
-        xText = "Uses";
-        break;
       default:
-        xText = xAxisType;
+        xText = xAxisType.charAt(0).toUpperCase() + xAxisType.slice(1);
     }
     text(xText, SCREEN_WIDTH - 15, SCREEN_HEIGHT - 15);
     textAlign(LEFT);
@@ -200,14 +188,8 @@ function renderGraph(showText) {
       case "L":
         yText = "Lightness";
         break;
-      case "requirement":
-        yText = "Requirement";
-        break;
-      case "uses":
-        yText = "Uses";
-        break;
       default:
-        yText = yAxisType;
+        yText = yAxisType.charAt(0).toUpperCase() + yAxisType.slice(1);
     }
     text(yText, 15, 15);
     pop();
