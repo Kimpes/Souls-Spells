@@ -26,7 +26,8 @@ let mousePosition;
 let font;
 let showcasedSpellOldPosition;
 
-let spellSizeIntertia = 0.5;
+let colorYellow = [247, 171, 94];
+let colorWhite = [255, 236, 217];
 
 let maxH;
 let maxS;
@@ -129,7 +130,7 @@ window.addEventListener("load", () => {
 function renderGraph(showText) {
   push();
   strokeWeight(0);
-  fill(247, 171, 94);
+  fill(colorYellow);
   rect(0, 0, GRAPH_THICKNESS, SCREEN_HEIGHT);
   rect(0, SCREEN_HEIGHT - GRAPH_THICKNESS, SCREEN_WIDTH, GRAPH_THICKNESS);
 
@@ -156,7 +157,7 @@ function renderGraph(showText) {
 
   if (showText) {
     push();
-    fill(247, 171, 94);
+    fill(colorYellow);
     textFont("Crimson Pro");
     textSize(20);
     textAlign(RIGHT);
@@ -242,7 +243,7 @@ function renderSpell(spell, highlight, showcase, sizeMultiplier) {
     textAlign(CENTER);
     textFont("Crimson Pro");
     textSize(18);
-    fill(247, 171, 94);
+    fill(colorYellow);
     text(displayName, 20, 75);
   }
   pop();
@@ -253,6 +254,9 @@ function renderSingleSpellInfo(spell) {
   const requirementText = `Required Skill-Level to Use:  ${spell.requirement}`;
   const spellTypeText = `Magic Type:  ${spell.type}`;
   const spellSlotsText = `Spell Uses:  ${spell.uses}`;
+  const averageColorText = "Average HSL: ";
+  const hslCodeText = `${spell.H}, ${spell.S}, ${spell.L}`;
+
   push();
   translate(380, SCREEN_HEIGHT / 2 - 10);
 
@@ -260,18 +264,30 @@ function renderSingleSpellInfo(spell) {
   textFont("Inknut Antiqua");
   textStyle(BOLD);
   textSize(40);
-  fill(247, 171, 94);
+  fill(colorYellow);
   text(displayName, 0, -100);
   pop();
 
   push();
   textFont("Crimson Pro");
   textSize(20);
-  fill(255, 236, 217);
+  fill(colorWhite);
   text(spellTypeText, 0, -65);
   text(requirementText, 0, -40);
   text(spellSlotsText, 0, -15);
+  fill(colorYellow);
+  text(averageColorText, -160, 33);
+  textAlign(CENTER);
+  text(hslCodeText, -110, 175);
   pop();
+
+  push();
+  colorMode(HSL);
+  fill(spell.H, spell.S, spell.L);
+  strokeWeight(0);
+  rect(-160, 45, 100, 110);
+  pop();
+
   pop();
 }
 
