@@ -6,7 +6,8 @@
     "L": "35",
     "requirement": "10",
     "type": "Sorcery",
-    "uses": "20"
+    "uses": "20",
+    "description": "Lures enemies away by creating a sound originating in the distance."
   },
   {
     "name": "Cast_Light.png",
@@ -15,7 +16,8 @@
     "L": "34",
     "requirement": "14",
     "type": "Sorcery",
-    "uses": "3"
+    "uses": "3",
+    "description": "Cast a bright light upon surroundings, and lasts 5 minutes. Particularly useful for Tomb of Giants"
   },
   {
     "name": "Chameleon.png",
@@ -24,7 +26,8 @@
     "L": "19",
     "requirement": "14",
     "type": "Sorcery",
-    "uses": "11"
+    "uses": "11",
+    "description": "Transform the caster into an inanimate object. Generally, the object you become is something common to the area you are in. Could be a vase, or a box, etc. Some strategy must be used, and the most effective is to place yourself in a cluster of similar objects. Once cast, you can move slowly and position yourself. If done properly, an enemy will walk by you and never know you're there. Cannot run when using, any other action breaks the effect."
   },
   {
     "name": "Crystal_Magic_Weapon.png",
@@ -33,7 +36,8 @@
     "L": "29",
     "requirement": "25",
     "type": "Sorcery",
-    "uses": "3"
+    "uses": "3",
+    "description": "Enhances and crystallizes right-hand weapon. Weapon must be standard, crystal, or raw. Some Dragon and Unique weapons can be enchanted too. Adds 1.4x your Magic Adjustment stat (NOT Intelligence) as magic damage to your weapon."
   },
   {
     "name": "Crystal_Soul_Spear.png",
@@ -42,7 +46,8 @@
     "L": "33",
     "requirement": "44",
     "type": "Sorcery",
-    "uses": "4"
+    "uses": "4",
+    "description": "Fire an even more powerful, piercing ranged attack."
   },
   {
     "name": "Dark Bead.png",
@@ -51,7 +56,8 @@
     "L": "25",
     "requirement": "16",
     "type": "Sorcery",
-    "uses": "6"
+    "uses": "6",
+    "description": "Fires a large amount of small dark orbs that fan outwards—very fast cast time. Excellent against large bosses."
   },
   {
     "name": "Dark Fog.png",
@@ -60,7 +66,8 @@
     "L": "23",
     "requirement": "18",
     "type": "Sorcery",
-    "uses": "2"
+    "uses": "2",
+    "description": "Creates a fog that inflicts poison. The fog is created at the location of the locked target."
   },
   {
     "name": "Dark Orb.png",
@@ -69,7 +76,8 @@
     "L": "21",
     "requirement": "16",
     "type": "Sorcery",
-    "uses": "12"
+    "uses": "12",
+    "description": "After a brief charge, fires a large shot at your target."
   },
   {
     "name": "Fall_Control.png",
@@ -78,7 +86,8 @@
     "L": "32",
     "requirement": "15",
     "type": "Sorcery",
-    "uses": "10"
+    "uses": "10",
+    "description": "Reduces damage and noise from fall. However, terminal falls will still kill you even with this active."
   },
   {
     "name": "Great_Heavy_Soul_Arrow.png",
@@ -87,7 +96,8 @@
     "L": "35",
     "requirement": "16",
     "type": "Sorcery",
-    "uses": "8"
+    "uses": "8",
+    "description": "Stronger than heavy soul arrow, fewer uses. Has a slow cast time, but deals a tremendous amount of damage, even against bosses."
   },
   {
     "name": "Great_Magic_Weapon.png",
@@ -96,7 +106,8 @@
     "L": "29",
     "requirement": "15",
     "type": "Sorcery",
-    "uses": "3"
+    "uses": "3",
+    "description": "Enhances the right-hand weapon. Weapon must be standard, crystal, or raw. Some Dragon and Unique weapons can be enchanted too. Adds 1.1x your Magic Adjustment stat (NOT Intelligence) magic damage to your weapon."
   },
   {
     "name": "Great_Soul_Arrow.png",
@@ -105,7 +116,8 @@
     "L": "33",
     "requirement": "14",
     "type": "Sorcery",
-    "uses": "20"
+    "uses": "20",
+    "description": "Stronger soul arrow, same cast time as soul arrow, fewer uses."
   },
   {
     "name": "Heavy_Soul_Arrow.png",
@@ -114,7 +126,8 @@
     "L": "27",
     "requirement": "12",
     "type": "Sorcery",
-    "uses": "12"
+    "uses": "12",
+    "description": "Stronger than greater soul arrow, longer casting time."
   },
   {
     "name": "Hidden_Body.png",
@@ -123,7 +136,8 @@
     "L": "25",
     "requirement": "14",
     "type": "Sorcery",
-    "uses": "3"
+    "uses": "3",
+    "description": "Masks your presence, making detection harder."
   },
   {
     "name": "Hidden_Weapon.png",
@@ -132,7 +146,8 @@
     "L": "25",
     "requirement": "14",
     "type": "Sorcery",
-    "uses": "3"
+    "uses": "3",
+    "description": "Turns your right hand weapon invisible. Weapon must be standard, crystal, or raw. Some Dragon and Unique weapons can be enchanted too."
   },
   {
     "name": "Homing_Crystal_Soulmass.png",
@@ -141,7 +156,8 @@
     "L": "33",
     "requirement": "24",
     "type": "Sorcery",
-    "uses": "10"
+    "uses": "10",
+    "description": "Fires multiple, homing crystal projectiles. Can be successfully cast without an initial lock-on. Multiple crystal arrows will hover above the player. Each individual soul arrow will seek the closest target, in the direction the player is facing, when in range."
   },
   {
     "name": "Homing_Soulmass.png",
@@ -150,7 +166,8 @@
     "L": "32",
     "requirement": "18",
     "type": "Sorcery",
-    "uses": "10"
+    "uses": "10",
+    "description": "Fires multiple, homing magic projectiles. Can be successfully cast without an initial lock-on. Multiple soul arrows will hover above the player. Each individual soul arrow will seek the closest target, in the direction the player is facing, when in range. Because the spell can be cast in advance, it has a unique advantage in that, if timed correctly, it can be cast in synchronicity with other attacks."
   },
   {
     "name": "Hush.png",
@@ -159,7 +176,8 @@
     "L": "33",
     "requirement": "15",
     "type": "Sorcery",
-    "uses": "6"
+    "uses": "6",
+    "description": "Masks all noises of caster."
   },
   {
     "name": "Magic_Shield.png",
@@ -168,7 +186,8 @@
     "L": "35",
     "requirement": "10",
     "type": "Sorcery",
-    "uses": "5"
+    "uses": "5",
+    "description": "Reinforces the equipped shield or weapon able to block in the left hand with magic. Works on all types of shields (even unique or upgraded to any path) and on all weapons able to block while on the left hand (even unique or upgraded to any path). Halves stamina used on hit deflection (only on shields) and improves the weapon's or shield's magic resistance by 30% (by up to a maximum of 90%). Lasts 15 seconds, 5 casts."
   },
   {
     "name": "Magic_Weapon.png",
@@ -177,7 +196,8 @@
     "L": "26",
     "requirement": "10",
     "type": "Sorcery",
-    "uses": "5"
+    "uses": "5",
+    "description": "Enhances the right-hand weapon.Weapon must be standard, crystal, or raw. Some Dragon and Unique weapons can be enchanted too. Adds 0.8x your Magic Adjustment stat (NOT Intelligence) magic damage to your weapon."
   },
   {
     "name": "Pursuers.png",
@@ -186,7 +206,8 @@
     "L": "26",
     "requirement": "32",
     "type": "Sorcery",
-    "uses": "3"
+    "uses": "3",
+    "description": "Slow moving dark soul mass, fires and homes in on target when in range. Slower moving than homing soul mass but has much better homing capabilities."
   },
   {
     "name": "Remedy.png",
@@ -195,7 +216,8 @@
     "L": "31",
     "requirement": "16",
     "type": "Sorcery",
-    "uses": "4"
+    "uses": "4",
+    "description": "Removes poison/toxic/bleeding build up, and cures poison/toxic status."
   },
   {
     "name": "Repair.png",
@@ -204,7 +226,8 @@
     "L": "19",
     "requirement": "14",
     "type": "Sorcery",
-    "uses": "1"
+    "uses": "1",
+    "description": "Repairs weapons and armor"
   },
   {
     "name": "Resist_Curse.png",
@@ -213,7 +236,8 @@
     "L": "17",
     "requirement": "16",
     "type": "Sorcery",
-    "uses": "4"
+    "uses": "4",
+    "description": "Removes curse build up."
   },
   {
     "name": "Soul_Arrow.png",
@@ -222,7 +246,8 @@
     "L": "27",
     "requirement": "10",
     "type": "Sorcery",
-    "uses": "30"
+    "uses": "30",
+    "description": "Fires a magical projectile. Excellent starting spell which does very good damage against most enemies in the early game areas."
   },
   {
     "name": "Soul_Spear.png",
@@ -231,7 +256,8 @@
     "L": "32",
     "requirement": "36",
     "type": "Sorcery",
-    "uses": "4"
+    "uses": "4",
+    "description": "Fire piercing soul spear."
   },
   {
     "name": "Strong_Magic_Shield.png",
@@ -240,7 +266,8 @@
     "L": "46",
     "requirement": "15",
     "type": "Sorcery",
-    "uses": "3"
+    "uses": "3",
+    "description": "Reinforces the equipped shield or weapon able to block in the left hand with a stronger magic effect. Works on all types of shields (even unique or upgraded to any path) and on all weapons able to block while on the left hand (even unique or upgraded to any path). Reduces the stamina used to deflect a hit considerably (only on shields) and improves all the resistances of the shield or weapon enchanted to 100%. Lasts 15 seconds, 3 casts."
   },
   {
     "name": "White_Dragon_Breath.png",
@@ -249,7 +276,8 @@
     "L": "35",
     "requirement": "50",
     "type": "Sorcery",
-    "uses": "20"
+    "uses": "20",
+    "description": "A straight line of crystals pop out of the ground in front of you, shooting towards your target. One advantage of this spell is that it will take out large groups of enemies if they are lined up one behind the other. It has a medium cast time, but once it fires, it will take out anything in its path. 20 casts make this a great high level replacement for the soul arrow at high levels, as it's not as useful on most bosses."
   },
   {
     "name": "Acid_Surge.png",
@@ -258,7 +286,8 @@
     "L": "8",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "2"
+    "uses": "2",
+    "description": "Pyromancy foreign to the Great Swamp. Emit acid which corrodes weapons and armor damaging their durability. Does not affect user."
   },
   {
     "name": "Black Flame.png",
@@ -267,7 +296,8 @@
     "L": "16",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "8"
+    "uses": "8",
+    "description": "Similar to Great Combustion. Melee-range pyromancy. Main difference with Great Combustion is that when Black Flame is blocked, it consumes a much higher amount of stamina than Great Combustion, making this pyromancy great for breaking guards."
   },
   {
     "name": "Chaos_Fire_Whip.png",
@@ -276,7 +306,8 @@
     "L": "21",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "10"
+    "uses": "10",
+    "description": "Sweep foes with chaos fire whip with lava traces Note: Leaves lava behind for a bit. Follows same mechanics as Fire Whip."
   },
   {
     "name": "Chaos_Storm.png",
@@ -285,7 +316,8 @@
     "L": "28",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "20"
+    "uses": "20",
+    "description": "Erect localized chaos fire pillars which leave blobs of temporary lava Note: Like firestorm and leaves a little lava behind."
   },
   {
     "name": "Combustion.png",
@@ -294,7 +326,8 @@
     "L": "13",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "16"
+    "uses": "16",
+    "description": "Elementary pyromancy. Create powerful flame in hand Note: Good 'melee' range spell, very quick too."
   },
   {
     "name": "Fireball.png",
@@ -303,7 +336,8 @@
     "L": "19",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "8"
+    "uses": "8",
+    "description": "Standard pyromancy of the Great Swamp. Hurl fireball."
   },
   {
     "name": "Firestorm.png",
@@ -312,7 +346,8 @@
     "L": "22",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "20"
+    "uses": "20",
+    "description": "Primal pyromancy taught by Quelana of Izalith. Erect fire pillars in vicinity. Note: Uses 17 uses per cast."
   },
   {
     "name": "Fire_Orb.png",
@@ -321,7 +356,8 @@
     "L": "26",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "6"
+    "uses": "6",
+    "description": "Pyromancy which improves upon Fireball. Hurl fire orb."
   },
   {
     "name": "Fire_Surge.png",
@@ -330,7 +366,8 @@
     "L": "19",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "80"
+    "uses": "80",
+    "description": "Pyromancy foreign to the Great Swamp. Create a surge of flame from palm of hand. Note: Rapid fire spell you can cast while moving."
   },
   {
     "name": "Fire_Tempest.png",
@@ -339,7 +376,8 @@
     "L": "12",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "20"
+    "uses": "20",
+    "description": "Primal pyromancy of Quelana of Izalith. Erect giant fire pillars in vicinity."
   },
   {
     "name": "Fire_Whip.png",
@@ -348,7 +386,8 @@
     "L": "20",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "80"
+    "uses": "80",
+    "description": "Primal pyromancy taught by Quelana of Izalith. Sweep foes with fire whip. Note: Uses 21 uses per cast. Note:Hits twice/cast"
   },
   {
     "name": "Flash_Sweat.png",
@@ -357,7 +396,8 @@
     "L": "26",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "3"
+    "uses": "3",
+    "description": "Covers the player in water, reduces fire damage."
   },
   {
     "name": "Great_Chaos_Fireball.png",
@@ -366,7 +406,8 @@
     "L": "17",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "4"
+    "uses": "4",
+    "description": "Hurl giant chaos fireball, leaving a large amount of temporary lava"
   },
   {
     "name": "Great_Combustion.png",
@@ -375,7 +416,8 @@
     "L": "22",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "8"
+    "uses": "8",
+    "description": "Pyromancy which improves upon Combustion. Create powerful, giant flame in hand. Note: Very good melee range spell."
   },
   {
     "name": "Great_Fireball.png",
@@ -384,7 +426,8 @@
     "L": "28",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "4"
+    "uses": "4",
+    "description": "Ultimate fireball pyromancy. Hurl giant fireball."
   },
   {
     "name": "Iron_Flesh.png",
@@ -393,7 +436,8 @@
     "L": "30",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "3"
+    "uses": "3",
+    "description": "Self-buff, raises defenses and poise. Note: User becomes heavy and unable to move freely: can only walk, can't run, sprint, roll, or jump."
   },
   {
     "name": "Poison_Mist.png",
@@ -402,7 +446,8 @@
     "L": "10",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "3"
+    "uses": "3",
+    "description": "Breathes out a cone of poison mist that fills the surrounding area causing poison status."
   },
   {
     "name": "Power_Within.png",
@@ -411,7 +456,8 @@
     "L": "16",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "1"
+    "uses": "1",
+    "description": "Increases Attack and Defense but gradually drains HP"
   },
   {
     "name": "Toxic_Mist.png",
@@ -420,7 +466,8 @@
     "L": "7",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "1"
+    "uses": "1",
+    "description": "Breathes out a cone of toxic mist that fills the surrounding area causing toxic status."
   },
   {
     "name": "Undead_Rapport.png",
@@ -429,7 +476,8 @@
     "L": "29",
     "requirement": "0",
     "type": "Pyromancy",
-    "uses": "7"
+    "uses": "7",
+    "description": "Advanced pyromancy of Quelana of Izalith. Charm undead and gain temporary allies. Melee ranged support spell with about 2 second cast time."
   },
   {
     "name": "Bountiful_Sunlight.png",
@@ -438,7 +486,8 @@
     "L": "45",
     "requirement": "36",
     "type": "Miracle",
-    "uses": "2"
+    "uses": "2",
+    "description": "Gradually restores HP over time for a short duration to you and nearby allies. Must be part of the Princess's Guard to use."
   },
   {
     "name": "Darkmoon_Blade.png",
@@ -447,7 +496,8 @@
     "L": "31",
     "requirement": "30",
     "type": "Miracle",
-    "uses": "1"
+    "uses": "1",
+    "description": "Boosts right hand weapon with rays of Darkmoon. Adds 1.8x your talisman's Magic Adjustment value as Magic Damage at Covenant Rank 0. Scaling increases by 0.1x for each rank to a maximum of 2.1x at Covenant Rank 3. Must be member of Darkmoon covenant to use."
   },
   {
     "name": "Emit_Force.png",
@@ -456,7 +506,8 @@
     "L": "55",
     "requirement": "18",
     "type": "Miracle",
-    "uses": "6"
+    "uses": "6",
+    "description": "Shoots a large ball of force energy to explode on the target causing damage to the target and close surrounding enemies. Can deflect sorceries."
   },
   {
     "name": "Force.png",
@@ -465,7 +516,8 @@
     "L": "43",
     "requirement": "12",
     "type": "Miracle",
-    "uses": "21"
+    "uses": "21",
+    "description": "AoE effect that does no damage but knocks back most surrounding enemies Must be very close to cause knockdown. Can deflect sorceries such as Homing Soulmass."
   },
   {
     "name": "Gravelord_Greatsword_Dance.png",
@@ -474,7 +526,8 @@
     "L": "21",
     "requirement": "0",
     "type": "Miracle",
-    "uses": "40"
+    "uses": "40",
+    "description": "AoE miracle similar to Gravelord Nito's scream sword attack. Several swords will pierce the ground impaling enemies in the area. Miracle is very effective when used in close quarters such as hallways or bridges as several swords may impale the same enemy."
   },
   {
     "name": "Gravelord_Sword_Dance.png",
@@ -483,7 +536,8 @@
     "L": "21",
     "requirement": "0",
     "type": "Miracle",
-    "uses": "40"
+    "uses": "40",
+    "description": "Upgraded version of Gravelord Sword Dance miracle. Area of effect is expanded and increased damage."
   },
   {
     "name": "Great_Heal.png",
@@ -492,7 +546,8 @@
     "L": "50",
     "requirement": "24",
     "type": "Miracle",
-    "uses": "3"
+    "uses": "3",
+    "description": "Heals a large amount of the casters HP, depending on faith."
   },
   {
     "name": "Great_Heal_Excerpt.png",
@@ -501,7 +556,8 @@
     "L": "41",
     "requirement": "14",
     "type": "Miracle",
-    "uses": "1"
+    "uses": "1",
+    "description": "Cut down version of Great Heal. Heals large amount of HP to the caster. (NOTE: This spell does not affect allies as the erroneous load screen info would have you believe.)"
   },
   {
     "name": "Great_Lightning_Spear.png",
@@ -510,7 +566,8 @@
     "L": "38",
     "requirement": "30",
     "type": "Miracle",
-    "uses": "10"
+    "uses": "10",
+    "description": "A larger, more powerful spear of light that inflicts lightning damage. Scales with faith. Can be thrown into water to cause AoE. (Puddles, lakes,etc.)"
   },
   {
     "name": "Great_Magic_Barrier.png",
@@ -519,7 +576,8 @@
     "L": "48",
     "requirement": "24",
     "type": "Miracle",
-    "uses": "2"
+    "uses": "2",
+    "description": "As Magic Barrier but reduces even more magic damage. (90%)?"
   },
   {
     "name": "Heal.png",
@@ -528,7 +586,8 @@
     "L": "36",
     "requirement": "12",
     "type": "Miracle",
-    "uses": "5"
+    "uses": "5",
+    "description": "Heals a moderate amount of the casters HP, depending on faith."
   },
   {
     "name": "Homeward.png",
@@ -537,7 +596,8 @@
     "L": "29",
     "requirement": "18",
     "type": "Miracle",
-    "uses": "1"
+    "uses": "1",
+    "description": "Transports you back to the last used bonfire."
   },
   {
     "name": "Karmic_Justice.png",
@@ -546,7 +606,8 @@
     "L": "24",
     "requirement": "20",
     "type": "Miracle",
-    "uses": "4"
+    "uses": "4",
+    "description": "Karmic Justice is a self-buff that lasts for 1 minute. If the player takes successive hits in PHYSICAL damage (meaning melee and non-magical), the spell explodes, dealing massive damage to all nearby enemies and knocking them all down. A very effective miracle for players who wear cloth armor with no poise. If they get stunlocked by a combo, this spell can save you from certain death."
   },
   {
     "name": "Lightning_Spear.png",
@@ -555,7 +616,8 @@
     "L": "33",
     "requirement": "20",
     "type": "Miracle",
-    "uses": "10"
+    "uses": "10",
+    "description": "A powerful spear of light that inflicts lightning damage. Scales with faith. Can be thrown into bodies of water to cause AoE. (Puddles, lakes,etc.)"
   },
   {
     "name": "Magic_Barrier.png",
@@ -564,7 +626,8 @@
     "L": "44",
     "requirement": "24",
     "type": "Miracle",
-    "uses": "4"
+    "uses": "4",
+    "description": "Reduces incoming magic damage for a short duration. (70%)?"
   },
   {
     "name": "Replenishment.png",
@@ -573,7 +636,8 @@
     "L": "36",
     "requirement": "16",
     "type": "Miracle",
-    "uses": "2"
+    "uses": "2",
+    "description": "Gradually restores HP over time for a short duration."
   },
   {
     "name": "Seek_Guidance.png",
@@ -582,7 +646,8 @@
     "L": "42",
     "requirement": "12",
     "type": "Miracle",
-    "uses": "5"
+    "uses": "5",
+    "description": "The Seek Guidance miracle allows the player to see more messages on the ground as well as their positive and negative ratings. Additional developer messages, providing hints, can also be seen in some areas."
   },
   {
     "name": "Soothing_Sunlight.png",
@@ -591,7 +656,8 @@
     "L": "49",
     "requirement": "48",
     "type": "Miracle",
-    "uses": "3"
+    "uses": "3",
+    "description": "Heals large amount of HP to the caster and nearby allies. Scales with faith. Must be part of the Princess's Guard to use."
   },
   {
     "name": "Sunlight_Blade.png",
@@ -600,7 +666,8 @@
     "L": "36",
     "requirement": "30",
     "type": "Miracle",
-    "uses": "1"
+    "uses": "1",
+    "description": "Coats right hand weapon in lightning. Adds 1.8x your talisman's Magic Adjustment value as Lightning Damage."
   },
   {
     "name": "Sunlight_Spear.png",
@@ -609,7 +676,8 @@
     "L": "37",
     "requirement": "50",
     "type": "Miracle",
-    "uses": "5"
+    "uses": "5",
+    "description": "A very powerful version of the lightning spear. Fewer charges but a lot more damage. Scales with faith. Can be thrown into water to cause AoE. (Puddles, lakes,etc.) Must remain part of Warriors of Sunlight to use."
   },
   {
     "name": "Tranquil_Walk_of_Peace.png",
@@ -618,7 +686,8 @@
     "L": "28",
     "requirement": "18",
     "type": "Miracle",
-    "uses": "5"
+    "uses": "5",
+    "description": "Applies a debuff to nearby enemies which slows movement speed, that lasts for about 10 seconds."
   },
   {
     "name": "Vow_of_Silence.png",
@@ -627,7 +696,8 @@
     "L": "23",
     "requirement": "30",
     "type": "Miracle",
-    "uses": "2"
+    "uses": "2",
+    "description": "An AoE silence around you that stops all casting in the area, including your own, for about 25 seconds. Does not scale with faith."
   },
   {
     "name": "Wrath_of_the_Gods.png",
@@ -636,6 +706,7 @@
     "L": "56",
     "requirement": "28",
     "type": "Miracle",
-    "uses": "3"
+    "uses": "3",
+    "description": "A fast casting force spell that deals high damage in a bubble around you. One of the most powerful offensive miracles in the game. Can deflect sorceries."
   }
 ]

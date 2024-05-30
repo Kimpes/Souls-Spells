@@ -265,27 +265,28 @@ function renderSingleSpellInfo(spell) {
   textStyle(BOLD);
   textSize(40);
   fill(colorYellow);
-  text(displayName, 0, -100);
+  text(displayName, 0, -95);
   pop();
 
   push();
   textFont("Crimson Pro");
   textSize(20);
   fill(colorWhite);
-  text(spellTypeText, 0, -65);
-  text(requirementText, 0, -40);
-  text(spellSlotsText, 0, -15);
+  text(spell.description, 0, 0, 500, 500);
   fill(colorYellow);
-  text(averageColorText, -160, 33);
-  textAlign(CENTER);
-  text(hslCodeText, -110, 175);
+  text(spellTypeText, 0, -65);
+  text(requirementText, 0, -43);
+  text(spellSlotsText, 0, -21);
+
+  text(averageColorText, -160, 145);
+  text(hslCodeText, -160, 167);
   pop();
 
   push();
   colorMode(HSL);
   fill(spell.H, spell.S, spell.L);
   strokeWeight(0);
-  rect(-160, 45, 100, 110);
+  rect(-160, 15, 100, 110);
   pop();
 
   pop();
