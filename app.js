@@ -125,6 +125,39 @@ window.addEventListener("load", () => {
   }
 });
 
+// ---------------------------------------------------------------- Classes
+
+class ItemAttribute {
+  constructor(title, content) {
+    checkType(title, content);
+    this.title = title;
+  }
+  checkAndSetType(title, content) {
+    if (title.toLowerCase() == "name") {
+      this.type = "name";
+    } else if (typeof content == Number) {
+      this.type = "number";
+    } else if (typeof content == string) {
+      if (content.length > 20) {
+        this.type = "description";
+      } else {
+        this.type = "category";
+      }
+    } else {
+      this.type = "unknown";
+    }
+  }
+  findMinValue(list) {
+    if (this.type == "number") {
+      let min = 360;
+      for (const item of list) {
+        if (parseInt(item[this.type]) < min) min = parseInt(spell[this.type]);
+      }
+      return min;
+    }
+  }
+}
+
 // ---------------------------------------------------------------- Rendering functions
 
 function renderGraph(showText) {
@@ -254,7 +287,7 @@ function renderSingleSpellInfo(spell) {
   const requirementText = `Required Skill-Level to Use:  ${spell.requirement}`;
   const spellTypeText = `Magic Type:  ${spell.type}`;
   const spellSlotsText = `Spell Uses:  ${spell.uses}`;
-  const averageColorText = "Average HSL: ";
+  const averageColorText = "Average HSL";
   const hslCodeText = `${spell.H}, ${spell.S}, ${spell.L}`;
 
   push();
@@ -265,7 +298,7 @@ function renderSingleSpellInfo(spell) {
   textStyle(BOLD);
   textSize(40);
   fill(colorYellow);
-  text(displayName, 0, -95);
+  text(displayName, -2, -95);
   pop();
 
   push();
@@ -274,6 +307,7 @@ function renderSingleSpellInfo(spell) {
   fill(colorWhite);
   text(spell.description, 0, 0, 500, 500);
   fill(colorYellow);
+  textStyle(ITALIC);
   text(spellTypeText, 0, -65);
   text(requirementText, 0, -43);
   text(spellSlotsText, 0, -21);
