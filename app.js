@@ -73,11 +73,10 @@ function preload() {
     for (const [key, value] of Object.entries(spells[0])) {
       if (key != "image") {
         const newAttribute = new ItemAttribute(key, value);
-        newAttribute.findMaxValue(spells);
-        newAttribute.findMinValue(spells);
         attributes.set(key, newAttribute);
       }
     }
+    findLimits(spells, attributes);
     console.log(attributes);
     calculatePositions(spells);
   });
@@ -138,7 +137,7 @@ window.addEventListener("load", () => {
         showSpells[button.value.toLowerCase()] = true;
         button.classList.add("active");
       }
-      findLimits(spells);
+      findLimits(spells, attributes);
       calculatePositions(spells);
     });
   }
@@ -148,19 +147,7 @@ window.addEventListener("load", () => {
 
 class ItemAttribute {
   constructor(key, value) {
-    if (key.toLowerCase() == "name") {
-      this.type = "name";
-    } else if (!isNaN(value)) {
-      this.type = "number";
-    } else if (typeof value == "string") {
-      if (value.length > 20) {
-        this.type = "description";
-      } else {
-        this.type = "category";
-      }
-    } else {
-      this.type = "unknown";
-    }
+    this.checkAndSetType(key, value);
     this.name = key;
   }
   checkAndSetType(key, value) {
@@ -183,7 +170,11 @@ class ItemAttribute {
     if (this.type == "number") {
       let min = 360;
       for (const item of list) {
-        if (parseInt(item[this.name]) < min) min = parseInt(item[this.name]);
+        if (
+          parseInt(item[this.name]) < min &&
+          this.checkIfVisible(item.type.toLowerCase())
+        )
+          min = parseInt(item[this.name]);
       }
       this.minValue = min;
     }
@@ -192,11 +183,25 @@ class ItemAttribute {
     if (this.type == "number") {
       let max = 0;
       for (const item of list) {
-        if (parseInt(item[this.name]) > max) max = parseInt(item[this.name]);
+        if (
+          parseInt(item[this.name]) > max &&
+          this.checkIfVisible(item.type.toLowerCase())
+        )
+          max = parseInt(item[this.name]);
       }
       this.maxValue = max;
     }
   }
+  checkIfVisible(type) {
+    return showSpells[type];
+  }
+  // findAllValues(list) {
+  //   this.allValues = [];
+  //   if (this.type == "category") {
+  //     for (let item of list) {
+  //     }
+  //   }
+  // }
 }
 
 // ---------------------------------------------------------------- Rendering functions
@@ -391,41 +396,13 @@ function draw() {
 
 // ---------------------------------------------------------------- Misc Functions
 
-// function findLimits(spellList) {
-//   maxH = findMaxValue(spellList, "H");
-//   maxS = findMaxValue(spellList, "S");
-//   maxL = findMaxValue(spellList, "L");
-//   maxRequirement = findMaxValue(spellList, "requirement");
-//   maxUses = findMaxValue(spellList, "uses");
+function findLimits(spellList, attributeList) {
+  for (const [key, attribute] of attributeList) {
+    attribute.findMaxValue(spellList);
+    attribute.findMinValue(spellList);
+  }
+}
 
-//   minH = findMinValue(spellList, "H");
-//   minS = findMinValue(spellList, "S");
-//   minL = findMinValue(spellList, "L");
-//   minRequirement = findMinValue(spellList, "requirement");
-//   minUses = findMinValue(spellList, "uses");
-// }
-// function findMaxValue(spellList, type) {
-//   let max = 0;
-//   for (const spell of spellList) {
-//     if (
-//       parseInt(spell[type]) > max &&
-//       showSpells[spell.type.toLowerCase()] === true
-//     )
-//       max = parseInt(spell[type]);
-//   }
-//   return max;
-// }
-// function findMinValue(spellList, type) {
-//   let min = 360;
-//   for (const spell of spellList) {
-//     if (
-//       parseInt(spell[type]) < min &&
-//       showSpells[spell.type.toLowerCase()] === true
-//     )
-//       min = parseInt(spell[type]);
-//   }
-//   return min;
-// }
 function calculatePositions(spellList) {
   for (let spell of spellList) {
     let xValue = calculateXAxisPosition(spell, attributes.get(xAxisType));
@@ -447,7 +424,6 @@ function calculatePositions(spellList) {
   }
 }
 function calculateXAxisPosition(item, attribute) {
-  console.log(attribute);
   if (attribute.type == "number") {
     return (xAxisPosition =
       (parseInt(item[attribute.name]) - attribute.minValue) /
