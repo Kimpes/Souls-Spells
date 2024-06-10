@@ -20,7 +20,11 @@ let spells = [
   },
 ];
 const attributes = new Map();
-let categories = new Map();
+const categories = new Map();
+const allNumberAttributes = new Set();
+let xButtons = []
+let yButtons = []
+
 let graphMode = "Compare Spells";
 let showcasedSpell;
 let imagesLoaded = 0;
@@ -81,13 +85,17 @@ function preload() {
             categories.set(value, category);
           }
         }
+        if (newAttribute.type == "number") {
+          allNumberAttributes.add(newAttribute);
+        }
         attributes.set(key, newAttribute);
       }
     }
     findLimits(spells, attributes);
     console.log(attributes);
     calculatePositions(spells);
-    addCategories()
+    addCategoryButtons()
+    addXYButtons()
   });
   font = loadFont("./assets/CrimsonPro.ttf");
 }
@@ -103,14 +111,14 @@ window.addEventListener("load", () => {
   for (let button of sideButtons) {
     button.addEventListener("click", () => {
       yAxisType = button.value;
-      for (let button of sideButtons) {
+      for (let button of yButtons) {
         button.classList.remove("active");
       }
       button.classList.add("active");
       calculatePositions(spells);
     });
   }
-  for (let button of bottomButtons) {
+  for (let button of xButtons) {
     button.addEventListener("click", () => {
       xAxisType = button.value;
       for (let button of bottomButtons) {
@@ -122,12 +130,52 @@ window.addEventListener("load", () => {
   }
 });
 
-function addCategories() {
+function addXYButtons() {
+  let xButtonContainer = document.getElementById(
+    "x-buttons-container"
+  );
+  let yButtonContainer = document.getElementById(
+    "y-buttons-container"
+  );
+  for (let attribute of allNumberAttributes) {
+    let yAttributeElement = document.createElement("button");
+    yAttributeElement.value = attribute.name;
+    yAttributeElement.innerText = attribute.name;
+    yAttributeElement.classList.add("side-button");
+    yAttributeElement.addEventListener("click", () => {
+      yAxisType = attribute.name;
+      for (let button of yButtons) {
+        button.classList.remove("active");
+      }
+      yAttributeElement.classList.add("active");
+      calculatePositions(spells);
+    });
+
+    let xAttributeElement = document.createElement("button");
+    xAttributeElement.value = attribute.name;
+    xAttributeElement.innerText = attribute.name;
+    xAttributeElement.classList.add("bottom-button");
+    xAttributeElement.addEventListener("click", () => {
+      xAxisType = attribute.name;
+      for (let button of xButtons) {
+        button.classList.remove("active");
+      }
+      xAttributeElement.classList.add("active");
+      calculatePositions(spells);
+    });
+
+    yButtons.push(yAttributeElement);
+    xButtons.push(xAttributeElement);
+    yButtonContainer.append(yAttributeElement);
+    xButtonContainer.append(xAttributeElement);
+  }
+}
+
+function addCategoryButtons() {
   let categoryButtonContainer = document.getElementById(
     "category-button-container"
   );
   for (const [key, category] of categories) {
-    console.log(category)
     let categoryElement = document.createElement("button");
     categoryElement.value = category.name;
     categoryElement.innerText = category.name;

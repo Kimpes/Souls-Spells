@@ -75,7 +75,7 @@ p {
 
 /* ---------------------------------- Buttons --------------------------------- */
 
-.side-buttons-container {
+.y-buttons-container {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -83,27 +83,27 @@ p {
   margin-right: 10px;
 }
 
-.side-buttons-container p {
+.y-buttons-container p {
   margin-right: 5px;
 }
 
-.bottom-buttons-container {
+.x-buttons-container {
   display: flex;
   align-items: center;
 }
 
-.bottom-buttons-container p {
+.x-buttons-container p {
   margin-right: 10px;
 }
 
-.misc-buttons-container {
+.category-buttons-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-left: 10px;
 }
 
-.misc-buttons-container p {
+.category-buttons-container p {
   margin-left: 10px;
 }
 
