@@ -20,7 +20,7 @@ let spells = [
   },
 ];
 const attributes = new Map();
-let categories = [];
+let categories = new Map();
 let graphMode = "Compare Spells";
 let showcasedSpell;
 let imagesLoaded = 0;
@@ -78,9 +78,8 @@ function preload() {
         if (newAttribute.allUniqueValues) {
           for (let value of newAttribute.allUniqueValues) {
             let category = new Category(value);
-            categories.push(category);
+            categories.set(value, category);
           }
-          console.log(categories);
         }
         attributes.set(key, newAttribute);
       }
@@ -88,6 +87,7 @@ function preload() {
     findLimits(spells, attributes);
     console.log(attributes);
     calculatePositions(spells);
+    addCategories()
   });
   font = loadFont("./assets/CrimsonPro.ttf");
 }
@@ -98,36 +98,8 @@ function setup() {
 
 window.addEventListener("load", () => {
   console.log("loaded");
-  let categoryButtonContainer = document.getElementById(
-    "category-button-container"
-  );
-  for (const category of categories) {
-    let categoryElement = document.createElement("button");
-    categoryElement.value = category.name;
-    categoryElement.innerHTML = category.name;
-    categoryElement.classList.add("category-button", "active");
-    category.addEventListener("mouseover", () => {
-      category.highlight = true;
-    });
-    category.addEventListener("mouseout", () => {
-      category.highlight = false;
-    });
-    category.addEventListener("click", () => {
-      if (category.show === true) {
-        category.show = false;
-        button.classList.remove("active");
-      } else {
-        category.show = true;
-        button.classList.add("active");
-      }
-      // findLimits(spells, attributes);
-      // calculatePositions(spells);
-    });
-  }
-
   let sideButtons = document.getElementsByClassName("side-button");
   let bottomButtons = document.getElementsByClassName("bottom-button");
-  let categoryButtons = document.getElementsByClassName("category-button");
   for (let button of sideButtons) {
     button.addEventListener("click", () => {
       yAxisType = button.value;
@@ -148,26 +120,38 @@ window.addEventListener("load", () => {
       calculatePositions(spells);
     });
   }
-  for (let button of categoryButtons) {
-    button.addEventListener("mouseover", () => {
-      highlightSpells[button.value] = true;
+});
+
+function addCategories() {
+  let categoryButtonContainer = document.getElementById(
+    "category-button-container"
+  );
+  for (const [key, category] of categories) {
+    console.log(category)
+    let categoryElement = document.createElement("button");
+    categoryElement.value = category.name;
+    categoryElement.innerText = category.name;
+    categoryElement.classList.add("category-button", "active");
+    categoryElement.addEventListener("mouseover", () => {
+      category.highlight = true;
     });
-    button.addEventListener("mouseout", () => {
-      highlightSpells[button.value] = false;
+    categoryElement.addEventListener("mouseout", () => {
+      category.highlight = false;
     });
-    button.addEventListener("click", () => {
-      if (showSpells[button.value.toLowerCase()] === true) {
-        showSpells[button.value.toLowerCase()] = false;
-        button.classList.remove("active");
+    categoryElement.addEventListener("click", () => {
+      if (category.show === true) {
+        category.show = false;
+        categoryElement.classList.remove("active");
       } else {
-        showSpells[button.value.toLowerCase()] = true;
-        button.classList.add("active");
+        category.show = true;
+        categoryElement.classList.add("active");
       }
       findLimits(spells, attributes);
       calculatePositions(spells);
     });
+    categoryButtonContainer.append(categoryElement)
   }
-});
+}
 
 // ---------------------------------------------------------------- Classes
 class Category {
@@ -218,7 +202,7 @@ class ItemAttribute {
       for (const item of list) {
         if (
           parseInt(item[this.name]) < min &&
-          this.checkIfVisible(item.type.toLowerCase())
+          this.checkIfVisible(item.type)
         )
           min = parseInt(item[this.name]);
       }
@@ -231,7 +215,7 @@ class ItemAttribute {
       for (const item of list) {
         if (
           parseInt(item[this.name]) > max &&
-          this.checkIfVisible(item.type.toLowerCase())
+          this.checkIfVisible(item.type)
         )
           max = parseInt(item[this.name]);
       }
@@ -239,7 +223,7 @@ class ItemAttribute {
     }
   }
   checkIfVisible(type) {
-    return showSpells[type];
+    return categories.get(type).show;
   }
   findAllUniqueValues(list) {
     if (this.type == "category") {
@@ -428,8 +412,8 @@ function draw() {
     renderGraph(true);
     showcasedSpell = findShowcasedSpell(spells);
     for (const spell of spells) {
-      if (showSpells[spell.type.toLowerCase()]) {
-        let highlight = highlightSpells[spell.type.toLocaleLowerCase()];
+      if (categories.get(spell.type).show) {
+        let highlight = categories.get(spell.type).highlight;
         renderSpell(spell, highlight, false, 1);
         if (showcasedSpell) renderSpell(showcasedSpell, false, true, 1.5);
       }
@@ -538,7 +522,7 @@ function findShowcasedSpell(spellList) {
       spell.position.x + 40 > mousePosition.x &&
       spell.position.y < mousePosition.y &&
       spell.position.y + 45 > mousePosition.y &&
-      showSpells[spell.type.toLowerCase()]
+      categories.get(spell.type).show
     ) {
       hoveredOverSpells.push(spell);
     }
