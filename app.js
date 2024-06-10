@@ -4,7 +4,7 @@ const SCREEN_PADDING = 100;
 const GRAPH_THICKNESS = 2;
 const EASING_FACTOR = 0.1;
 
-//can be set to the following values: H, S, L, requirement
+//can be set to the following values: H, S, L, requirement, uses
 let xAxisType = "H";
 let yAxisType = "L";
 
@@ -20,6 +20,7 @@ let spells = [
   },
 ];
 const attributes = new Map();
+let categories = [];
 let graphMode = "Compare Spells";
 let showcasedSpell;
 let imagesLoaded = 0;
@@ -73,6 +74,14 @@ function preload() {
     for (const [key, value] of Object.entries(spells[0])) {
       if (key != "image") {
         const newAttribute = new ItemAttribute(key, value);
+        newAttribute.findAllUniqueValues(spells);
+        if (newAttribute.allUniqueValues) {
+          for (let value of newAttribute.allUniqueValues) {
+            let category = new Category(value);
+            categories.push(category);
+          }
+          console.log(categories);
+        }
         attributes.set(key, newAttribute);
       }
     }
@@ -89,15 +98,32 @@ function setup() {
 
 window.addEventListener("load", () => {
   console.log("loaded");
-  // let categoryButtonContainer = document.getElementById(
-  //   "category-button-container"
-  // );
-  // for (const attribute of attributes) {
-  //   if (attribute.type == "category") {
-  //     let categoryElement = document.createElement("button")
-  //     categoryElement.value = attribute.
-  //   }
-  // } TODO: before returning to this one, i need to make a function for cycling through all json objects to log every content type
+  let categoryButtonContainer = document.getElementById(
+    "category-button-container"
+  );
+  for (const category of categories) {
+    let categoryElement = document.createElement("button");
+    categoryElement.value = category.name;
+    categoryElement.innerHTML = category.name;
+    categoryElement.classList.add("category-button", "active");
+    category.addEventListener("mouseover", () => {
+      category.highlight = true;
+    });
+    category.addEventListener("mouseout", () => {
+      category.highlight = false;
+    });
+    category.addEventListener("click", () => {
+      if (category.show === true) {
+        category.show = false;
+        button.classList.remove("active");
+      } else {
+        category.show = true;
+        button.classList.add("active");
+      }
+      // findLimits(spells, attributes);
+      // calculatePositions(spells);
+    });
+  }
 
   let sideButtons = document.getElementsByClassName("side-button");
   let bottomButtons = document.getElementsByClassName("bottom-button");
@@ -144,6 +170,26 @@ window.addEventListener("load", () => {
 });
 
 // ---------------------------------------------------------------- Classes
+class Category {
+  constructor(name) {
+    this.name = name;
+    this.show = true;
+    this.highlight = false;
+  }
+}
+
+class GraphItem {
+  constructor(jsonItem) {
+    for (const [key, value] of Object.entries(jsonItem)) {
+      this[key] = value;
+    }
+  }
+  draw() {}
+  calculatePosition() {}
+  move() {}
+  renderHighlight() {}
+  renderShadow() {}
+}
 
 class ItemAttribute {
   constructor(key, value) {
@@ -157,7 +203,7 @@ class ItemAttribute {
     } else if (!isNaN(value)) {
       this.type = "number";
     } else if (typeof value == "string") {
-      if (value.length > 20) {
+      if (value.length > 50) {
         this.type = "description";
       } else {
         this.type = "category";
@@ -195,13 +241,14 @@ class ItemAttribute {
   checkIfVisible(type) {
     return showSpells[type];
   }
-  // findAllValues(list) {
-  //   this.allValues = [];
-  //   if (this.type == "category") {
-  //     for (let item of list) {
-  //     }
-  //   }
-  // }
+  findAllUniqueValues(list) {
+    if (this.type == "category") {
+      this.allUniqueValues = new Set();
+      for (let item of list) {
+        this.allUniqueValues.add(item[this.name]);
+      }
+    }
+  }
 }
 
 // ---------------------------------------------------------------- Rendering functions
