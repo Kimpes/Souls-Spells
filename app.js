@@ -70,11 +70,10 @@ function preload() {
     spells = dataArray;
     for (let spell of spells) {
       newSpell = new GraphItem(spell)
-      newSpell.image = loadImage(`assets/spell-images/${spell.name}`)
-      spell.image = loadImage(`assets/spell-images/${spell.name}`, () => {
+      newSpell.image = loadImage(`assets/spell-images/${spell.name}`, () => {
         imagesLoaded++;
         if (imagesLoaded === spells.length) {
-          generateSpellShadows(spells);
+          generateSpellShadows(spellObjects);
         }
       });
       spellObjects.push(newSpell);
@@ -82,7 +81,7 @@ function preload() {
     createAttributesAndCategories(spells)
     findLimits(spells, attributes);
     console.log(attributes);
-    calculatePositions(spells);
+    calculatePositions(spellObjects);
     addCategoryButtons()
     addXYButtons()
   });
@@ -104,7 +103,7 @@ window.addEventListener("load", () => {
         button.classList.remove("active");
       }
       button.classList.add("active");
-      calculatePositions(spells);
+      calculatePositions(spellObjects);
     });
   }
   for (let button of xButtons) {
@@ -114,7 +113,7 @@ window.addEventListener("load", () => {
         button.classList.remove("active");
       }
       button.classList.add("active");
-      calculatePositions(spells);
+      calculatePositions(spellObjects);
     });
   }
 });
@@ -162,14 +161,14 @@ function addXYButtons() {
     yAttributeButton.addEventListener("click", () => {
       yAxisType = attribute.name;
       updateButtonState(yAttributeButton, yButtons);
-      calculatePositions(spells);
+      calculatePositions(spellObjects);
     });
 
     const xAttributeButton = createButton(attribute.name, "bottom-button", xAxisType);
     xAttributeButton.addEventListener("click", () => {
       xAxisType = attribute.name;
       updateButtonState(xAttributeButton, xButtons);
-      calculatePositions(spells);
+      calculatePositions(spellObjects);
     });
 
     yButtonContainer.appendChild(yAttributeButton);
@@ -209,8 +208,8 @@ function addCategoryButtons() {
         category.show = true;
         categoryElement.classList.add("active");
       }
-      findLimits(spells, attributes);
-      calculatePositions(spells);
+      findLimits(spellObjects, attributes);
+      calculatePositions(spellObjects);
     });
     categoryButtonContainer.append(categoryElement)
   }
@@ -228,12 +227,114 @@ class Category {
 class GraphItem {
   constructor(jsonItem) {
     for (const [key, value] of Object.entries(jsonItem)) {
-      this[key] = value;
+      if (!isNaN(value)) {
+        this[key] = parseFloat(value);
+      } else {
+        this[key] = value;
+      }
     }
   }
-  draw() {}
-  calculatePosition() {}
-  move() {}
+  draw(highlight, showcase, sizeMultiplier) {
+    if (this.position != this.positionGoal) {
+      this.move();
+    }
+    push();
+    if (highlight) {
+      image(this.shadow, this.position.x - 2, this.position.y - 2, 44, 49);
+    }
+  
+    if (Math.abs(this.size - sizeMultiplier) > 0.01) {
+      // Small threshold to avoid perpetual small adjustments
+      this.size = lerp(this.size, sizeMultiplier, EASING_FACTOR * 2);
+    } else {
+      this.size = sizeMultiplier; // Snap to the target size when close enough
+    }
+  
+    translate(this.position.x, this.position.y);
+    push();
+    translate(((this.size - 1) * -40) / 2, ((this.size - 1) * -45) / 2);
+    scale(this.size);
+    image(this.image, 0, 0, 40, 45);
+    pop();
+  
+    if (!showcase) {
+      cursor(ARROW);
+    } else {
+      cursor(HAND);
+      // image(spell.image, spell.position.x - 8, spell.position.y - 9, 56, 63);
+  
+      let displayName = this.name.slice(0, -4);
+      push();
+      let textBackground = font.textBounds(displayName, 20, 75, 18);
+      rectMode(CENTER);
+      strokeWeight(0);
+      fill("#000");
+      rect(
+        textBackground.x,
+        textBackground.y + 7,
+        textBackground.w + 12,
+        textBackground.h + 5
+      );
+      pop();
+  
+      textAlign(CENTER);
+      textFont("Crimson Pro");
+      textSize(18);
+      fill(colorYellow);
+      text(displayName, 20, 75);
+    }
+    pop();
+  }
+  calculatePosition(xAttribute, yAttribute) {
+    let xValue = this.calculateXAxisPosition(xAttribute);
+    let yValue = this.calculateYAxisPosition(yAttribute);
+
+    if (!this.positionGoal) {
+      this.position = createVector(
+        xValue * (SCREEN_WIDTH - SCREEN_PADDING * 2) + SCREEN_PADDING,
+        yValue * (SCREEN_HEIGHT - SCREEN_PADDING * 2) + SCREEN_PADDING
+      );
+    }
+
+    this.positionGoal = createVector(
+      xValue * (SCREEN_WIDTH - SCREEN_PADDING * 2) + SCREEN_PADDING,
+      yValue * (SCREEN_HEIGHT - SCREEN_PADDING * 2) + SCREEN_PADDING
+    );
+
+    this.size = 1;
+  }
+  calculateXAxisPosition(attribute) {
+    if (attribute.type == "number") {
+      return ((parseInt(this[attribute.name]) - attribute.minValue) /
+        (attribute.maxValue - attribute.minValue));
+    }
+  }
+  calculateYAxisPosition(attribute) {
+    if (attribute.type == "number") {
+      return ((parseInt(this[attribute.name]) - attribute.minValue) /
+          (attribute.maxValue - attribute.minValue)) *
+          -1 +
+        1;
+    }
+  }
+  move() {
+    // Calculate the difference between current position and goal position
+  const dx = this.positionGoal.x - this.position.x;
+  const dy = this.positionGoal.y - this.position.y;
+
+  // Calculate the increment for each axis
+  const stepX = dx * EASING_FACTOR;
+  const stepY = dy * EASING_FACTOR;
+
+  // Update the position
+  this.position.x += stepX;
+  this.position.y += stepY;
+
+  // Check if we reached the goal position
+  if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) {
+    this.position = this.positionGoal;
+  }
+  }
   renderHighlight() {}
   renderShadow() {}
   renderSingleItemInfo() {
@@ -259,7 +360,7 @@ class GraphItem {
     textFont("Crimson Pro");
     textSize(20);
     fill(colorWhite);
-    text(spell.description, 0, 0, 500, 500);
+    text(this.description, 0, 0, 500, 500);
     fill(colorYellow);
     textStyle(ITALIC);
     text(spellTypeText, 0, -65);
@@ -272,7 +373,7 @@ class GraphItem {
 
     push();
     colorMode(HSL);
-    fill(spell.Hue, spell.Saturation, spell.Lightness);
+    fill(this.Hue, this.Saturation, this.Lightness);
     strokeWeight(0);
     rect(-160, 15, 100, 110);
     pop();
@@ -380,101 +481,7 @@ function renderGraph(showText) {
   }
 }
 
-function renderSpell(spell, highlight, showcase, sizeMultiplier) {
-  if (spell.position != spell.positionGoal) {
-    moveSpell(spell);
-  }
-  push();
-  if (highlight) {
-    image(spell.shadow, spell.position.x - 2, spell.position.y - 2, 44, 49);
-  }
 
-  if (Math.abs(spell.size - sizeMultiplier) > 0.01) {
-    // Small threshold to avoid perpetual small adjustments
-    spell.size = lerp(spell.size, sizeMultiplier, EASING_FACTOR * 2);
-  } else {
-    spell.size = sizeMultiplier; // Snap to the target size when close enough
-  }
-
-  translate(spell.position.x, spell.position.y);
-  push();
-  translate(((spell.size - 1) * -40) / 2, ((spell.size - 1) * -45) / 2);
-  scale(spell.size);
-  image(spell.image, 0, 0, 40, 45);
-  pop();
-
-  if (!showcase) {
-    cursor(ARROW);
-  } else {
-    cursor(HAND);
-    // image(spell.image, spell.position.x - 8, spell.position.y - 9, 56, 63);
-
-    let displayName = spell.name.slice(0, -4);
-    push();
-    let textBackground = font.textBounds(displayName, 20, 75, 18);
-    rectMode(CENTER);
-    strokeWeight(0);
-    fill("#000");
-    rect(
-      textBackground.x,
-      textBackground.y + 7,
-      textBackground.w + 12,
-      textBackground.h + 5
-    );
-    pop();
-
-    textAlign(CENTER);
-    textFont("Crimson Pro");
-    textSize(18);
-    fill(colorYellow);
-    text(displayName, 20, 75);
-  }
-  pop();
-}
-
-function renderSingleSpellInfo(spell) {
-  const displayName = spell.name.slice(0, -4);
-  const requirementText = `Required Skill-Level to Use:  ${spell.requirement}`;
-  const spellTypeText = `Magic Type:  ${spell.type}`;
-  const spellSlotsText = `Spell Uses:  ${spell.uses}`;
-  const averageColorText = "Average HSL";
-  const hslCodeText = `${spell.Hue}, ${spell.Saturation}, ${spell.Lightness}`;
-
-  push();
-  translate(380, SCREEN_HEIGHT / 2 - 10);
-
-  push();
-  textFont("Inknut Antiqua");
-  textStyle(BOLD);
-  textSize(40);
-  fill(colorYellow);
-  text(displayName, -2, -95);
-  pop();
-
-  push();
-  textFont("Crimson Pro");
-  textSize(20);
-  fill(colorWhite);
-  text(spell.description, 0, 0, 500, 500);
-  fill(colorYellow);
-  textStyle(ITALIC);
-  text(spellTypeText, 0, -65);
-  text(requirementText, 0, -43);
-  text(spellSlotsText, 0, -21);
-
-  text(averageColorText, -160, 145);
-  text(hslCodeText, -160, 167);
-  pop();
-
-  push();
-  colorMode(HSL);
-  fill(spell.Hue, spell.Saturation, spell.Lightness);
-  strokeWeight(0);
-  rect(-160, 15, 100, 110);
-  pop();
-
-  pop();
-}
 
 // ---------------------------------------------------------------- Draw Function
 
@@ -483,18 +490,18 @@ function draw() {
   mousePosition = createVector(mouseX, mouseY);
   if (graphMode == "Compare Spells") {
     renderGraph(true);
-    showcasedSpell = findShowcasedSpell(spells);
-    for (const spell of spells) {
+    showcasedSpell = findShowcasedSpell(spellObjects);
+    for (const spell of spellObjects) {
       if (categories.get(spell.type).show) {
         let highlight = categories.get(spell.type).highlight;
-        renderSpell(spell, highlight, false, 1);
-        if (showcasedSpell) renderSpell(showcasedSpell, false, true, 1.5);
+        spell.draw(highlight, false, 1);
+        if (showcasedSpell) showcasedSpell.draw(false, true, 1.5);
       }
     }
   } else if (graphMode == "Single Spell") {
     renderGraph(false);
-    renderSpell(showcasedSpell, false, false, 3);
-    renderSingleSpellInfo(showcasedSpell);
+    showcasedSpell.draw(false, false, 3);
+    showcasedSpell.renderSingleItemInfo();
   }
 }
 
@@ -509,59 +516,10 @@ function findLimits(spellList, attributeList) {
 
 function calculatePositions(spellList) {
   for (let spell of spellList) {
-    let xValue = calculateXAxisPosition(spell, attributes.get(xAxisType));
-    let yValue = calculateYAxisPosition(spell, attributes.get(yAxisType));
-
-    if (!spell.positionGoal) {
-      spell.position = createVector(
-        xValue * (SCREEN_WIDTH - SCREEN_PADDING * 2) + SCREEN_PADDING,
-        yValue * (SCREEN_HEIGHT - SCREEN_PADDING * 2) + SCREEN_PADDING
-      );
-    }
-
-    spell.positionGoal = createVector(
-      xValue * (SCREEN_WIDTH - SCREEN_PADDING * 2) + SCREEN_PADDING,
-      yValue * (SCREEN_HEIGHT - SCREEN_PADDING * 2) + SCREEN_PADDING
-    );
-
-    spell.size = 1;
+    spell.calculatePosition(attributes.get(xAxisType), attributes.get(yAxisType));
   }
 }
-function calculateXAxisPosition(item, attribute) {
-  if (attribute.type == "number") {
-    return (xAxisPosition =
-      (parseInt(item[attribute.name]) - attribute.minValue) /
-      (attribute.maxValue - attribute.minValue));
-  }
-}
-function calculateYAxisPosition(item, attribute) {
-  if (attribute.type == "number") {
-    return (yAxisPosition =
-      ((parseInt(item[attribute.name]) - attribute.minValue) /
-        (attribute.maxValue - attribute.minValue)) *
-        -1 +
-      1);
-  }
-}
-function moveSpell(spell) {
-  // Calculate the difference between current position and goal position
-  const dx = spell.positionGoal.x - spell.position.x;
-  const dy = spell.positionGoal.y - spell.position.y;
 
-  // Calculate the increment for each axis
-  const stepX = dx * EASING_FACTOR;
-  const stepY = dy * EASING_FACTOR;
-
-  // Update the position
-  spell.position.x += stepX;
-  spell.position.y += stepY;
-
-  // Check if we reached the goal position
-  if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) {
-    spell.position = spell.positionGoal;
-  }
-}
-//cited from https://editor.p5js.org/davepagurek/sketches/IJwk16Mel
 function generateSpellShadows(spellList) {
   for (let spell of spellList) {
     const newW = spell.image.width;
