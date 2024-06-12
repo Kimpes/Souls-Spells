@@ -4,9 +4,9 @@ const SCREEN_PADDING = 100;
 const GRAPH_THICKNESS = 2;
 const EASING_FACTOR = 0.1;
 
-//can be set to the following values: H, S, L, requirement, uses
-let xAxisType = "H";
-let yAxisType = "L";
+//can be set to the following values: Hue, Saturation, Lightness, requirement, uses
+let xAxisType = "Hue";
+let yAxisType = "Lightness";
 
 let spells = [
   {
@@ -19,6 +19,7 @@ let spells = [
     uses: "10",
   },
 ];
+let spellObjects = [];
 const attributes = new Map();
 const categories = new Map();
 const allNumberAttributes = new Set();
@@ -68,29 +69,17 @@ function preload() {
     console.log(dataArray);
     spells = dataArray;
     for (let spell of spells) {
+      newSpell = new GraphItem(spell)
+      newSpell.image = loadImage(`assets/spell-images/${spell.name}`)
       spell.image = loadImage(`assets/spell-images/${spell.name}`, () => {
         imagesLoaded++;
         if (imagesLoaded === spells.length) {
           generateSpellShadows(spells);
         }
       });
+      spellObjects.push(newSpell);
     }
-    for (const [key, value] of Object.entries(spells[0])) {
-      if (key != "image") {
-        const newAttribute = new ItemAttribute(key, value);
-        newAttribute.findAllUniqueValues(spells);
-        if (newAttribute.allUniqueValues) {
-          for (let value of newAttribute.allUniqueValues) {
-            let category = new Category(value);
-            categories.set(value, category);
-          }
-        }
-        if (newAttribute.type == "number") {
-          allNumberAttributes.add(newAttribute);
-        }
-        attributes.set(key, newAttribute);
-      }
-    }
+    createAttributesAndCategories(spells)
     findLimits(spells, attributes);
     console.log(attributes);
     calculatePositions(spells);
@@ -130,45 +119,71 @@ window.addEventListener("load", () => {
   }
 });
 
+function createAttributesAndCategories(itemList) {
+  for (const [key, value] of Object.entries(itemList[0])) {
+    if (key != "image") {
+      const newAttribute = new ItemAttribute(key, value);
+      newAttribute.findAllUniqueValues(itemList);
+      if (newAttribute.allUniqueValues) {
+        for (let value of newAttribute.allUniqueValues) {
+          let category = new Category(value);
+          categories.set(value, category);
+        }
+      }
+      if (newAttribute.type == "number") {
+        allNumberAttributes.add(newAttribute);
+      }
+      attributes.set(key, newAttribute);
+    }
+  }
+}
+
 function addXYButtons() {
-  let xButtonContainer = document.getElementById(
+  const xButtonContainer = document.getElementById(
     "x-buttons-container"
   );
-  let yButtonContainer = document.getElementById(
+  const yButtonContainer = document.getElementById(
     "y-buttons-container"
   );
-  for (let attribute of allNumberAttributes) {
-    let yAttributeElement = document.createElement("button");
-    yAttributeElement.value = attribute.name;
-    yAttributeElement.innerText = attribute.name;
-    yAttributeElement.classList.add("side-button");
-    yAttributeElement.addEventListener("click", () => {
-      yAxisType = attribute.name;
-      for (let button of yButtons) {
-        button.classList.remove("active");
-      }
-      yAttributeElement.classList.add("active");
-      calculatePositions(spells);
-    });
 
-    let xAttributeElement = document.createElement("button");
-    xAttributeElement.value = attribute.name;
-    xAttributeElement.innerText = attribute.name;
-    xAttributeElement.classList.add("bottom-button");
-    xAttributeElement.addEventListener("click", () => {
-      xAxisType = attribute.name;
-      for (let button of xButtons) {
-        button.classList.remove("active");
-      }
-      xAttributeElement.classList.add("active");
-      calculatePositions(spells);
-    });
-
-    yButtons.push(yAttributeElement);
-    xButtons.push(xAttributeElement);
-    yButtonContainer.append(yAttributeElement);
-    xButtonContainer.append(xAttributeElement);
+  function createButton(text, className, activeValue) {
+    const button = document.createElement("button");
+    button.value = text;
+    button.innerText = text.charAt(0).toUpperCase() + text.slice(1);
+    button.classList.add(className);
+    if (text === activeValue) {
+      button.classList.add("active");
+    }
+    return button;
   }
+
+  for (let attribute of allNumberAttributes) {
+    const yAttributeButton = createButton(attribute.name, "side-button", yAxisType);
+    yAttributeButton.addEventListener("click", () => {
+      yAxisType = attribute.name;
+      updateButtonState(yAttributeButton, yButtons);
+      calculatePositions(spells);
+    });
+
+    const xAttributeButton = createButton(attribute.name, "bottom-button", xAxisType);
+    xAttributeButton.addEventListener("click", () => {
+      xAxisType = attribute.name;
+      updateButtonState(xAttributeButton, xButtons);
+      calculatePositions(spells);
+    });
+
+    yButtonContainer.appendChild(yAttributeButton);
+    xButtonContainer.appendChild(xAttributeButton);
+    yButtons.push(yAttributeButton);
+    xButtons.push(xAttributeButton);
+  }
+}
+
+function updateButtonState(activeButton, buttons) {
+  for (let button of buttons) {
+    button.classList.remove("active");
+  }
+  activeButton.classList.add("active");
 }
 
 function addCategoryButtons() {
@@ -221,25 +236,63 @@ class GraphItem {
   move() {}
   renderHighlight() {}
   renderShadow() {}
+  renderSingleItemInfo() {
+    const displayName = this.name.slice(0, -4);
+    const requirementText = `Required Skill-Level to Use:  ${this.requirement}`;
+    const spellTypeText = `Magic Type:  ${this.type}`;
+    const spellSlotsText = `Spell Uses:  ${this.uses}`;
+    const averageColorText = "Average HSL";
+    const hslCodeText = `${this.Hue}, ${this.Saturation}, ${this.Lightness}`;
+
+    push();
+    translate(380, SCREEN_HEIGHT / 2 - 10);
+
+    push();
+    textFont("Inknut Antiqua");
+    textStyle(BOLD);
+    textSize(40);
+    fill(colorYellow);
+    text(displayName, -2, -95);
+    pop();
+
+    push();
+    textFont("Crimson Pro");
+    textSize(20);
+    fill(colorWhite);
+    text(spell.description, 0, 0, 500, 500);
+    fill(colorYellow);
+    textStyle(ITALIC);
+    text(spellTypeText, 0, -65);
+    text(requirementText, 0, -43);
+    text(spellSlotsText, 0, -21);
+
+    text(averageColorText, -160, 145);
+    text(hslCodeText, -160, 167);
+    pop();
+
+    push();
+    colorMode(HSL);
+    fill(spell.Hue, spell.Saturation, spell.Lightness);
+    strokeWeight(0);
+    rect(-160, 15, 100, 110);
+    pop();
+
+    pop();
+  }
 }
 
 class ItemAttribute {
   constructor(key, value) {
-    this.checkAndSetType(key, value);
+    this.setType(key, value);
     this.name = key;
   }
-  checkAndSetType(key, value) {
-    //this code is redundant, but is useful so the function can be called again later
-    if (key.toLowerCase() == "name") {
+  setType(key, value) {
+    if (key.toLowerCase() === "name") {
       this.type = "name";
     } else if (!isNaN(value)) {
       this.type = "number";
-    } else if (typeof value == "string") {
-      if (value.length > 50) {
-        this.type = "description";
-      } else {
-        this.type = "category";
-      }
+    } else if (typeof value === "string") {
+      this.type = value.length > 50 ? "description" : "category";
     } else {
       this.type = "unknown";
     }
@@ -320,37 +373,9 @@ function renderGraph(showText) {
     textSize(20);
     textAlign(RIGHT);
     textStyle(ITALIC);
-    let xText;
-    let yText;
-    switch (xAxisType) {
-      case "H":
-        xText = "Hue";
-        break;
-      case "S":
-        xText = "Saturation";
-        break;
-      case "L":
-        xText = "Lightness";
-        break;
-      default:
-        xText = xAxisType.charAt(0).toUpperCase() + xAxisType.slice(1);
-    }
-    text(xText, SCREEN_WIDTH - 15, SCREEN_HEIGHT - 15);
+    text(xAxisType.charAt(0).toUpperCase() + xAxisType.slice(1), SCREEN_WIDTH - 15, SCREEN_HEIGHT - 15);
     textAlign(LEFT);
-    switch (yAxisType) {
-      case "H":
-        yText = "Hue";
-        break;
-      case "S":
-        yText = "Saturation";
-        break;
-      case "L":
-        yText = "Lightness";
-        break;
-      default:
-        yText = yAxisType.charAt(0).toUpperCase() + yAxisType.slice(1);
-    }
-    text(yText, 15, 15);
+    text(yAxisType.charAt(0).toUpperCase() + yAxisType.slice(1), 15, 15);
     pop();
   }
 }
@@ -413,7 +438,7 @@ function renderSingleSpellInfo(spell) {
   const spellTypeText = `Magic Type:  ${spell.type}`;
   const spellSlotsText = `Spell Uses:  ${spell.uses}`;
   const averageColorText = "Average HSL";
-  const hslCodeText = `${spell.H}, ${spell.S}, ${spell.L}`;
+  const hslCodeText = `${spell.Hue}, ${spell.Saturation}, ${spell.Lightness}`;
 
   push();
   translate(380, SCREEN_HEIGHT / 2 - 10);
@@ -443,7 +468,7 @@ function renderSingleSpellInfo(spell) {
 
   push();
   colorMode(HSL);
-  fill(spell.H, spell.S, spell.L);
+  fill(spell.Hue, spell.Saturation, spell.Lightness);
   strokeWeight(0);
   rect(-160, 15, 100, 110);
   pop();
