@@ -708,5 +708,15 @@
     "type": "Miracle",
     "uses": "3",
     "description": "A fast casting force spell that deals high damage in a bubble around you. One of the most powerful offensive miracles in the game. Can deflect sorceries."
-  }
+     },
+     {
+       "name": "Generic.png",
+       "Hue": "200",
+       "Saturation": "38",
+       "Lightness": "56",
+       "requirement": "28",
+       "type": "Miracle",
+       "uses": "3",
+       "description": "A fast casting force spell that deals high damage in a bubble around you. One of the most powerful offensive miracles in the game. Can deflect sorceries."
+        }
 ]

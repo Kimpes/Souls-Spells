@@ -4,10 +4,18 @@ const SCREEN_PADDING = 100;
 const GRAPH_THICKNESS = 2;
 const EASING_FACTOR = 0.1;
 
-//can be set to the following values: Hue, Saturation, Lightness, requirement, uses
+//the following attribute types are expected to be in the JSON file
+// - Hue
+// - Saturation
+// - Lightness
+// - name
+// - description
+
+//can be set to any attribute that contains numbers
 let xAxisType = "Hue";
 let yAxisType = "Lightness";
 
+//an example of a proper item in the JSON file
 let spells = [
   {
     name: "Aural_Decoy.png",
@@ -17,14 +25,18 @@ let spells = [
     requirement: "10",
     type: "Sorcery",
     uses: "10",
+    description: "An aural effect that makes the target's voice deafened.",
   },
 ];
+
+// arrays and array-like collections
 let spellObjects = [];
 const attributes = new Map();
 const categories = new Map();
 const allNumberAttributes = new Set();
 let xButtons = []
 let yButtons = []
+
 
 let graphMode = "Compare Spells";
 let showcasedSpell;
@@ -36,30 +48,6 @@ let showcasedSpellOldPosition;
 let colorYellow = [247, 171, 94];
 let colorWhite = [255, 236, 217];
 
-let maxH;
-let maxS;
-let maxL;
-let maxRequirement;
-let maxUses;
-
-let minH;
-let minS;
-let minL;
-let minRequirement;
-let minUses;
-
-let showSpells = {
-  sorcery: true,
-  miracle: true,
-  pyromancy: true,
-};
-
-let highlightSpells = {
-  sorcery: false,
-  miracle: false,
-  pyromancy: false,
-};
-
 // ---------------------------------------------------------------- Setup Functions
 
 function preload() {
@@ -68,16 +56,7 @@ function preload() {
     dataArray = Object.values(jsonData);
     console.log(dataArray);
     spells = dataArray;
-    for (let spell of spells) {
-      newSpell = new GraphItem(spell)
-      newSpell.image = loadImage(`assets/spell-images/${spell.name}`, () => {
-        imagesLoaded++;
-        if (imagesLoaded === spells.length) {
-          generateSpellShadows(spellObjects);
-        }
-      });
-      spellObjects.push(newSpell);
-    }
+    loadItemImagesAndCreateObjects(spells)
     createAttributesAndCategories(spells)
     findLimits(spells, attributes);
     console.log(attributes);
@@ -86,6 +65,37 @@ function preload() {
     addXYButtons()
   });
   font = loadFont("./assets/CrimsonPro.ttf");
+}
+
+function loadItemImagesAndCreateObjects(itemList) {
+  if (!itemList) {
+    throw new Error('itemList is null or undefined');
+  }
+  for (let item of itemList) {
+    if (!item) {
+      throw new Error('item is null or undefined');
+    }
+    if (!item.name) {
+      throw new Error('item.name is null or undefined');
+    }
+    const newSpell = new GraphItem(item);
+    newSpell.image = loadImage(`assets/spell-images/${item.name}`, () => {
+      imagesLoaded++;
+      if (imagesLoaded === itemList.length) {
+        generateSpellShadows(spellObjects);
+      }
+    }, (error) => {
+      console.error("error loading image:", error);
+      newSpell.image = loadImage('assets/spell-images/Generic.png', () => {
+        console.log("loaded generic image");
+        imagesLoaded++;
+        if (imagesLoaded === itemList.length) {
+          generateSpellShadows(spellObjects);
+        }
+      });
+    });
+    spellObjects.push(newSpell);
+  }
 }
 
 function setup() {
@@ -138,6 +148,7 @@ function createAttributesAndCategories(itemList) {
 }
 
 function addXYButtons() {
+  // creates the x and y buttons based on the number-type attributes it finds in the JSON file
   const xButtonContainer = document.getElementById(
     "x-buttons-container"
   );
@@ -146,6 +157,8 @@ function addXYButtons() {
   );
 
   function createButton(text, className, activeValue) {
+    // this function would only work if it was inside this other function.
+    // it's strange, but it works
     const button = document.createElement("button");
     button.value = text;
     button.innerText = text.charAt(0).toUpperCase() + text.slice(1);
@@ -186,6 +199,7 @@ function updateButtonState(activeButton, buttons) {
 }
 
 function addCategoryButtons() {
+  // creates the category buttons based on the categories it finds in the JSON file
   let categoryButtonContainer = document.getElementById(
     "category-button-container"
   );
@@ -339,14 +353,20 @@ class GraphItem {
   renderShadow() {}
   renderSingleItemInfo() {
     const displayName = this.name.slice(0, -4);
-    const requirementText = `Required Skill-Level to Use:  ${this.requirement}`;
-    const spellTypeText = `Magic Type:  ${this.type}`;
-    const spellSlotsText = `Spell Uses:  ${this.uses}`;
-    const averageColorText = "Average HSL";
     const hslCodeText = `${this.Hue}, ${this.Saturation}, ${this.Lightness}`;
+    let informationTexts = [];
+    for (let [key, attribute] of attributes) {
+      if (attribute.type == "number" || attribute.type == "category") {
+        
+        informationTexts.push(`${attribute.name}: ${this[attribute.name]}`);
+      }
+    }
+    
+
+    const averageColorText = "Average HSL";
 
     push();
-    translate(380, SCREEN_HEIGHT / 2 - 10);
+    translate(380, SCREEN_HEIGHT / 2 - 50);
 
     push();
     textFont("Inknut Antiqua");
@@ -359,14 +379,18 @@ class GraphItem {
     push();
     textFont("Crimson Pro");
     textSize(20);
-    fill(colorWhite);
-    text(this.description, 0, 0, 500, 500);
     fill(colorYellow);
     textStyle(ITALIC);
-    text(spellTypeText, 0, -65);
-    text(requirementText, 0, -43);
-    text(spellSlotsText, 0, -21);
-
+    for (let i=0; i<informationTexts.length; i++) {
+      text(informationTexts[i], 0, -65 + (i * 19));
+      if (i == informationTexts.length - 1) {
+        textStyle(NORMAL);
+        textLeading(22)
+        fill(colorWhite);
+        text(this.description, 0, -65 + ((i+1) * 19), 500, 500);
+      }
+    }
+    fill(colorYellow);
     text(averageColorText, -160, 145);
     text(hslCodeText, -160, 167);
     pop();
@@ -580,7 +604,7 @@ function findShowcasedSpell(spellList) {
 function mouseClicked() {
   if (showcasedSpell && graphMode == "Compare Spells") {
     graphMode = "Single Spell";
-    showcasedSpell.positionGoal = createVector(250, SCREEN_HEIGHT / 2 - 100);
+    showcasedSpell.positionGoal = createVector(250, SCREEN_HEIGHT / 2 - 140);
     showcasedSpellOldPosition = createVector(
       showcasedSpell.position.x,
       showcasedSpell.position.y
