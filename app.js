@@ -61,8 +61,8 @@ function preload() {
     findLimits(spells, attributes);
     console.log(attributes);
     calculatePositions(spellObjects);
-    addCategoryButtons()
-    addXYButtons()
+    addCategoryButtons(categories)
+    addXYButtons(allNumberAttributes)
   });
   font = loadFont("./assets/CrimsonPro.ttf");
 }
@@ -147,7 +147,7 @@ function createAttributesAndCategories(itemList) {
   }
 }
 
-function addXYButtons() {
+function addXYButtons(attributeList) {
   // creates the x and y buttons based on the number-type attributes it finds in the JSON file
   const xButtonContainer = document.getElementById(
     "x-buttons-container"
@@ -169,7 +169,7 @@ function addXYButtons() {
     return button;
   }
 
-  for (let attribute of allNumberAttributes) {
+  for (let attribute of attributeList) {
     const yAttributeButton = createButton(attribute.name, "side-button", yAxisType);
     yAttributeButton.addEventListener("click", () => {
       yAxisType = attribute.name;
@@ -198,7 +198,7 @@ function updateButtonState(activeButton, buttons) {
   activeButton.classList.add("active");
 }
 
-function addCategoryButtons() {
+function addCategoryButtons(categories) {
   // creates the category buttons based on the categories it finds in the JSON file
   let categoryButtonContainer = document.getElementById(
     "category-button-container"
@@ -618,7 +618,12 @@ function lerp(start, end, amount) {
   return (1 - amount) * start + amount * end;
 }
 
-//TODO
-// Make second graph with simple bars
-// Add more explainations
-// Move calculations from the draw function to the button clicks
+// TODOs
+// fix generic image loading
+// separate name and image path
+// add secondary JSON file for testing
+
+// Ambitious TODOs
+// remove need for hard baked HSL values; calculate on load
+// allow for uploading of own JSON file
+// make spell showcase into an HTML element instead of p5
