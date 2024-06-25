@@ -1,3 +1,4 @@
+const JSON_FILENAME = "spells";
 const SCREEN_WIDTH = 1100;
 const SCREEN_HEIGHT = 700;
 const SCREEN_PADDING = 100;
@@ -13,18 +14,17 @@ const EASING_FACTOR = 0.1;
 // - description
 // - filepath (there's a generic image if filepath is empty or doesn't exist)
 
-//can be set to any attribute that contains numbers
-let xAxisType = "Hue";
-let yAxisType = "Lightness";
+let xAxisType;
+let yAxisType;
 
 //an example of a proper item in the JSON file
 let spells = [
   {
-    name: "Aural_Decoy",
+    name: "Aural Decoy",
     filepath: "Aural_Decoy.png",
-    H: "201",
-    S: "20",
-    L: "35",
+    Hue: "201",
+    Saturation: "20",
+    Lightness: "35",
     requirement: "10",
     type: "Sorcery",
     uses: "10",
@@ -53,7 +53,7 @@ let colorWhite = [255, 236, 217];
 // ---------------------------------------------------------------- Setup Functions
 
 function preload() {
-  jsonData = loadJSON("assets/dummy.json", (jsonData) => {
+  jsonData = loadJSON(`assets/${JSON_FILENAME}.json`, (jsonData) => {
     // Convert the object into an array
     dataArray = Object.values(jsonData);
     spells = dataArray;

@@ -3,36 +3,42 @@
     "name": "item 1",
     "age": "1",
     "height": "7",
-    "color": "green"
+    "color": "green",
+    "country": "Sweden"
   },
   {
     "name": "item 2",
     "age": "3",
     "height": "15",
-    "color": "green"
+    "color": "green",
+    "country": "Sweden"
   },
   {
     "name": "item 3",
     "age": "7",
     "height": "10",
-    "color": "blue"
+    "color": "blue",
+    "country": "Sweden"
   },
   {
     "name": "item 4",
     "age": "5",
     "height": "5",
-    "color": "blue"
+    "color": "blue",
+    "country": "Sweden"
   },
   {
     "name": "item 5",
     "age": "8",
     "height": "2",
-    "color": "blue"
+    "color": "blue",
+    "country": "Norway"
   },
   {
     "name": "item 6",
     "age": "3",
     "height": "13",
-    "color": "red"
+    "color": "red",
+    "country": "Norway"
   }
 ]
