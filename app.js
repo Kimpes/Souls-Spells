@@ -5,11 +5,13 @@ const GRAPH_THICKNESS = 2;
 const EASING_FACTOR = 0.1;
 
 //the following attribute types are expected to be in the JSON file
+//only name breaks the application if it's empty.
 // - Hue
 // - Saturation
 // - Lightness
 // - name
 // - description
+// - filepath (there's a generic image if filepath is empty or doesn't exist)
 
 //can be set to any attribute that contains numbers
 let xAxisType = "Hue";
@@ -18,7 +20,8 @@ let yAxisType = "Lightness";
 //an example of a proper item in the JSON file
 let spells = [
   {
-    name: "Aural_Decoy.png",
+    name: "Aural_Decoy",
+    filepath: "Aural_Decoy.png",
     H: "201",
     S: "20",
     L: "35",
@@ -34,9 +37,8 @@ let spellObjects = [];
 const attributes = new Map();
 const categories = new Map();
 const allNumberAttributes = new Set();
-let xButtons = []
-let yButtons = []
-
+let xButtons = [];
+let yButtons = [];
 
 let graphMode = "Compare Spells";
 let showcasedSpell;
@@ -56,44 +58,58 @@ function preload() {
     dataArray = Object.values(jsonData);
     console.log(dataArray);
     spells = dataArray;
-    loadItemImagesAndCreateObjects(spells)
-    createAttributesAndCategories(spells)
+    loadItemImagesAndCreateObjects(spells);
+    createAttributesAndCategories(spells);
     findLimits(spells, attributes);
     console.log(attributes);
     calculatePositions(spellObjects);
-    addCategoryButtons(categories)
-    addXYButtons(allNumberAttributes)
+    addCategoryButtons(categories);
+    addXYButtons(allNumberAttributes);
   });
   font = loadFont("./assets/CrimsonPro.ttf");
 }
 
 function loadItemImagesAndCreateObjects(itemList) {
   if (!itemList) {
-    throw new Error('itemList is null or undefined');
+    throw new Error("itemList is null or undefined");
   }
   for (let item of itemList) {
     if (!item) {
-      throw new Error('item is null or undefined');
+      throw new Error("item is null or undefined");
     }
     if (!item.name) {
-      throw new Error('item.name is null or undefined');
+      throw new Error("item.name is null or undefined");
     }
     const newSpell = new GraphItem(item);
-    newSpell.image = loadImage(`assets/spell-images/${item.name}`, () => {
-      imagesLoaded++;
-      if (imagesLoaded === itemList.length) {
-        generateSpellShadows(spellObjects);
-      }
-    }, (error) => {
-      console.error("error loading image:", error);
-      newSpell.image = loadImage('assets/spell-images/Generic.png', () => {
-        console.log("loaded generic image");
+    if (newSpell.filepath) {
+      newSpell.image = loadImage(
+        `assets/spell-images/${item.filepath}`,
+        () => {
+          imagesLoaded++;
+          if (imagesLoaded === itemList.length) {
+            generateSpellShadows(spellObjects);
+          }
+        },
+        (error) => {
+          console.error("error loading image:", error);
+          newSpell.image = loadImage("assets/spell-images/Generic.png", () => {
+            console.log("loaded generic image");
+            imagesLoaded++;
+            if (imagesLoaded === itemList.length) {
+              generateSpellShadows(spellObjects);
+            }
+          });
+        }
+      );
+    } else {
+      newSpell.image = loadImage(`assets/spell-images/Generic.png`, () => {
         imagesLoaded++;
         if (imagesLoaded === itemList.length) {
           generateSpellShadows(spellObjects);
         }
       });
-    });
+    }
+
     spellObjects.push(newSpell);
   }
 }
@@ -130,7 +146,7 @@ window.addEventListener("load", () => {
 
 function createAttributesAndCategories(itemList) {
   for (const [key, value] of Object.entries(itemList[0])) {
-    if (key != "image") {
+    if (key != "image" && key != "filepath") {
       const newAttribute = new ItemAttribute(key, value);
       newAttribute.findAllUniqueValues(itemList);
       if (newAttribute.allUniqueValues) {
@@ -149,12 +165,8 @@ function createAttributesAndCategories(itemList) {
 
 function addXYButtons(attributeList) {
   // creates the x and y buttons based on the number-type attributes it finds in the JSON file
-  const xButtonContainer = document.getElementById(
-    "x-buttons-container"
-  );
-  const yButtonContainer = document.getElementById(
-    "y-buttons-container"
-  );
+  const xButtonContainer = document.getElementById("x-buttons-container");
+  const yButtonContainer = document.getElementById("y-buttons-container");
 
   function createButton(text, className, activeValue) {
     // this function would only work if it was inside this other function.
@@ -170,14 +182,22 @@ function addXYButtons(attributeList) {
   }
 
   for (let attribute of attributeList) {
-    const yAttributeButton = createButton(attribute.name, "side-button", yAxisType);
+    const yAttributeButton = createButton(
+      attribute.name,
+      "side-button",
+      yAxisType
+    );
     yAttributeButton.addEventListener("click", () => {
       yAxisType = attribute.name;
       updateButtonState(yAttributeButton, yButtons);
       calculatePositions(spellObjects);
     });
 
-    const xAttributeButton = createButton(attribute.name, "bottom-button", xAxisType);
+    const xAttributeButton = createButton(
+      attribute.name,
+      "bottom-button",
+      xAxisType
+    );
     xAttributeButton.addEventListener("click", () => {
       xAxisType = attribute.name;
       updateButtonState(xAttributeButton, xButtons);
@@ -225,7 +245,7 @@ function addCategoryButtons(categories) {
       findLimits(spellObjects, attributes);
       calculatePositions(spellObjects);
     });
-    categoryButtonContainer.append(categoryElement)
+    categoryButtonContainer.append(categoryElement);
   }
 }
 
@@ -256,30 +276,29 @@ class GraphItem {
     if (highlight) {
       image(this.shadow, this.position.x - 2, this.position.y - 2, 44, 49);
     }
-  
+
     if (Math.abs(this.size - sizeMultiplier) > 0.01) {
       // Small threshold to avoid perpetual small adjustments
       this.size = lerp(this.size, sizeMultiplier, EASING_FACTOR * 2);
     } else {
       this.size = sizeMultiplier; // Snap to the target size when close enough
     }
-  
+
     translate(this.position.x, this.position.y);
     push();
     translate(((this.size - 1) * -40) / 2, ((this.size - 1) * -45) / 2);
     scale(this.size);
     image(this.image, 0, 0, 40, 45);
     pop();
-  
+
     if (!showcase) {
       cursor(ARROW);
     } else {
       cursor(HAND);
       // image(spell.image, spell.position.x - 8, spell.position.y - 9, 56, 63);
-  
-      let displayName = this.name.slice(0, -4);
+
       push();
-      let textBackground = font.textBounds(displayName, 20, 75, 18);
+      let textBackground = font.textBounds(this.name, 20, 75, 18);
       rectMode(CENTER);
       strokeWeight(0);
       fill("#000");
@@ -290,12 +309,12 @@ class GraphItem {
         textBackground.h + 5
       );
       pop();
-  
+
       textAlign(CENTER);
       textFont("Crimson Pro");
       textSize(18);
       fill(colorYellow);
-      text(displayName, 20, 75);
+      text(this.name, 20, 75);
     }
     pop();
   }
@@ -319,51 +338,50 @@ class GraphItem {
   }
   calculateXAxisPosition(attribute) {
     if (attribute.type == "number") {
-      return ((parseInt(this[attribute.name]) - attribute.minValue) /
-        (attribute.maxValue - attribute.minValue));
+      return (
+        (parseInt(this[attribute.name]) - attribute.minValue) /
+        (attribute.maxValue - attribute.minValue)
+      );
     }
   }
   calculateYAxisPosition(attribute) {
     if (attribute.type == "number") {
-      return ((parseInt(this[attribute.name]) - attribute.minValue) /
+      return (
+        ((parseInt(this[attribute.name]) - attribute.minValue) /
           (attribute.maxValue - attribute.minValue)) *
           -1 +
-        1;
+        1
+      );
     }
   }
   move() {
     // Calculate the difference between current position and goal position
-  const dx = this.positionGoal.x - this.position.x;
-  const dy = this.positionGoal.y - this.position.y;
+    const dx = this.positionGoal.x - this.position.x;
+    const dy = this.positionGoal.y - this.position.y;
 
-  // Calculate the increment for each axis
-  const stepX = dx * EASING_FACTOR;
-  const stepY = dy * EASING_FACTOR;
+    // Calculate the increment for each axis
+    const stepX = dx * EASING_FACTOR;
+    const stepY = dy * EASING_FACTOR;
 
-  // Update the position
-  this.position.x += stepX;
-  this.position.y += stepY;
+    // Update the position
+    this.position.x += stepX;
+    this.position.y += stepY;
 
-  // Check if we reached the goal position
-  if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) {
-    this.position = this.positionGoal;
-  }
+    // Check if we reached the goal position
+    if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) {
+      this.position = this.positionGoal;
+    }
   }
   renderHighlight() {}
   renderShadow() {}
   renderSingleItemInfo() {
-    const displayName = this.name.slice(0, -4);
     const hslCodeText = `${this.Hue}, ${this.Saturation}, ${this.Lightness}`;
     let informationTexts = [];
     for (let [key, attribute] of attributes) {
       if (attribute.type == "number" || attribute.type == "category") {
-        
         informationTexts.push(`${attribute.name}: ${this[attribute.name]}`);
       }
     }
-    
-
-    const averageColorText = "Average HSL";
 
     push();
     translate(380, SCREEN_HEIGHT / 2 - 50);
@@ -373,7 +391,7 @@ class GraphItem {
     textStyle(BOLD);
     textSize(40);
     fill(colorYellow);
-    text(displayName, -2, -95);
+    text(this.name, -2, -95);
     pop();
 
     push();
@@ -381,28 +399,34 @@ class GraphItem {
     textSize(20);
     fill(colorYellow);
     textStyle(ITALIC);
-    for (let i=0; i<informationTexts.length; i++) {
-      text(informationTexts[i], 0, -65 + (i * 19));
-      if (i == informationTexts.length - 1) {
+    for (let i = 0; i < informationTexts.length; i++) {
+      text(informationTexts[i], 0, -65 + i * 19);
+      if (i == informationTexts.length - 1 && this.description != null) {
         textStyle(NORMAL);
-        textLeading(22)
+        textLeading(22);
         fill(colorWhite);
-        text(this.description, 0, -65 + ((i+1) * 19), 500, 500);
+        text(this.description, 0, -65 + (i + 1) * 19, 500, 500);
       }
     }
-    fill(colorYellow);
-    text(averageColorText, -160, 145);
-    text(hslCodeText, -160, 167);
-    pop();
 
-    push();
-    colorMode(HSL);
-    fill(this.Hue, this.Saturation, this.Lightness);
-    strokeWeight(0);
-    rect(-160, 15, 100, 110);
-    pop();
+    if (this.Hue != null && this.Saturation != null && this.Lightness != null) {
+      push();
+      textSize(20);
+      textFont("Crimson Pro");
+      fill(colorYellow);
+      text("Average HSL", -160, 145);
+      text(hslCodeText, -160, 167);
+      pop();
 
-    pop();
+      push();
+      colorMode(HSL);
+      fill(this.Hue, this.Saturation, this.Lightness);
+      strokeWeight(0);
+      rect(-160, 15, 100, 110);
+      pop();
+
+      pop();
+    }
   }
 }
 
@@ -426,10 +450,7 @@ class ItemAttribute {
     if (this.type == "number") {
       let min = 360;
       for (const item of list) {
-        if (
-          parseInt(item[this.name]) < min &&
-          this.checkIfVisible(item.type)
-        )
+        if (parseInt(item[this.name]) < min && this.checkIfVisible(item.type))
           min = parseInt(item[this.name]);
       }
       this.minValue = min;
@@ -439,10 +460,7 @@ class ItemAttribute {
     if (this.type == "number") {
       let max = 0;
       for (const item of list) {
-        if (
-          parseInt(item[this.name]) > max &&
-          this.checkIfVisible(item.type)
-        )
+        if (parseInt(item[this.name]) > max && this.checkIfVisible(item.type))
           max = parseInt(item[this.name]);
       }
       this.maxValue = max;
@@ -498,14 +516,16 @@ function renderGraph(showText) {
     textSize(20);
     textAlign(RIGHT);
     textStyle(ITALIC);
-    text(xAxisType.charAt(0).toUpperCase() + xAxisType.slice(1), SCREEN_WIDTH - 15, SCREEN_HEIGHT - 15);
+    text(
+      xAxisType.charAt(0).toUpperCase() + xAxisType.slice(1),
+      SCREEN_WIDTH - 15,
+      SCREEN_HEIGHT - 15
+    );
     textAlign(LEFT);
     text(yAxisType.charAt(0).toUpperCase() + yAxisType.slice(1), 15, 15);
     pop();
   }
 }
-
-
 
 // ---------------------------------------------------------------- Draw Function
 
@@ -540,7 +560,10 @@ function findLimits(spellList, attributeList) {
 
 function calculatePositions(spellList) {
   for (let spell of spellList) {
-    spell.calculatePosition(attributes.get(xAxisType), attributes.get(yAxisType));
+    spell.calculatePosition(
+      attributes.get(xAxisType),
+      attributes.get(yAxisType)
+    );
   }
 }
 
@@ -622,6 +645,7 @@ function lerp(start, end, amount) {
 // fix generic image loading
 // separate name and image path
 // add secondary JSON file for testing
+// use local storage to avoid redoing calculation work
 
 // Ambitious TODOs
 // remove need for hard baked HSL values; calculate on load

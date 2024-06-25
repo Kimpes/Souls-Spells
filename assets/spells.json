@@ -1,6 +1,7 @@
 [
   {
-    "name": "Aural_Decoy.png",
+    "name": "Aural_Decoy",
+    "filepath": "Aural_Decoy.png",
     "Hue": "201",
     "Saturation": "20",
     "Lightness": "35",
@@ -10,7 +11,8 @@
     "description": "Lures enemies away by creating a sound originating in the distance."
   },
   {
-    "name": "Cast_Light.png",
+    "name": "Cast_Light",
+    "filepath": "Cast_Light.png",
     "Hue": "49",
     "Saturation": "6",
     "Lightness": "34",
@@ -20,7 +22,8 @@
     "description": "Cast a bright light upon surroundings, and lasts 5 minutes. Particularly useful for Tomb of Giants"
   },
   {
-    "name": "Chameleon.png",
+    "name": "Chameleon",
+    "filepath": "Chameleon.png",
     "Hue": "51",
     "Saturation": "14",
     "Lightness": "19",
@@ -30,7 +33,8 @@
     "description": "Transform the caster into an inanimate object. Generally, the object you become is something common to the area you are in. Could be a vase, or a box, etc. Some strategy must be used, and the most effective is to place yourself in a cluster of similar objects. Once cast, you can move slowly and position yourself. If done properly, an enemy will walk by you and never know you're there. Cannot run when using, any other action breaks the effect."
   },
   {
-    "name": "Crystal_Magic_Weapon.png",
+    "name": "Crystal_Magic_Weapon",
+    "filepath": "Crystal_Magic_Weapon.png",
     "Hue": "210",
     "Saturation": "27",
     "Lightness": "29",
@@ -40,7 +44,8 @@
     "description": "Enhances and crystallizes right-hand weapon. Weapon must be standard, crystal, or raw. Some Dragon and Unique weapons can be enchanted too. Adds 1.4x your Magic Adjustment stat (NOT Intelligence) as magic damage to your weapon."
   },
   {
-    "name": "Crystal_Soul_Spear.png",
+    "name": "Crystal_Soul_Spear",
+    "filepath": "Crystal_Soul_Spear.png",
     "Hue": "207",
     "Saturation": "20",
     "Lightness": "33",
@@ -50,7 +55,8 @@
     "description": "Fire an even more powerful, piercing ranged attack."
   },
   {
-    "name": "Dark Bead.png",
+    "name": "Dark Bead",
+    "filepath": "Dark Bead.png",
     "Hue": "120",
     "Saturation": "4",
     "Lightness": "25",
@@ -60,7 +66,8 @@
     "description": "Fires a large amount of small dark orbs that fan outwards—very fast cast time. Excellent against large bosses."
   },
   {
-    "name": "Dark Fog.png",
+    "name": "Dark Fog",
+    "filepath": "Dark Fog.png",
     "Hue": "180",
     "Saturation": "3",
     "Lightness": "23",
@@ -70,7 +77,8 @@
     "description": "Creates a fog that inflicts poison. The fog is created at the location of the locked target."
   },
   {
-    "name": "Dark Orb.png",
+    "name": "Dark Orb",
+    "filepath": "Dark Orb.png",
     "Hue": "140",
     "Saturation": "3",
     "Lightness": "21",
@@ -80,7 +88,8 @@
     "description": "After a brief charge, fires a large shot at your target."
   },
   {
-    "name": "Fall_Control.png",
+    "name": "Fall_Control",
+    "filepath": "Fall_Control.png",
     "Hue": "190",
     "Saturation": "35",
     "Lightness": "32",
@@ -90,7 +99,8 @@
     "description": "Reduces damage and noise from fall. However, terminal falls will still kill you even with this active."
   },
   {
-    "name": "Great_Heavy_Soul_Arrow.png",
+    "name": "Great_Heavy_Soul_Arrow",
+    "filepath": "Great_Heavy_Soul_Arrow.png",
     "Hue": "226",
     "Saturation": "36",
     "Lightness": "35",
@@ -100,7 +110,8 @@
     "description": "Stronger than heavy soul arrow, fewer uses. Has a slow cast time, but deals a tremendous amount of damage, even against bosses."
   },
   {
-    "name": "Great_Magic_Weapon.png",
+    "name": "Great_Magic_Weapon",
+    "filepath": "Great_Magic_Weapon.png",
     "Hue": "219",
     "Saturation": "31",
     "Lightness": "29",
@@ -110,7 +121,8 @@
     "description": "Enhances the right-hand weapon. Weapon must be standard, crystal, or raw. Some Dragon and Unique weapons can be enchanted too. Adds 1.1x your Magic Adjustment stat (NOT Intelligence) magic damage to your weapon."
   },
   {
-    "name": "Great_Soul_Arrow.png",
+    "name": "Great_Soul_Arrow",
+    "filepath": "Great_Soul_Arrow.png",
     "Hue": "226",
     "Saturation": "29",
     "Lightness": "33",
@@ -120,7 +132,8 @@
     "description": "Stronger soul arrow, same cast time as soul arrow, fewer uses."
   },
   {
-    "name": "Heavy_Soul_Arrow.png",
+    "name": "Heavy_Soul_Arrow",
+    "filepath": "Heavy_Soul_Arrow.png",
     "Hue": "198",
     "Saturation": "37",
     "Lightness": "27",
@@ -130,7 +143,8 @@
     "description": "Stronger than greater soul arrow, longer casting time."
   },
   {
-    "name": "Hidden_Body.png",
+    "name": "Hidden_Body",
+    "filepath": "Hidden_Body.png",
     "Hue": "60",
     "Saturation": "3",
     "Lightness": "25",
@@ -140,7 +154,8 @@
     "description": "Masks your presence, making detection harder."
   },
   {
-    "name": "Hidden_Weapon.png",
+    "name": "Hidden_Weapon",
+    "filepath": "Hidden_Weapon.png",
     "Hue": "60",
     "Saturation": "4",
     "Lightness": "25",
@@ -150,7 +165,8 @@
     "description": "Turns your right hand weapon invisible. Weapon must be standard, crystal, or raw. Some Dragon and Unique weapons can be enchanted too."
   },
   {
-    "name": "Homing_Crystal_Soulmass.png",
+    "name": "Homing_Crystal_Soulmass",
+    "filepath": "Homing_Crystal_Soulmass.png",
     "Hue": "198",
     "Saturation": "14",
     "Lightness": "33",
@@ -160,7 +176,8 @@
     "description": "Fires multiple, homing crystal projectiles. Can be successfully cast without an initial lock-on. Multiple crystal arrows will hover above the player. Each individual soul arrow will seek the closest target, in the direction the player is facing, when in range."
   },
   {
-    "name": "Homing_Soulmass.png",
+    "name": "Homing_Soulmass",
+    "filepath": "Homing_Soulmass.png",
     "Hue": "201",
     "Saturation": "21",
     "Lightness": "32",
@@ -170,7 +187,8 @@
     "description": "Fires multiple, homing magic projectiles. Can be successfully cast without an initial lock-on. Multiple soul arrows will hover above the player. Each individual soul arrow will seek the closest target, in the direction the player is facing, when in range. Because the spell can be cast in advance, it has a unique advantage in that, if timed correctly, it can be cast in synchronicity with other attacks."
   },
   {
-    "name": "Hush.png",
+    "name": "Hush",
+    "filepath": "Hush.png",
     "Hue": "177",
     "Saturation": "12",
     "Lightness": "33",
@@ -180,7 +198,8 @@
     "description": "Masks all noises of caster."
   },
   {
-    "name": "Magic_Shield.png",
+    "name": "Magic_Shield",
+    "filepath": "Magic_Shield.png",
     "Hue": "208",
     "Saturation": "17",
     "Lightness": "35",
@@ -190,7 +209,8 @@
     "description": "Reinforces the equipped shield or weapon able to block in the left hand with magic. Works on all types of shields (even unique or upgraded to any path) and on all weapons able to block while on the left hand (even unique or upgraded to any path). Halves stamina used on hit deflection (only on shields) and improves the weapon's or shield's magic resistance by 30% (by up to a maximum of 90%). Lasts 15 seconds, 5 casts."
   },
   {
-    "name": "Magic_Weapon.png",
+    "name": "Magic_Weapon",
+    "filepath": "Magic_Weapon.png",
     "Hue": "192",
     "Saturation": "37",
     "Lightness": "26",
@@ -200,7 +220,8 @@
     "description": "Enhances the right-hand weapon.Weapon must be standard, crystal, or raw. Some Dragon and Unique weapons can be enchanted too. Adds 0.8x your Magic Adjustment stat (NOT Intelligence) magic damage to your weapon."
   },
   {
-    "name": "Pursuers.png",
+    "name": "Pursuers",
+    "filepath": "Pursuers.png",
     "Hue": "120",
     "Saturation": "2",
     "Lightness": "26",
@@ -210,7 +231,8 @@
     "description": "Slow moving dark soul mass, fires and homes in on target when in range. Slower moving than homing soul mass but has much better homing capabilities."
   },
   {
-    "name": "Remedy.png",
+    "name": "Remedy",
+    "filepath": "Remedy.png",
     "Hue": "212",
     "Saturation": "10",
     "Lightness": "31",
@@ -220,7 +242,8 @@
     "description": "Removes poison/toxic/bleeding build up, and cures poison/toxic status."
   },
   {
-    "name": "Repair.png",
+    "name": "Repair",
+    "filepath": "Repair.png",
     "Hue": "49",
     "Saturation": "28",
     "Lightness": "19",
@@ -230,7 +253,8 @@
     "description": "Repairs weapons and armor"
   },
   {
-    "name": "Resist_Curse.png",
+    "name": "Resist_Curse",
+    "filepath": "Resist_Curse.png",
     "Hue": "195",
     "Saturation": "5",
     "Lightness": "17",
@@ -240,7 +264,8 @@
     "description": "Removes curse build up."
   },
   {
-    "name": "Soul_Arrow.png",
+    "name": "Soul_Arrow",
+    "filepath": "Soul_Arrow.png",
     "Hue": "200",
     "Saturation": "36",
     "Lightness": "27",
@@ -250,7 +275,8 @@
     "description": "Fires a magical projectile. Excellent starting spell which does very good damage against most enemies in the early game areas."
   },
   {
-    "name": "Soul_Spear.png",
+    "name": "Soul_Spear",
+    "filepath": "Soul_Spear.png",
     "Hue": "204",
     "Saturation": "27",
     "Lightness": "32",
@@ -260,7 +286,8 @@
     "description": "Fire piercing soul spear."
   },
   {
-    "name": "Strong_Magic_Shield.png",
+    "name": "Strong_Magic_Shield",
+    "filepath": "Strong_Magic_Shield.png",
     "Hue": "228",
     "Saturation": "21",
     "Lightness": "46",
@@ -270,7 +297,8 @@
     "description": "Reinforces the equipped shield or weapon able to block in the left hand with a stronger magic effect. Works on all types of shields (even unique or upgraded to any path) and on all weapons able to block while on the left hand (even unique or upgraded to any path). Reduces the stamina used to deflect a hit considerably (only on shields) and improves all the resistances of the shield or weapon enchanted to 100%. Lasts 15 seconds, 3 casts."
   },
   {
-    "name": "White_Dragon_Breath.png",
+    "name": "White_Dragon_Breath",
+    "filepath": "White_Dragon_Breath.png",
     "Hue": "200",
     "Saturation": "23",
     "Lightness": "35",
@@ -280,7 +308,8 @@
     "description": "A straight line of crystals pop out of the ground in front of you, shooting towards your target. One advantage of this spell is that it will take out large groups of enemies if they are lined up one behind the other. It has a medium cast time, but once it fires, it will take out anything in its path. 20 casts make this a great high level replacement for the soul arrow at high levels, as it's not as useful on most bosses."
   },
   {
-    "name": "Acid_Surge.png",
+    "name": "Acid_Surge",
+    "filepath": "Acid_Surge.png",
     "Hue": "9",
     "Saturation": "63",
     "Lightness": "8",
@@ -290,7 +319,8 @@
     "description": "Pyromancy foreign to the Great Swamp. Emit acid which corrodes weapons and armor damaging their durability. Does not affect user."
   },
   {
-    "name": "Black Flame.png",
+    "name": "Black Flame",
+    "filepath": "Black Flame.png",
     "Hue": "13",
     "Saturation": "49",
     "Lightness": "16",
@@ -300,7 +330,8 @@
     "description": "Similar to Great Combustion. Melee-range pyromancy. Main difference with Great Combustion is that when Black Flame is blocked, it consumes a much higher amount of stamina than Great Combustion, making this pyromancy great for breaking guards."
   },
   {
-    "name": "Chaos_Fire_Whip.png",
+    "name": "Chaos_Fire_Whip",
+    "filepath": "Chaos_Fire_Whip.png",
     "Hue": "24",
     "Saturation": "87",
     "Lightness": "21",
@@ -310,7 +341,8 @@
     "description": "Sweep foes with chaos fire whip with lava traces Note: Leaves lava behind for a bit. Follows same mechanics as Fire Whip."
   },
   {
-    "name": "Chaos_Storm.png",
+    "name": "Chaos_Storm",
+    "filepath": "Chaos_Storm.png",
     "Hue": "18",
     "Saturation": "82",
     "Lightness": "28",
@@ -320,7 +352,8 @@
     "description": "Erect localized chaos fire pillars which leave blobs of temporary lava Note: Like firestorm and leaves a little lava behind."
   },
   {
-    "name": "Combustion.png",
+    "name": "Combustion",
+    "filepath": "Combustion.png",
     "Hue": "23",
     "Saturation": "72",
     "Lightness": "13",
@@ -330,7 +363,8 @@
     "description": "Elementary pyromancy. Create powerful flame in hand Note: Good 'melee' range spell, very quick too."
   },
   {
-    "name": "Fireball.png",
+    "name": "Fireball",
+    "filepath": "Fireball.png",
     "Hue": "30",
     "Saturation": "61",
     "Lightness": "19",
@@ -340,7 +374,8 @@
     "description": "Standard pyromancy of the Great Swamp. Hurl fireball."
   },
   {
-    "name": "Firestorm.png",
+    "name": "Firestorm",
+    "filepath": "Firestorm.png",
     "Hue": "32",
     "Saturation": "59",
     "Lightness": "22",
@@ -350,7 +385,8 @@
     "description": "Primal pyromancy taught by Quelana of Izalith. Erect fire pillars in vicinity. Note: Uses 17 uses per cast."
   },
   {
-    "name": "Fire_Orb.png",
+    "name": "Fire_Orb",
+    "filepath": "Fire_Orb.png",
     "Hue": "14",
     "Saturation": "86",
     "Lightness": "26",
@@ -360,7 +396,8 @@
     "description": "Pyromancy which improves upon Fireball. Hurl fire orb."
   },
   {
-    "name": "Fire_Surge.png",
+    "name": "Fire_Surge",
+    "filepath": "Fire_Surge.png",
     "Hue": "23",
     "Saturation": "92",
     "Lightness": "19",
@@ -370,7 +407,8 @@
     "description": "Pyromancy foreign to the Great Swamp. Create a surge of flame from palm of hand. Note: Rapid fire spell you can cast while moving."
   },
   {
-    "name": "Fire_Tempest.png",
+    "name": "Fire_Tempest",
+    "filepath": "Fire_Tempest.png",
     "Hue": "26",
     "Saturation": "67",
     "Lightness": "12",
@@ -380,7 +418,8 @@
     "description": "Primal pyromancy of Quelana of Izalith. Erect giant fire pillars in vicinity."
   },
   {
-    "name": "Fire_Whip.png",
+    "name": "Fire_Whip",
+    "filepath": "Fire_Whip.png",
     "Hue": "15",
     "Saturation": "84",
     "Lightness": "20",
@@ -390,7 +429,8 @@
     "description": "Primal pyromancy taught by Quelana of Izalith. Sweep foes with fire whip. Note: Uses 21 uses per cast. Note:Hits twice/cast"
   },
   {
-    "name": "Flash_Sweat.png",
+    "name": "Flash_Sweat",
+    "filepath": "Flash_Sweat.png",
     "Hue": "9",
     "Saturation": "10",
     "Lightness": "26",
@@ -400,7 +440,8 @@
     "description": "Covers the player in water, reduces fire damage."
   },
   {
-    "name": "Great_Chaos_Fireball.png",
+    "name": "Great_Chaos_Fireball",
+    "filepath": "Great_Chaos_Fireball.png",
     "Hue": "8",
     "Saturation": "68",
     "Lightness": "17",
@@ -410,7 +451,8 @@
     "description": "Hurl giant chaos fireball, leaving a large amount of temporary lava"
   },
   {
-    "name": "Great_Combustion.png",
+    "name": "Great_Combustion",
+    "filepath": "Great_Combustion.png",
     "Hue": "23",
     "Saturation": "77",
     "Lightness": "22",
@@ -420,7 +462,8 @@
     "description": "Pyromancy which improves upon Combustion. Create powerful, giant flame in hand. Note: Very good melee range spell."
   },
   {
-    "name": "Great_Fireball.png",
+    "name": "Great_Fireball",
+    "filepath": "Great_Fireball.png",
     "Hue": "34",
     "Saturation": "69",
     "Lightness": "28",
@@ -430,7 +473,8 @@
     "description": "Ultimate fireball pyromancy. Hurl giant fireball."
   },
   {
-    "name": "Iron_Flesh.png",
+    "name": "Iron_Flesh",
+    "filepath": "Iron_Flesh.png",
     "Hue": "227",
     "Saturation": "15",
     "Lightness": "30",
@@ -440,7 +484,8 @@
     "description": "Self-buff, raises defenses and poise. Note: User becomes heavy and unable to move freely: can only walk, can't run, sprint, roll, or jump."
   },
   {
-    "name": "Poison_Mist.png",
+    "name": "Poison_Mist",
+    "filepath": "Poison_Mist.png",
     "Hue": "311",
     "Saturation": "43",
     "Lightness": "10",
@@ -450,7 +495,8 @@
     "description": "Breathes out a cone of poison mist that fills the surrounding area causing poison status."
   },
   {
-    "name": "Power_Within.png",
+    "name": "Power_Within",
+    "filepath": "Power_Within.png",
     "Hue": "2",
     "Saturation": "78",
     "Lightness": "16",
@@ -460,7 +506,8 @@
     "description": "Increases Attack and Defense but gradually drains HP"
   },
   {
-    "name": "Toxic_Mist.png",
+    "name": "Toxic_Mist",
+    "filepath": "Toxic_Mist.png",
     "Hue": "336",
     "Saturation": "68",
     "Lightness": "7",
@@ -470,7 +517,8 @@
     "description": "Breathes out a cone of toxic mist that fills the surrounding area causing toxic status."
   },
   {
-    "name": "Undead_Rapport.png",
+    "name": "Undead_Rapport",
+    "filepath": "Undead_Rapport.png",
     "Hue": "355",
     "Saturation": "41",
     "Lightness": "29",
@@ -480,7 +528,8 @@
     "description": "Advanced pyromancy of Quelana of Izalith. Charm undead and gain temporary allies. Melee ranged support spell with about 2 second cast time."
   },
   {
-    "name": "Bountiful_Sunlight.png",
+    "name": "Bountiful_Sunlight",
+    "filepath": "Bountiful_Sunlight.png",
     "Hue": "29",
     "Saturation": "54",
     "Lightness": "45",
@@ -490,7 +539,8 @@
     "description": "Gradually restores HP over time for a short duration to you and nearby allies. Must be part of the Princess's Guard to use."
   },
   {
-    "name": "Darkmoon_Blade.png",
+    "name": "Darkmoon_Blade",
+    "filepath": "Darkmoon_Blade.png",
     "Hue": "230",
     "Saturation": "26",
     "Lightness": "31",
@@ -500,7 +550,8 @@
     "description": "Boosts right hand weapon with rays of Darkmoon. Adds 1.8x your talisman's Magic Adjustment value as Magic Damage at Covenant Rank 0. Scaling increases by 0.1x for each rank to a maximum of 2.1x at Covenant Rank 3. Must be member of Darkmoon covenant to use."
   },
   {
-    "name": "Emit_Force.png",
+    "name": "Emit_Force",
+    "filepath": "Emit_Force.png",
     "Hue": "45",
     "Saturation": "2",
     "Lightness": "55",
@@ -510,7 +561,8 @@
     "description": "Shoots a large ball of force energy to explode on the target causing damage to the target and close surrounding enemies. Can deflect sorceries."
   },
   {
-    "name": "Force.png",
+    "name": "Force",
+    "filepath": "Force.png",
     "Hue": "36",
     "Saturation": "12",
     "Lightness": "43",
@@ -520,7 +572,8 @@
     "description": "AoE effect that does no damage but knocks back most surrounding enemies Must be very close to cause knockdown. Can deflect sorceries such as Homing Soulmass."
   },
   {
-    "name": "Gravelord_Greatsword_Dance.png",
+    "name": "Gravelord_Greatsword_Dance",
+    "filepath": "Gravelord_Greatsword_Dance.png",
     "Hue": "12",
     "Saturation": "42",
     "Lightness": "21",
@@ -530,7 +583,8 @@
     "description": "AoE miracle similar to Gravelord Nito's scream sword attack. Several swords will pierce the ground impaling enemies in the area. Miracle is very effective when used in close quarters such as hallways or bridges as several swords may impale the same enemy."
   },
   {
-    "name": "Gravelord_Sword_Dance.png",
+    "name": "Gravelord_Sword_Dance",
+    "filepath": "Gravelord_Sword_Dance.png",
     "Hue": "11",
     "Saturation": "20",
     "Lightness": "21",
@@ -540,7 +594,8 @@
     "description": "Upgraded version of Gravelord Sword Dance miracle. Area of effect is expanded and increased damage."
   },
   {
-    "name": "Great_Heal.png",
+    "name": "Great_Heal",
+    "filepath": "Great_Heal.png",
     "Hue": "41",
     "Saturation": "16",
     "Lightness": "50",
@@ -550,7 +605,8 @@
     "description": "Heals a large amount of the casters HP, depending on faith."
   },
   {
-    "name": "Great_Heal_Excerpt.png",
+    "name": "Great_Heal_Excerpt",
+    "filepath": "Great_Heal_Excerpt.png",
     "Hue": "39",
     "Saturation": "20",
     "Lightness": "41",
@@ -560,7 +616,8 @@
     "description": "Cut down version of Great Heal. Heals large amount of HP to the caster. (NOTE: This spell does not affect allies as the erroneous load screen info would have you believe.)"
   },
   {
-    "name": "Great_Lightning_Spear.png",
+    "name": "Great_Lightning_Spear",
+    "filepath": "Great_Lightning_Spear.png",
     "Hue": "41",
     "Saturation": "20",
     "Lightness": "38",
@@ -570,7 +627,8 @@
     "description": "A larger, more powerful spear of light that inflicts lightning damage. Scales with faith. Can be thrown into water to cause AoE. (Puddles, lakes,etc.)"
   },
   {
-    "name": "Great_Magic_Barrier.png",
+    "name": "Great_Magic_Barrier",
+    "filepath": "Great_Magic_Barrier.png",
     "Hue": "35",
     "Saturation": "7",
     "Lightness": "48",
@@ -580,7 +638,8 @@
     "description": "As Magic Barrier but reduces even more magic damage. (90%)?"
   },
   {
-    "name": "Heal.png",
+    "name": "Heal",
+    "filepath": "Heal.png",
     "Hue": "37",
     "Saturation": "23",
     "Lightness": "36",
@@ -590,7 +649,8 @@
     "description": "Heals a moderate amount of the casters HP, depending on faith."
   },
   {
-    "name": "Homeward.png",
+    "name": "Homeward",
+    "filepath": "Homeward.png",
     "Hue": "29",
     "Saturation": "35",
     "Lightness": "29",
@@ -600,7 +660,8 @@
     "description": "Transports you back to the last used bonfire."
   },
   {
-    "name": "Karmic_Justice.png",
+    "name": "Karmic_Justice",
+    "filepath": "Karmic_Justice.png",
     "Hue": "267",
     "Saturation": "15",
     "Lightness": "24",
@@ -610,7 +671,8 @@
     "description": "Karmic Justice is a self-buff that lasts for 1 minute. If the player takes successive hits in PHYSICAL damage (meaning melee and non-magical), the spell explodes, dealing massive damage to all nearby enemies and knocking them all down. A very effective miracle for players who wear cloth armor with no poise. If they get stunlocked by a combo, this spell can save you from certain death."
   },
   {
-    "name": "Lightning_Spear.png",
+    "name": "Lightning_Spear",
+    "filepath": "Lightning_Spear.png",
     "Hue": "36",
     "Saturation": "23",
     "Lightness": "33",
@@ -620,7 +682,8 @@
     "description": "A powerful spear of light that inflicts lightning damage. Scales with faith. Can be thrown into bodies of water to cause AoE. (Puddles, lakes,etc.)"
   },
   {
-    "name": "Magic_Barrier.png",
+    "name": "Magic_Barrier",
+    "filepath": "Magic_Barrier.png",
     "Hue": "36",
     "Saturation": "11",
     "Lightness": "44",
@@ -630,7 +693,8 @@
     "description": "Reduces incoming magic damage for a short duration. (70%)?"
   },
   {
-    "name": "Replenishment.png",
+    "name": "Replenishment",
+    "filepath": "Replenishment.png",
     "Hue": "43",
     "Saturation": "34",
     "Lightness": "36",
@@ -640,7 +704,8 @@
     "description": "Gradually restores HP over time for a short duration."
   },
   {
-    "name": "Seek_Guidance.png",
+    "name": "Seek_Guidance",
+    "filepath": "Seek_Guidance.png",
     "Hue": "37",
     "Saturation": "42",
     "Lightness": "42",
@@ -650,7 +715,8 @@
     "description": "The Seek Guidance miracle allows the player to see more messages on the ground as well as their positive and negative ratings. Additional developer messages, providing hints, can also be seen in some areas."
   },
   {
-    "name": "Soothing_Sunlight.png",
+    "name": "Soothing_Sunlight",
+    "filepath": "Soothing_Sunlight.png",
     "Hue": "34",
     "Saturation": "46",
     "Lightness": "49",
@@ -660,7 +726,8 @@
     "description": "Heals large amount of HP to the caster and nearby allies. Scales with faith. Must be part of the Princess's Guard to use."
   },
   {
-    "name": "Sunlight_Blade.png",
+    "name": "Sunlight_Blade",
+    "filepath": "Sunlight_Blade.png",
     "Hue": "39",
     "Saturation": "41",
     "Lightness": "36",
@@ -670,7 +737,8 @@
     "description": "Coats right hand weapon in lightning. Adds 1.8x your talisman's Magic Adjustment value as Lightning Damage."
   },
   {
-    "name": "Sunlight_Spear.png",
+    "name": "Sunlight_Spear",
+    "filepath": "Sunlight_Spear.png",
     "Hue": "36",
     "Saturation": "36",
     "Lightness": "37",
@@ -680,7 +748,8 @@
     "description": "A very powerful version of the lightning spear. Fewer charges but a lot more damage. Scales with faith. Can be thrown into water to cause AoE. (Puddles, lakes,etc.) Must remain part of Warriors of Sunlight to use."
   },
   {
-    "name": "Tranquil_Walk_of_Peace.png",
+    "name": "Tranquil_Walk_of_Peace",
+    "filepath": "Tranquil_Walk_of_Peace.png",
     "Hue": "39",
     "Saturation": "16",
     "Lightness": "28",
@@ -690,7 +759,8 @@
     "description": "Applies a debuff to nearby enemies which slows movement speed, that lasts for about 10 seconds."
   },
   {
-    "name": "Vow_of_Silence.png",
+    "name": "Vow_of_Silence",
+    "filepath": "Vow_of_Silence.png",
     "Hue": "315",
     "Saturation": "7",
     "Lightness": "23",
@@ -700,7 +770,8 @@
     "description": "An AoE silence around you that stops all casting in the area, including your own, for about 25 seconds. Does not scale with faith."
   },
   {
-    "name": "Wrath_of_the_Gods.png",
+    "name": "Wrath_of_the_Gods",
+    "filepath": "Wrath_of_the_Gods.png",
     "Hue": "30",
     "Saturation": "3",
     "Lightness": "56",
@@ -708,15 +779,15 @@
     "type": "Miracle",
     "uses": "3",
     "description": "A fast casting force spell that deals high damage in a bubble around you. One of the most powerful offensive miracles in the game. Can deflect sorceries."
-     },
-     {
-       "name": "Generic.png",
-       "Hue": "200",
-       "Saturation": "38",
-       "Lightness": "56",
-       "requirement": "28",
-       "type": "Miracle",
-       "uses": "3",
-       "description": "A fast casting force spell that deals high damage in a bubble around you. One of the most powerful offensive miracles in the game. Can deflect sorceries."
-        }
+  },
+  {
+    "name": "Generic",
+    "Hue": "200",
+    "Saturation": "0",
+    "Lightness": "56",
+    "requirement": "28",
+    "type": "Miracle",
+    "uses": "3",
+    "description": "A fast casting force spell that deals high damage in a bubble around you. One of the most powerful offensive miracles in the game. Can deflect sorceries."
+  }
 ]
