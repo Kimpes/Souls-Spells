@@ -53,15 +53,14 @@ let colorWhite = [255, 236, 217];
 // ---------------------------------------------------------------- Setup Functions
 
 function preload() {
-  jsonData = loadJSON("assets/spells.json", (jsonData) => {
+  jsonData = loadJSON("assets/dummy.json", (jsonData) => {
     // Convert the object into an array
     dataArray = Object.values(jsonData);
-    console.log(dataArray);
     spells = dataArray;
-    loadItemImagesAndCreateObjects(spells);
-    createAttributesAndCategories(spells);
-    findLimits(spells, attributes);
-    console.log(attributes);
+    spellObjects = loadItemImagesAndCreateObjects(spells);
+    console.log(spellObjects);
+    createAttributesAndCategories(spellObjects);
+    findLimits(spellObjects, attributes);
     calculatePositions(spellObjects);
     addCategoryButtons(categories);
     addXYButtons(allNumberAttributes);
@@ -73,6 +72,7 @@ function loadItemImagesAndCreateObjects(itemList) {
   if (!itemList) {
     throw new Error("itemList is null or undefined");
   }
+  const objectList = [];
   for (let item of itemList) {
     if (!item) {
       throw new Error("item is null or undefined");
@@ -110,8 +110,9 @@ function loadItemImagesAndCreateObjects(itemList) {
       });
     }
 
-    spellObjects.push(newSpell);
+    objectList.push(newSpell);
   }
+  return objectList;
 }
 
 function setup() {
@@ -119,7 +120,7 @@ function setup() {
 }
 
 window.addEventListener("load", () => {
-  console.log("loaded");
+  console.log("window loaded");
   let sideButtons = document.getElementsByClassName("side-button");
   let bottomButtons = document.getElementsByClassName("bottom-button");
   for (let button of sideButtons) {
@@ -145,6 +146,7 @@ window.addEventListener("load", () => {
 });
 
 function createAttributesAndCategories(itemList) {
+  let allNumberAttributesCounter = 0;
   for (const [key, value] of Object.entries(itemList[0])) {
     if (key != "image" && key != "filepath") {
       const newAttribute = new ItemAttribute(key, value);
@@ -157,6 +159,14 @@ function createAttributesAndCategories(itemList) {
       }
       if (newAttribute.type == "number") {
         allNumberAttributes.add(newAttribute);
+        if (allNumberAttributesCounter === 0) {
+          xAxisType = newAttribute.name;
+          yAxisType = newAttribute.name;
+          allNumberAttributesCounter++;
+        } else if (allNumberAttributesCounter === 1) {
+          yAxisType = newAttribute.name;
+          allNumberAttributesCounter++;
+        }
       }
       attributes.set(key, newAttribute);
     }
@@ -400,12 +410,12 @@ class GraphItem {
     fill(colorYellow);
     textStyle(ITALIC);
     for (let i = 0; i < informationTexts.length; i++) {
-      text(informationTexts[i], 0, -65 + i * 19);
+      text(informationTexts[i], 0, -65 + i * 21);
       if (i == informationTexts.length - 1 && this.description != null) {
         textStyle(NORMAL);
         textLeading(22);
         fill(colorWhite);
-        text(this.description, 0, -65 + (i + 1) * 19, 500, 500);
+        text(this.description, 0, -65 + (i + 1) * 21, 500, 500);
       }
     }
 
@@ -427,6 +437,20 @@ class GraphItem {
 
       pop();
     }
+  }
+  checkIfVisible() {
+    let itemValues = Object.values(this);
+    for (const value of itemValues) {
+      if (categories.get(value) && categories.get(value).show) return true;
+    }
+    return false;
+  }
+  checkIfHighlighted() {
+    let itemValues = Object.values(this);
+    for (const value of itemValues) {
+      if (categories.get(value) && categories.get(value).highlight) return true;
+    }
+    return false;
   }
 }
 
@@ -450,7 +474,7 @@ class ItemAttribute {
     if (this.type == "number") {
       let min = 360;
       for (const item of list) {
-        if (parseInt(item[this.name]) < min && this.checkIfVisible(item.type))
+        if (parseInt(item[this.name]) < min && item.checkIfVisible())
           min = parseInt(item[this.name]);
       }
       this.minValue = min;
@@ -460,14 +484,11 @@ class ItemAttribute {
     if (this.type == "number") {
       let max = 0;
       for (const item of list) {
-        if (parseInt(item[this.name]) > max && this.checkIfVisible(item.type))
+        if (parseInt(item[this.name]) > max && item.checkIfVisible())
           max = parseInt(item[this.name]);
       }
       this.maxValue = max;
     }
-  }
-  checkIfVisible(type) {
-    return categories.get(type).show;
   }
   findAllUniqueValues(list) {
     if (this.type == "category") {
@@ -536,9 +557,9 @@ function draw() {
     renderGraph(true);
     showcasedSpell = findShowcasedSpell(spellObjects);
     for (const spell of spellObjects) {
-      if (categories.get(spell.type).show) {
-        let highlight = categories.get(spell.type).highlight;
-        spell.draw(highlight, false, 1);
+      if (spell.checkIfVisible()) {
+        let isHighlighted = spell.checkIfHighlighted();
+        spell.draw(isHighlighted, false, 1);
         if (showcasedSpell) showcasedSpell.draw(false, true, 1.5);
       }
     }
@@ -600,7 +621,7 @@ function findShowcasedSpell(spellList) {
       spell.position.x + 40 > mousePosition.x &&
       spell.position.y < mousePosition.y &&
       spell.position.y + 45 > mousePosition.y &&
-      categories.get(spell.type).show
+      spell.checkIfVisible()
     ) {
       hoveredOverSpells.push(spell);
     }
@@ -643,8 +664,6 @@ function lerp(start, end, amount) {
 
 // TODOs
 // fix generic image loading
-// separate name and image path
-// add secondary JSON file for testing
 // use local storage to avoid redoing calculation work
 
 // Ambitious TODOs
