@@ -33,19 +33,19 @@ let spells = [
 ];
 
 // arrays and array-like collections
-let spellObjects = [];
+let graphItems = [];
 const attributes = new Map();
 const categories = new Map();
 const allNumberAttributes = new Set();
 let xButtons = [];
 let yButtons = [];
 
-let graphMode = "Compare Spells";
-let showcasedSpell;
+let graphMode = "Compare Items";
+let showcasedItem;
 let imagesLoaded = 0;
 let mousePosition;
 let font;
-let showcasedSpellOldPosition;
+let showcasedItemOldPosition;
 
 let colorYellow = [247, 171, 94];
 let colorWhite = [255, 236, 217];
@@ -57,11 +57,11 @@ function preload() {
     // Convert the object into an array
     dataArray = Object.values(jsonData);
     spells = dataArray;
-    spellObjects = loadItemImagesAndCreateObjects(spells);
-    console.log(spellObjects);
-    createAttributesAndCategories(spellObjects);
-    findLimits(spellObjects, attributes);
-    calculatePositions(spellObjects);
+    graphItems = loadItemImagesAndCreateObjects(spells);
+    console.log(graphItems);
+    createAttributesAndCategories(graphItems);
+    findLimits(graphItems, attributes);
+    calculatePositions(graphItems);
     addCategoryButtons(categories);
     addXYButtons(allNumberAttributes);
   });
@@ -80,37 +80,37 @@ function loadItemImagesAndCreateObjects(itemList) {
     if (!item.name) {
       throw new Error("item.name is null or undefined");
     }
-    const newSpell = new GraphItem(item);
-    if (newSpell.filepath) {
-      newSpell.image = loadImage(
+    const newItem = new GraphItem(item);
+    if (newItem.filepath) {
+      newItem.image = loadImage(
         `assets/spell-images/${item.filepath}`,
         () => {
           imagesLoaded++;
           if (imagesLoaded === itemList.length) {
-            generateSpellShadows(spellObjects);
+            generateItemImageShadows(graphItems);
           }
         },
         (error) => {
           console.error("error loading image:", error);
-          newSpell.image = loadImage("assets/spell-images/Generic.png", () => {
+          newItem.image = loadImage("assets/spell-images/Generic.png", () => {
             console.log("loaded generic image");
             imagesLoaded++;
             if (imagesLoaded === itemList.length) {
-              generateSpellShadows(spellObjects);
+              generateItemImageShadows(graphItems);
             }
           });
         }
       );
     } else {
-      newSpell.image = loadImage(`assets/spell-images/Generic.png`, () => {
+      newItem.image = loadImage(`assets/spell-images/Generic.png`, () => {
         imagesLoaded++;
         if (imagesLoaded === itemList.length) {
-          generateSpellShadows(spellObjects);
+          generateItemImageShadows(graphItems);
         }
       });
     }
 
-    objectList.push(newSpell);
+    objectList.push(newItem);
   }
   return objectList;
 }
@@ -130,7 +130,7 @@ window.addEventListener("load", () => {
         button.classList.remove("active");
       }
       button.classList.add("active");
-      calculatePositions(spellObjects);
+      calculatePositions(graphItems);
     });
   }
   for (let button of xButtons) {
@@ -140,7 +140,7 @@ window.addEventListener("load", () => {
         button.classList.remove("active");
       }
       button.classList.add("active");
-      calculatePositions(spellObjects);
+      calculatePositions(graphItems);
     });
   }
 });
@@ -200,7 +200,7 @@ function addXYButtons(attributeList) {
     yAttributeButton.addEventListener("click", () => {
       yAxisType = attribute.name;
       updateButtonState(yAttributeButton, yButtons);
-      calculatePositions(spellObjects);
+      calculatePositions(graphItems);
     });
 
     const xAttributeButton = createButton(
@@ -211,7 +211,7 @@ function addXYButtons(attributeList) {
     xAttributeButton.addEventListener("click", () => {
       xAxisType = attribute.name;
       updateButtonState(xAttributeButton, xButtons);
-      calculatePositions(spellObjects);
+      calculatePositions(graphItems);
     });
 
     yButtonContainer.appendChild(yAttributeButton);
@@ -252,8 +252,8 @@ function addCategoryButtons(categories) {
         category.show = true;
         categoryElement.classList.add("active");
       }
-      findLimits(spellObjects, attributes);
-      calculatePositions(spellObjects);
+      findLimits(graphItems, attributes);
+      calculatePositions(graphItems);
     });
     categoryButtonContainer.append(categoryElement);
   }
@@ -305,7 +305,6 @@ class GraphItem {
       cursor(ARROW);
     } else {
       cursor(HAND);
-      // image(spell.image, spell.position.x - 8, spell.position.y - 9, 56, 63);
 
       push();
       let textBackground = font.textBounds(this.name, 20, 75, 18);
@@ -553,50 +552,50 @@ function renderGraph(showText) {
 function draw() {
   background(40, 40, 45);
   mousePosition = createVector(mouseX, mouseY);
-  if (graphMode == "Compare Spells") {
+  if (graphMode == "Compare Items") {
     renderGraph(true);
-    showcasedSpell = findShowcasedSpell(spellObjects);
-    for (const spell of spellObjects) {
-      if (spell.checkIfVisible()) {
-        let isHighlighted = spell.checkIfHighlighted();
-        spell.draw(isHighlighted, false, 1);
-        if (showcasedSpell) showcasedSpell.draw(false, true, 1.5);
+    showcasedItem = findShowcasedItem(graphItems);
+    for (const item of graphItems) {
+      if (item.checkIfVisible()) {
+        let isHighlighted = item.checkIfHighlighted();
+        item.draw(isHighlighted, false, 1);
+        if (showcasedItem) showcasedItem.draw(false, true, 1.5);
       }
     }
-  } else if (graphMode == "Single Spell") {
+  } else if (graphMode == "Single Item") {
     renderGraph(false);
-    showcasedSpell.draw(false, false, 3);
-    showcasedSpell.renderSingleItemInfo();
+    showcasedItem.draw(false, false, 3);
+    showcasedItem.renderSingleItemInfo();
   }
 }
 
 // ---------------------------------------------------------------- Misc Functions
 
-function findLimits(spellList, attributeList) {
+function findLimits(itemList, attributeList) {
   for (const [key, attribute] of attributeList) {
-    attribute.findMaxValue(spellList);
-    attribute.findMinValue(spellList);
+    attribute.findMaxValue(itemList);
+    attribute.findMinValue(itemList);
   }
 }
 
-function calculatePositions(spellList) {
-  for (let spell of spellList) {
-    spell.calculatePosition(
+function calculatePositions(itemList) {
+  for (let item of itemList) {
+    item.calculatePosition(
       attributes.get(xAxisType),
       attributes.get(yAxisType)
     );
   }
 }
 
-function generateSpellShadows(spellList) {
-  for (let spell of spellList) {
-    const newW = spell.image.width;
-    const newH = spell.image.height;
+function generateItemImageShadows(itemList) {
+  for (let item of itemList) {
+    const newW = item.image.width;
+    const newH = item.image.height;
     const g = createGraphics(newW, newH);
 
     g.imageMode(CENTER);
     g.translate(newW / 2, newH / 2);
-    g.image(spell.image, 0, 0);
+    g.image(item.image, 0, 0);
 
     const shadow = g.get();
     const c = color("ff0000");
@@ -610,52 +609,52 @@ function generateSpellShadows(spellList) {
     shadow.updatePixels();
 
     g.remove();
-    spell.shadow = shadow;
+    item.shadow = shadow;
   }
 }
-function findShowcasedSpell(spellList) {
-  let hoveredOverSpells = [];
-  for (let spell of spellList) {
+function findShowcasedItem(itemList) {
+  let hoveredOverItems = [];
+  for (let item of itemList) {
     if (
-      spell.position.x < mousePosition.x &&
-      spell.position.x + 40 > mousePosition.x &&
-      spell.position.y < mousePosition.y &&
-      spell.position.y + 45 > mousePosition.y &&
-      spell.checkIfVisible()
+      item.position.x < mousePosition.x &&
+      item.position.x + 40 > mousePosition.x &&
+      item.position.y < mousePosition.y &&
+      item.position.y + 45 > mousePosition.y &&
+      item.checkIfVisible()
     ) {
-      hoveredOverSpells.push(spell);
+      hoveredOverItems.push(item);
     }
   }
-  if (hoveredOverSpells.length == 0) {
+  if (hoveredOverItems.length == 0) {
     return null;
-  } else if (hoveredOverSpells.length == 1) {
-    return hoveredOverSpells[0];
+  } else if (hoveredOverItems.length == 1) {
+    return hoveredOverItems[0];
   } else {
     let closestDistance = 100;
-    let closestSpell;
-    for (let i = 0; i < hoveredOverSpells.length; i++) {
-      let spellCenter = hoveredOverSpells[i].position.copy();
-      spellCenter.add(20, 25);
-      let distance = spellCenter.dist(mousePosition);
+    let closestItem;
+    for (let i = 0; i < hoveredOverItems.length; i++) {
+      let itemCenter = hoveredOverItems[i].position.copy();
+      itemCenter.add(20, 25);
+      let distance = itemCenter.dist(mousePosition);
       if (distance < closestDistance) {
-        closestSpell = hoveredOverSpells[i];
+        closestItem = hoveredOverItems[i];
         closestDistance = distance;
       }
     }
-    return closestSpell;
+    return closestItem;
   }
 }
 function mouseClicked() {
-  if (showcasedSpell && graphMode == "Compare Spells") {
-    graphMode = "Single Spell";
-    showcasedSpell.positionGoal = createVector(250, SCREEN_HEIGHT / 2 - 140);
-    showcasedSpellOldPosition = createVector(
-      showcasedSpell.position.x,
-      showcasedSpell.position.y
+  if (showcasedItem && graphMode == "Compare Items") {
+    graphMode = "Single Item";
+    showcasedItem.positionGoal = createVector(250, SCREEN_HEIGHT / 2 - 140);
+    showcasedItemOldPosition = createVector(
+      showcasedItem.position.x,
+      showcasedItem.position.y
     );
-  } else if (graphMode == "Single Spell") {
-    showcasedSpell.positionGoal = showcasedSpellOldPosition;
-    graphMode = "Compare Spells";
+  } else if (graphMode == "Single Item") {
+    showcasedItem.positionGoal = showcasedItemOldPosition;
+    graphMode = "Compare Items";
   }
 }
 function lerp(start, end, amount) {
@@ -669,4 +668,4 @@ function lerp(start, end, amount) {
 // Ambitious TODOs
 // remove need for hard baked HSL values; calculate on load
 // allow for uploading of own JSON file
-// make spell showcase into an HTML element instead of p5
+// make single item showcase into an HTML element instead of p5
