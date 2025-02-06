@@ -687,7 +687,7 @@ const sketch = (p: p5) => {
       return closestItem;
     }
   }
-  function mouseClicked() {
+  p.mouseClicked = () => {
     if (showcasedItem && graphMode == "Compare Items") {
       graphMode = "Single Item";
       showcasedItem.positionGoal = p.createVector(250, SCREEN_HEIGHT / 2 - 140);
@@ -699,7 +699,7 @@ const sketch = (p: p5) => {
       showcasedItem.positionGoal = showcasedItemOldPosition;
       graphMode = "Compare Items";
     }
-  }
+  };
   function lerp(start: number, end: number, amount: number): number {
     return (1 - amount) * start + amount * end;
   }
