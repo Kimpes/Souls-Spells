@@ -59,9 +59,7 @@ const sketch = (p: p5) => {
 
   p.preload = () => {
     jsonData = p.loadJSON(`assets/${JSON_FILENAME}.json`, (jsonData) => {
-      console.log(jsonData);
       dataArray = Object.values(jsonData);
-      console.log(dataArray);
       spells = dataArray;
       graphItems = loadItemImagesAndCreateObjects(spells);
       console.log(graphItems);
@@ -180,8 +178,6 @@ const sketch = (p: p5) => {
         attributes.set(key, newAttribute);
       }
     }
-    console.log(allNumberAttributes);
-    console.log(categories);
   }
 
   function addXYButtons(attributeList: Set<ItemAttribute>) {
@@ -593,7 +589,7 @@ const sketch = (p: p5) => {
 
   // ---------------------------------------------------------------- Draw Function
 
-  function draw() {
+  p.draw = () => {
     p.background(40, 40, 45);
     mousePosition = p.createVector(p.mouseX, p.mouseY);
     if (graphMode == "Compare Items") {
@@ -611,7 +607,7 @@ const sketch = (p: p5) => {
       showcasedItem.draw(false, false, 3);
       showcasedItem.renderSingleItemInfo();
     }
-  }
+  };
 
   // ---------------------------------------------------------------- Misc Functions
 
