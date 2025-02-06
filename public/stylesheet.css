@@ -141,3 +141,7 @@ button.active {
 main > canvas {
   /* margin-top: 50px; */
 }
+
+.underlined-block {
+  border-bottom: 2px solid rgb(0, 0, 0);
+}

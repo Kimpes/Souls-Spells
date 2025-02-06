@@ -1,0 +1,14 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es5",
+    "lib": ["dom", "es2022"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "types": ["p5"],
+    "typeRoots": ["./node_modules/@types"],
+    "moduleResolution": "node"
+  },
+  "exclude": ["node_modules"]
+}
