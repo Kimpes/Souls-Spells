@@ -1,62 +1,62 @@
 import p5 from "p5";
 let p: p5;
 
-const JSON_FILENAME = "spells";
-const SCREEN_WIDTH = 1100;
-const SCREEN_HEIGHT = 700;
-const SCREEN_PADDING = 100;
-const GRAPH_THICKNESS = 2;
-const EASING_FACTOR = 0.1;
-
-//the following attribute types are expected to be in the JSON file
-//only name breaks the application if it's empty.
-// - Hue
-// - Saturation
-// - Lightness
-// - name
-// - description
-// - filepath (there's a generic image if filepath is empty or doesn't exist)
-
-let xAxisType: string;
-let yAxisType: string;
-let dataArray: any;
-let jsonData: any;
-
-//an example of a proper item in the JSON file
-let spells = [
-  {
-    name: "Aural Decoy",
-    filepath: "Aural_Decoy.png",
-    Hue: "201",
-    Saturation: "20",
-    Lightness: "35",
-    requirement: "10",
-    type: "Sorcery",
-    uses: "10",
-    description: "An aural effect that makes the target's voice deafened.",
-  },
-];
-
-// arrays and array-like collections
-let graphItems = [];
-const attributes = new Map();
-const categories = new Map();
-const allNumberAttributes = new Set();
-let xButtons = [];
-let yButtons = [];
-
-let graphMode = "Compare Items";
-let showcasedItem;
-let imagesLoaded = 0;
-let mousePosition;
-let font;
-let showcasedItemOldPosition;
-
-let colorYellow = [247, 171, 94];
-let colorWhite = [255, 236, 217];
-
 // ---------------------------------------------------------------- Setup Functions
 const sketch = (p: p5) => {
+  const JSON_FILENAME = "spells";
+  const SCREEN_WIDTH = 1100;
+  const SCREEN_HEIGHT = 700;
+  const SCREEN_PADDING = 100;
+  const GRAPH_THICKNESS = 2;
+  const EASING_FACTOR = 0.1;
+
+  //the following attribute types are expected to be in the JSON file
+  //only name breaks the application if it's empty.
+  // - Hue
+  // - Saturation
+  // - Lightness
+  // - name
+  // - description
+  // - filepath (there's a generic image if filepath is empty or doesn't exist)
+
+  let xAxisType: string;
+  let yAxisType: string;
+  let dataArray: any;
+  let jsonData: any;
+
+  //an example of a proper item in the JSON file
+  let spells = [
+    {
+      name: "Aural Decoy",
+      filepath: "Aural_Decoy.png",
+      Hue: "201",
+      Saturation: "20",
+      Lightness: "35",
+      requirement: "10",
+      type: "Sorcery",
+      uses: "10",
+      description: "An aural effect that makes the target's voice deafened.",
+    },
+  ];
+
+  // arrays and array-like collections
+  let graphItems = [];
+  const attributes = new Map<string, ItemAttribute>();
+  const categories = new Map<string, Category>();
+  const allNumberAttributes = new Set<ItemAttribute>();
+  let xButtons = [];
+  let yButtons = [];
+
+  let graphMode = "Compare Items";
+  let showcasedItem: GraphItem;
+  let imagesLoaded = 0;
+  let mousePosition: p5.Vector;
+  let font;
+  let showcasedItemOldPosition: p5.Vector;
+
+  let colorYellow = [247, 171, 94];
+  let colorWhite = [255, 236, 217];
+
   p.preload = () => {
     jsonData = p.loadJSON(`assets/${JSON_FILENAME}.json`, (jsonData) => {
       console.log(jsonData);
@@ -184,7 +184,7 @@ const sketch = (p: p5) => {
     console.log(categories);
   }
 
-  function addXYButtons(attributeList) {
+  function addXYButtons(attributeList: Set<ItemAttribute>) {
     // creates the x and y buttons based on the number-type attributes it finds in the JSON file
     const xButtonContainer = document.getElementById("x-buttons-container");
     const yButtonContainer = document.getElementById("y-buttons-container");
@@ -206,7 +206,7 @@ const sketch = (p: p5) => {
       return button;
     }
 
-    for (let attribute of attributeList) {
+    for (let attribute of Array.from(attributeList)) {
       const yAttributeButton = createButton(
         attribute.name,
         "side-button",
@@ -236,19 +236,22 @@ const sketch = (p: p5) => {
     }
   }
 
-  function updateButtonState(activeButton, buttons): void {
+  function updateButtonState(
+    activeButton: HTMLButtonElement,
+    buttons: any[]
+  ): void {
     for (let button of buttons) {
       button.classList.remove("active");
     }
     activeButton.classList.add("active");
   }
 
-  function addCategoryButtons(categories): void {
+  function addCategoryButtons(categories: Map<string, Category>): void {
     // creates the category buttons based on the categories it finds in the JSON file
     let categoryButtonContainer = document.getElementById(
       "category-button-container"
     );
-    for (const [key, category] of categories) {
+    for (const [key, category] of Array.from(categories)) {
       let categoryElement = document.createElement("button");
       categoryElement.value = category.name;
       categoryElement.innerText = category.name;
@@ -376,7 +379,7 @@ const sketch = (p: p5) => {
 
       this.size = 1;
     }
-    calculateXAxisPosition(attribute) {
+    calculateXAxisPosition(attribute: ItemAttribute): number {
       if (attribute.type == "number") {
         return (
           (parseInt(this[attribute.name]) - attribute.minValue) /
@@ -384,7 +387,7 @@ const sketch = (p: p5) => {
         );
       }
     }
-    calculateYAxisPosition(attribute) {
+    calculateYAxisPosition(attribute: ItemAttribute): number {
       if (attribute.type == "number") {
         return (
           ((parseInt(this[attribute.name]) - attribute.minValue) /
@@ -499,7 +502,7 @@ const sketch = (p: p5) => {
       this.setType(key, value);
       this.name = key;
     }
-    setType(key, value) {
+    setType(key: string, value: any): void {
       if (key.toLowerCase() === "name") {
         this.type = "name";
       } else if (!isNaN(value)) {
@@ -510,7 +513,7 @@ const sketch = (p: p5) => {
         this.type = "unknown";
       }
     }
-    findMinValue(list) {
+    findMinValue(list: any[]): void {
       if (this.type == "number") {
         let min = 360;
         for (const item of list) {
@@ -520,7 +523,7 @@ const sketch = (p: p5) => {
         this.minValue = min;
       }
     }
-    findMaxValue(list) {
+    findMaxValue(list: any[]): void {
       if (this.type == "number") {
         let max = 0;
         for (const item of list) {
@@ -530,7 +533,7 @@ const sketch = (p: p5) => {
         this.maxValue = max;
       }
     }
-    findAllUniqueValues(list) {
+    findAllUniqueValues(list: any[]): void {
       if (this.type == "category") {
         this.allUniqueValues = new Set();
         for (let item of list) {
@@ -542,7 +545,7 @@ const sketch = (p: p5) => {
 
   // ---------------------------------------------------------------- Rendering functions
 
-  function renderGraph(showText) {
+  function renderGraph(showText: boolean) {
     p.push();
     p.strokeWeight(0);
     p.fill(colorYellow);
@@ -612,14 +615,17 @@ const sketch = (p: p5) => {
 
   // ---------------------------------------------------------------- Misc Functions
 
-  function findLimits(itemList, attributeList) {
-    for (const [key, attribute] of attributeList) {
+  function findLimits(
+    itemList: GraphItem[],
+    attributeList: Map<string, ItemAttribute>
+  ) {
+    for (const [key, attribute] of Array.from(attributeList)) {
       attribute.findMaxValue(itemList);
       attribute.findMinValue(itemList);
     }
   }
 
-  function calculatePositions(itemList) {
+  function calculatePositions(itemList: GraphItem[]) {
     for (let item of itemList) {
       item.calculatePosition(
         attributes.get(xAxisType),
